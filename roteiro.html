@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roteiro de Implantação de IA nas Escolas - GlauberIA</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  
+  <!-- Fontes Premium do Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/glauberia.css">
+  
+  <!-- Firebase App e Analytics SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCInnUSp8NQ_PWwlvpLF5Mw9ueq3jDMFmE",
+      authDomain: "horizonte-7ec73.firebaseapp.com",
+      projectId: "horizonte-7ec73",
+      storageBucket: "horizonte-7ec73.firebasestorage.app",
+      messagingSenderId: "717322550690",
+      appId: "1:717322550690:web:a6d62ae0c8110d69b846fb",
+      measurementId: "G-4Q1W69W69K"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+  
+  <!-- Script de Inicialização de Tema para Evitar Flash -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- Barra de Navegação Superior (Top Navbar) -->
+  <nav class="top-navbar">
+    <a href="/" class="top-navbar-brand">
+      Glauber<span>IA</span>
+    </a>
+    
+    <!-- Menu para Desktop -->
+    <div class="top-navbar-menu">
+      <a href="/" class="top-nav-item ">🏠 Início</a>
+      <a href="/prompts" class="top-nav-item ">✍ Prompts</a>
+      <a href="/assistentes" class="top-nav-item ">🤖 Assistentes</a>
+      <a href="/canvas" class="top-nav-item ">🧩 Apps & Canvas</a>
+      <a href="/propostas" class="top-nav-item ">📚 Propostas</a>
+      
+      <!-- Dropdown Formação -->
+      <div class="top-nav-dropdown">
+        <a href="/formacao" class="top-nav-dropdown-trigger active" style="text-decoration: none;">🎓 Formação ▾</a>
+        <div class="top-nav-dropdown-menu">
+          <a href="/formacao" class="top-nav-dropdown-item">
+            <span>🎓 Formação de Professores</span>
+          </a>
+          <a href="/roteiro" class="top-nav-dropdown-item">
+            <span>📋 Roteiro de Implantação</span>
+          </a>
+          <a href="/estudos" class="top-nav-dropdown-item">
+            <span>💼 Estudos de Caso</span>
+          </a>
+          <a href="/videos" class="top-nav-dropdown-item">
+            <span>🎥 Vídeo-Aulas & Tutoriais</span>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Botão Tema Noturno Desktop -->
+      <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Alternar Tema" style="background: none; border: none; cursor: pointer; font-size: 1.15rem; display: flex; align-items: center; justify-content: center; padding: 0.25rem 0.5rem; color: rgba(255,255,255,0.85); transition: var(--transition-smooth); margin-left: 0.5rem;">
+        <span class="theme-toggle-icon">🌙</span>
+      </button>
+    </div>
+    
+    <!-- Botão Menu Hamburguer (Mobile) e Toggle Tema Mobile -->
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <button class="theme-toggle-btn mobile-only-toggle" onclick="toggleTheme()" aria-label="Alternar Tema" style="background: none; border: none; cursor: pointer; font-size: 1.15rem; color: #ffffff; display: none; align-items: center; justify-content: center; padding: 0.5rem; margin: 0;">
+        <span class="theme-toggle-icon">🌙</span>
+      </button>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Abrir Menu" style="margin: 0;">
+        ☰
+      </button>
+    </div>
+  </nav>
+
+  <!-- Overlay do Drawer Mobile -->
+  <div id="mobile-drawer-overlay" class="mobile-drawer-overlay" onclick="toggleMobileMenu()"></div>
+
+  <!-- Drawer Menu Mobile -->
+  <div id="mobile-drawer" class="mobile-drawer">
+    <div class="mobile-drawer-header">
+      <span class="top-navbar-brand">Glauber<span>IA</span></span>
+      <button class="mobile-drawer-close" onclick="toggleMobileMenu()" aria-label="Fechar Menu">✕</button>
+    </div>
+    <div class="mobile-drawer-links">
+      <a href="/" class="mobile-drawer-link ">🏠 Início</a>
+      <a href="/prompts" class="mobile-drawer-link ">✍ Prompts para Educadores</a>
+      <a href="/assistentes" class="mobile-drawer-link ">🤖 Assistentes & Agentes</a>
+      <a href="/canvas" class="mobile-drawer-link ">🧩 Apps, Artefatos & Canvas</a>
+      <a href="/propostas" class="mobile-drawer-link ">📚 Propostas Pedagógicas</a>
+      
+      <div class="mobile-drawer-section-title">Formação</div>
+      <a href="/formacao" class="mobile-drawer-link">🎓 Formação de Professores</a>
+      <a href="/roteiro" class="mobile-drawer-link">📋 Roteiro de Implantação</a>
+      <a href="/videos" class="mobile-drawer-link">🎥 Vídeo-Aulas & Tutoriais</a>
+    </div>
+  </div>
+
+  <script src="/glauberia.js"></script>
+
+  <!-- Hero Banner (Banner GlauberIA.png) -->
+  <div class="hero-banner">
+    <div class="hero-content">
+      <h1 class="hero-title">Roteiro de Implantação</h1>
+      <div class="hero-underline"></div>
+    </div>
+  </div>
+
+  <!-- Faixa de Informações (Intro Band) -->
+  <div class="intro-band">
+    <p>Um passo-a-passo e coleção de prompts configurados para apoiar as lideranças educacionais no planejamento e integração de IA em escolas.</p>
+  </div>
+
+  <div class="container">
+
+    <div style="display:flex; flex-direction:column; gap:2rem;">
+      
+      <!-- Introdução -->
+      <section class="about-card">
+        <h3>📋 Guia de Implantação de Planos de IA nas Escolas</h3>
+        <p style="margin-top: 0.5rem; line-height: 1.6;">
+          Para concretizar os planos de uso da IA no ambiente escolar, é necessário construir um planejamento abrangente que considere aspectos técnicos, pedagógicos e éticos. O roteiro a seguir propõe um guia prático, em etapas, para as escolas que desejem integrar a IA em seus processos de ensino e aprendizagem:
+        </p>
+      </section>
+
+      <!-- As Etapas do Roteiro -->
+      <div style="display:flex; flex-direction:column; gap:1.25rem;">
+        
+        <!-- Etapa A -->
+        <section class="about-card">
+          <h4 style="font-family: var(--font-display); color: var(--accent-color); font-size: 1.1rem; margin-bottom: 0.75rem;">
+            a) Diagnóstico Inicial
+          </h4>
+          <p style="margin-bottom: 0.75rem; font-size: 0.95rem; color: var(--text-secondary);">
+            Antes de iniciar a implementação, é crucial conduzir um levantamento detalhado do contexto da instituição. Essa etapa inclui:
+          </p>
+          <ul style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem; color: var(--text-secondary);">
+            <li><strong>Mapeamento de necessidades:</strong> Identificar os principais desafios e oportunidades relacionados à adoção de IA na escola.</li>
+            <li><strong>Infraestrutura disponível:</strong> Verificar a qualidade da conexão à internet, a existência de equipamentos tecnológicos e outras condições prévias.</li>
+            <li><strong>Competências da equipe:</strong> Avaliar o nível de familiaridade de professores, gestores e alunos com a tecnologia.</li>
+          </ul>
+        </section>
+
+        <!-- Etapa B -->
+        <section class="about-card">
+          <h4 style="font-family: var(--font-display); color: var(--accent-color); font-size: 1.1rem; margin-bottom: 0.75rem;">
+            b) Planejamento Estratégico
+          </h4>
+          <p style="margin-bottom: 0.75rem; font-size: 0.95rem; color: var(--text-secondary);">
+            Após a conclusão do diagnóstico, o passo seguinte envolve a definição da estratégia de implantação da IA, selecionando o prompt mais adequado para guiar as práticas. Os prompts atuam como modelos estruturantes, orientando o desenvolvimento de planos e ações focados em determinados objetivos. Em síntese:
+          </p>
+          <ul style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+            <li><strong>Alinhamento com os objetivos educacionais:</strong> Definir a finalidade principal ao incluir a IA na escola, seja para aprimorar o aprendizado, personalizar experiências ou capacitar profissionais.</li>
+            <li><strong>Escolha do prompt com base nos objetivos:</strong> Usar os prompts sugeridos abaixo para configurar um plano adequado às necessidades do público-alvo.</li>
+          </ul>
+
+          <!-- Sub-bloco interativo de Prompts -->
+          <div style="margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+            <h5 style="font-family: var(--font-display); font-size: 1rem; color: var(--accent-color); margin-bottom: 1rem;">
+              Selecione o prompt que melhor atende aos objetivos estratégicos do seu colégio, copie-o e envie para uma das IAs para dar início ao seu documento de diretrizes:
+            </h5>
+            
+        <div class="prompt-card" onclick="this.classList.toggle('expanded')" style="cursor: pointer;">
+          <div class="prompt-header">
+            <span class="prompt-title">Prompt 1: Visão Geral e Conceitos Básicos</span>
+            <span class="prompt-badge">Etapa Planejamento</span>
+            <div class="prompt-arrow">
+              <svg style="width:20px;height:20px;fill:var(--text-muted);transition:transform 0.3s;" viewBox="0 0 24 24" class="chevron-icon">
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="prompt-text-container" onclick="event.stopPropagation()">
+            <pre class="prompt-text">Desenvolva um plano de práticas para o uso da inteligência artificial na educação, dividido em quatro partes. Na primeira parte, apresente conceitos básicos de IA e sua aplicação no ensino. Na segunda parte, explore práticas para professores utilizarem IA em planejamento de aulas, criação de prompts e aplicação de estratégias pedagógicas inclusivas. Na terceira parte, liste ferramentas práticas de IA para uso imediato em sala de aula. Na quarta parte, proponha reflexões e práticas voltadas para a liderança educacional, empatia e ética no uso da IA na educação. Considere o seguinte contexto: [Inclua aqui outros elementos do contexto da escola e algo sobre a infraestrutura disponível].</pre>
+          </div>
+          <button class="copy-prompt-btn" onclick="event.stopPropagation(); copyPrompt(\`Desenvolva um plano de práticas para o uso da inteligência artificial na educação, dividido em quatro partes. Na primeira parte, apresente conceitos básicos de IA e sua aplicação no ensino. Na segunda parte, explore práticas para professores utilizarem IA em planejamento de aulas, criação de prompts e aplicação de estratégias pedagógicas inclusivas. Na terceira parte, liste ferramentas práticas de IA para uso imediato em sala de aula. Na quarta parte, proponha reflexões e práticas voltadas para a liderança educacional, empatia e ética no uso da IA na educação. Considere o seguinte contexto: [Inclua aqui outros elementos do contexto da escola e algo sobre a infraestrutura disponível].\`, this)">
+            <svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24">
+              <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+            </svg>
+            Copiar Prompt Estruturante
+          </button>
+        </div>
+        
+        <div class="prompt-card" onclick="this.classList.toggle('expanded')" style="cursor: pointer;">
+          <div class="prompt-header">
+            <span class="prompt-title">Prompt 2: Aplicação por Disciplinas do Currículo</span>
+            <span class="prompt-badge">Etapa Planejamento</span>
+            <div class="prompt-arrow">
+              <svg style="width:20px;height:20px;fill:var(--text-muted);transition:transform 0.3s;" viewBox="0 0 24 24" class="chevron-icon">
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="prompt-text-container" onclick="event.stopPropagation()">
+            <pre class="prompt-text">Crie um plano prático para o uso da inteligência artificial na educação, com etapas organizadas de forma linear. Comece com a introdução da IA como uma solução para desafios educacionais. Em seguida, detalhe práticas específicas para a aplicação de IA em disciplinas como Língua Portuguesa, Ciências, História, Matemática e Artes. Finalize com estratégias para superar desafios éticos e orientar os primeiros passos na implementação de IA no ambiente educacional. Considere o seguinte contexto: [Inclua aqui outros elementos do contexto da escola e algo sobre a infraestrutura disponível].</pre>
+          </div>
+          <button class="copy-prompt-btn" onclick="event.stopPropagation(); copyPrompt(\`Crie um plano prático para o uso da inteligência artificial na educação, com etapas organizadas de forma linear. Comece com a introdução da IA como uma solução para desafios educacionais. Em seguida, detalhe práticas específicas para a aplicação de IA em disciplinas como Língua Portuguesa, Ciências, História, Matemática e Artes. Finalize com estratégias para superar desafios éticos e orientar os primeiros passos na implementação de IA no ambiente educacional. Considere o seguinte contexto: [Inclua aqui outros elementos do contexto da escola e algo sobre a infraestrutura disponível].\`, this)">
+            <svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24">
+              <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+            </svg>
+            Copiar Prompt Estruturante
+          </button>
+        </div>
+        
+        <div class="prompt-card" onclick="this.classList.toggle('expanded')" style="cursor: pointer;">
+          <div class="prompt-header">
+            <span class="prompt-title">Prompt 3: Metodologias Ativas e Didática</span>
+            <span class="prompt-badge">Etapa Planejamento</span>
+            <div class="prompt-arrow">
+              <svg style="width:20px;height:20px;fill:var(--text-muted);transition:transform 0.3s;" viewBox="0 0 24 24" class="chevron-icon">
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="prompt-text-container" onclick="event.stopPropagation()">
+            <pre class="prompt-text">Desenvolva um plano de práticas para educadores usarem IA na sala de aula. Comece com atividades que introduzam os conceitos básicos de IA e como ela transforma metodologias ativas. Inclua práticas sobre como a IA pode ser usada para criar novas possibilidades de aprendizagem e personalização do ensino. Não deixe de abordar a criatividade e a didática. Finalize com exemplos práticos de roteiros e modelos para integrar IA ao cotidiano escolar, abordando desafios éticos e metodológicos. Considere o seguinte contexto: [Inclua aqui outros elementos do contexto da escola e algo sobre a infraestrutura disponível].</pre>
+          </div>
+          <button class="copy-prompt-btn" onclick="event.stopPropagation(); copyPrompt(\`Desenvolva um plano de práticas para educadores usarem IA na sala de aula. Comece com atividades que introduzam os conceitos básicos de IA e como ela transforma metodologias ativas. Inclua práticas sobre como a IA pode ser usada para criar novas possibilidades de aprendizagem e personalização do ensino. Não deixe de abordar a criatividade e a didática. Finalize com exemplos práticos de roteiros e modelos para integrar IA ao cotidiano escolar, abordando desafios éticos e metodológicos. Considere o seguinte contexto: [Inclua aqui outros elementos do contexto da escola e algo sobre a infraestrutura disponível].\`, this)">
+            <svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24">
+              <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+            </svg>
+            Copiar Prompt Estruturante
+          </button>
+        </div>
+        
+        <div class="prompt-card" onclick="this.classList.toggle('expanded')" style="cursor: pointer;">
+          <div class="prompt-header">
+            <span class="prompt-title">Prompt 4: Práticas Inovadoras e Gamificação</span>
+            <span class="prompt-badge">Etapa Planejamento</span>
+            <div class="prompt-arrow">
+              <svg style="width:20px;height:20px;fill:var(--text-muted);transition:transform 0.3s;" viewBox="0 0 24 24" class="chevron-icon">
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="prompt-text-container" onclick="event.stopPropagation()">
+            <pre class="prompt-text">Crie um plano de práticas detalhado para a integração de IA no ensino. Comece com atividades para ensinar conceitos fundamentais de IA e práticas de personalização de ferramentas educacionais. Inclua estratégias para usar IA no currículo, como criação de aulas gamificadas, personalização do aprendizado e ferramentas colaborativas. Não deixe de indicar aplicações nas diversas disciplinas. Proponha práticas para lidar com questões éticas e técnicas e inclua exemplos de sucesso para inspirar a adoção de IA nas escolas. Considere o seguinte contexto: [Inclua aqui outros elementos do contexto da escola e algo sobre a infraestrutura disponível].</pre>
+          </div>
+          <button class="copy-prompt-btn" onclick="event.stopPropagation(); copyPrompt(\`Crie um plano de práticas detalhado para a integração de IA no ensino. Comece com atividades para ensinar conceitos fundamentais de IA e práticas de personalização de ferramentas educacionais. Inclua estratégias para usar IA no currículo, como criação de aulas gamificadas, personalização do aprendizado e ferramentas colaborativas. Não deixe de indicar aplicações nas diversas disciplinas. Proponha práticas para lidar com questões éticas e técnicas e inclua exemplos de sucesso para inspirar a adoção de IA nas escolas. Considere o seguinte contexto: [Inclua aqui outros elementos do contexto da escola e algo sobre a infraestrutura disponível].\`, this)">
+            <svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24">
+              <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+            </svg>
+            Copiar Prompt Estruturante
+          </button>
+        </div>
+        
+        <div class="prompt-card" onclick="this.classList.toggle('expanded')" style="cursor: pointer;">
+          <div class="prompt-header">
+            <span class="prompt-title">Prompt 5: Automação Administrativa e Inclusão</span>
+            <span class="prompt-badge">Etapa Planejamento</span>
+            <div class="prompt-arrow">
+              <svg style="width:20px;height:20px;fill:var(--text-muted);transition:transform 0.3s;" viewBox="0 0 24 24" class="chevron-icon">
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="prompt-text-container" onclick="event.stopPropagation()">
+            <pre class="prompt-text">Elabore um plano de práticas para o uso de IA na educação que comece com a conscientização dos educadores sobre a importância da tecnologia. Adicione as mudanças nas interações e métodos de ensino com IA. Inclua práticas para integração de ferramentas de IA no planejamento e personalização de aulas, além de atividades para automatizar tarefas administrativas. Não esqueça de falar sobre personalização e inclusão. Finalize com estratégias para inspirar professores a inovar e transformar a sala de aula com exemplos de sucesso e guias práticos. Considere o seguinte contexto: [Inclua aqui outros elementos do contexto da escola e algo sobre a infraestrutura disponível].</pre>
+          </div>
+          <button class="copy-prompt-btn" onclick="event.stopPropagation(); copyPrompt(\`Elabore um plano de práticas para o uso de IA na educação que comece com a conscientização dos educadores sobre a importância da tecnologia. Adicione as mudanças nas interações e métodos de ensino com IA. Inclua práticas para integração de ferramentas de IA no planejamento e personalização de aulas, além de atividades para automatizar tarefas administrativas. Não esqueça de falar sobre personalização e inclusão. Finalize com estratégias para inspirar professores a inovar e transformar a sala de aula com exemplos de sucesso e guias práticos. Considere o seguinte contexto: [Inclua aqui outros elementos do contexto da escola e algo sobre a infraestrutura disponível].\`, this)">
+            <svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24">
+              <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+            </svg>
+            Copiar Prompt Estruturante
+          </button>
+        </div>
+        
+        <div class="prompt-card" onclick="this.classList.toggle('expanded')" style="cursor: pointer;">
+          <div class="prompt-header">
+            <span class="prompt-title">Prompt 6: Capacitação por Públicos-Alvo</span>
+            <span class="prompt-badge">Etapa Planejamento</span>
+            <div class="prompt-arrow">
+              <svg style="width:20px;height:20px;fill:var(--text-muted);transition:transform 0.3s;" viewBox="0 0 24 24" class="chevron-icon">
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="prompt-text-container" onclick="event.stopPropagation()">
+            <pre class="prompt-text">Desenvolva um plano de práticas para a utilização de IA na educação, organizado por público-alvo e aplicação. Inclua práticas para capacitar professores no uso de IA, tutores interativos e atividades para personalizar o aprendizado de alunos e estratégias para superar barreiras como o acesso desigual à tecnologia. Finalize com propostas para preparar escolas e comunidades educacionais para um futuro onde a IA seja parte essencial do ensino. Dê exemplos relacionados com as diversas disciplinas do currículo. Considere o seguinte contexto: [Inclua aqui outros elementos do contexto da escola e algo sobre a infraestrutura disponível].</pre>
+          </div>
+          <button class="copy-prompt-btn" onclick="event.stopPropagation(); copyPrompt(\`Desenvolva um plano de práticas para a utilização de IA na educação, organizado por público-alvo e aplicação. Inclua práticas para capacitar professores no uso de IA, tutores interativos e atividades para personalizar o aprendizado de alunos e estratégias para superar barreiras como o acesso desigual à tecnologia. Finalize com propostas para preparar escolas e comunidades educacionais para um futuro onde a IA seja parte essencial do ensino. Dê exemplos relacionados com as diversas disciplinas do currículo. Considere o seguinte contexto: [Inclua aqui outros elementos do contexto da escola e algo sobre a infraestrutura disponível].\`, this)">
+            <svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24">
+              <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+            </svg>
+            Copiar Prompt Estruturante
+          </button>
+        </div>
+        
+        <div class="prompt-card" onclick="this.classList.toggle('expanded')" style="cursor: pointer;">
+          <div class="prompt-header">
+            <span class="prompt-title">Prompt 7: Alinhamento Curricular com a BNCC</span>
+            <span class="prompt-badge">Etapa Planejamento</span>
+            <div class="prompt-arrow">
+              <svg style="width:20px;height:20px;fill:var(--text-muted);transition:transform 0.3s;" viewBox="0 0 24 24" class="chevron-icon">
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="prompt-text-container" onclick="event.stopPropagation()">
+            <pre class="prompt-text">Elabore um plano de práticas para o uso de IA na educação básica, com base na BNCC. Inclua atividades que apresentem os conceitos de IA e pensamento computacional para professores e alunos. Proponha práticas com ferramentas de IA para criar aulas interativas e personalizadas. Finalize com estratégias para promover o uso ético e seguro da IA no ambiente escolar, além de roteiros práticos para integrar a tecnologia ao cotidiano da escola. Considere o seguinte contexto: [Inclua aqui outros elementos do contexto da escola e algo sobre a infraestrutura disponível].</pre>
+          </div>
+          <button class="copy-prompt-btn" onclick="event.stopPropagation(); copyPrompt(\`Elabore um plano de práticas para o uso de IA na educação básica, com base na BNCC. Inclua atividades que apresentem os conceitos de IA e pensamento computacional para professores e alunos. Proponha práticas com ferramentas de IA para criar aulas interativas e personalizadas. Finalize com estratégias para promover o uso ético e seguro da IA no ambiente escolar, além de roteiros práticos para integrar a tecnologia ao cotidiano da escola. Considere o seguinte contexto: [Inclua aqui outros elementos do contexto da escola e algo sobre a infraestrutura disponível].\`, this)">
+            <svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24">
+              <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+            </svg>
+            Copiar Prompt Estruturante
+          </button>
+        </div>
+        
+          </div>
+
+          <ul style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem; color: var(--text-secondary); margin-top: 1.5rem;">
+            <li><strong>Criação do plano com base no prompt escolhido:</strong> Estruturar o plano conforme as diretrizes do prompt, adequando-o ao contexto escolar e aos objetivos definidos. É importante salientar que a IA servirá apenas como suporte para elaborar o plano. Sua leitura e revisão final são indispensáveis, assim como eventuais interações com a IA para refiná-lo.</li>
+            <li><strong>Definição de cronograma:</strong> Estabelecer prazos e etapas para a implantação e formação dos profissionais. Nessa etapa, a IA também pode ser útil para auxiliar na organização do calendário.</li>
+          </ul>
+        </section>
+
+        <!-- Etapa C -->
+        <section class="about-card">
+          <h4 style="font-family: var(--font-display); color: var(--accent-color); font-size: 1.1rem; margin-bottom: 0.75rem;">
+            c) Capacitação da Equipe
+          </h4>
+          <p style="margin-bottom: 0.75rem; font-size: 0.95rem; color: var(--text-secondary);">
+            A formação dos educadores e demais profissionais da escola é indispensável para o sucesso do projeto. Deve-se incluir:
+          </p>
+          <ul style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem; color: var(--text-secondary);">
+            <li><strong>Treinamentos técnicos:</strong> Oferecer orientações e práticas sobre as ferramentas selecionadas.</li>
+            <li><strong>Educação ética:</strong> Sensibilizar a equipe sobre os aspectos legais e éticos que envolvem a IA.</li>
+            <li><strong>Práticas pedagógicas inovadoras:</strong> Demonstrar maneiras de integrar a IA às metodologias ativas e aos componentes curriculares.</li>
+          </ul>
+        </section>
+
+        <!-- Etapa D -->
+        <section class="about-card">
+          <h4 style="font-family: var(--font-display); color: var(--accent-color); font-size: 1.1rem; margin-bottom: 0.75rem;">
+            d) Testes Piloto
+          </h4>
+          <p style="margin-bottom: 0.75rem; font-size: 0.95rem; color: var(--text-secondary);">
+            Antes de expandir o uso da IA para toda a escola, recomenda-se realizar projetos em menor escala, direcionados a turmas ou grupos específicos. Os objetivos incluem:
+          </p>
+          <ul style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem; color: var(--text-secondary);">
+            <li><strong>Avaliar a funcionalidade das ferramentas:</strong> Detectar possíveis ajustes necessários.</li>
+            <li><strong>Recolher feedback:</strong> Obter percepções de professores, estudantes e responsáveis.</li>
+            <li><strong>Mensurar resultados iniciais:</strong> Analisar efeitos sobre o processo de ensino-aprendizagem.</li>
+          </ul>
+        </section>
+
+        <!-- Etapa E -->
+        <section class="about-card">
+          <h4 style="font-family: var(--font-display); color: var(--accent-color); font-size: 1.1rem; margin-bottom: 0.75rem;">
+            e) Implementação Gradual
+          </h4>
+          <p style="margin-bottom: 0.75rem; font-size: 0.95rem; color: var(--text-secondary);">
+            Concluídos os ajustes indicados pelos testes piloto, a adoção pode ocorrer em etapas:
+          </p>
+          <ul style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem; color: var(--text-secondary);">
+            <li><strong>Fase 1 – Turmas iniciais:</strong> Ampliar o uso da IA para mais grupos ou áreas de conhecimento.</li>
+            <li><strong>Fase 2 – Integração expandida:</strong> Incluir a IA nas atividades diárias da escola, abrangendo disciplinas, projetos extracurriculares e gestão.</li>
+            <li><strong>Fase 3 – Melhoria contínua:</strong> Monitorar os resultados e efetuar revisões constantes, fundamentadas em indicadores de desempenho e contribuições dos envolvidos.</li>
+          </ul>
+        </section>
+
+        <!-- Etapa F -->
+        <section class="about-card">
+          <h4 style="font-family: var(--font-display); color: var(--accent-color); font-size: 1.1rem; margin-bottom: 0.75rem;">
+            f) Monitoramento e Avaliação
+          </h4>
+          <p style="margin-bottom: 0.75rem; font-size: 0.95rem; color: var(--text-secondary);">
+            A verificação contínua do impacto gerado pela IA é determinante para assegurar que as expectativas sejam cumpridas. Isso implica:
+          </p>
+          <ul style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem; color: var(--text-secondary);">
+            <li><strong>Coleta de dados:</strong> Registrar informações relacionadas ao rendimento acadêmico, engajamento dos alunos e feedback das partes interessadas.</li>
+            <li><strong>Análise crítica:</strong> Investigar se os objetivos estão sendo atendidos e se surgem novas demandas.</li>
+            <li><strong>Relatórios periódicos:</strong> Divulgar os resultados para toda a comunidade escolar, favorecendo transparência e comentário coletivo.</li>
+          </ul>
+        </section>
+
+        <!-- Etapa G -->
+        <section class="about-card">
+          <h4 style="font-family: var(--font-display); color: var(--accent-color); font-size: 1.1rem; margin-bottom: 0.75rem;">
+            g) Sustentabilidade e Expansão
+          </h4>
+          <p style="margin-bottom: 0.75rem; font-size: 0.95rem; color: var(--text-secondary);">
+            Para garantir a perenidade do projeto e seu desenvolvimento, é importante:
+          </p>
+          <ul style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem; color: var(--text-secondary);">
+            <li><strong>Atualização constante:</strong> Manter a equipe informada sobre os avanços em IA e em práticas pedagógicas.</li>
+            <li><strong>Apoio institucional:</strong> Assegurar que haja investimento e suporte de infraestrutura e capacitação continuada.</li>
+            <li><strong>Parcerias estratégicas:</strong> Estabelecer cooperação com empresas, universidades e outras organizações que possam contribuir com recursos e conhecimento.</li>
+          </ul>
+        </section>
+
+      </div>
+
+      <!-- Conclusão -->
+      <section class="about-card">
+        <p style="line-height: 1.6; font-size: 0.95rem; color: var(--text-secondary);">
+          A adoção desse roteiro não apenas consolida uma integração responsável da inteligência artificial, mas também fortalece a missão educacional da escola, preparando discentes e docentes para os desafios e as possibilidades do futuro. Quando bem conduzido, esse processo converte a IA em uma aliada na construção de um ensino mais inovador, inclusivo e eficaz.
+        </p>
+      </section>
+
+      <!-- Serviços de IA Úteis -->
+      <section class="about-card">
+        <h3>🛠 Serviços de IA mais úteis para assessoria pedagógica</h3>
+        <p style="margin-bottom: 0.75rem; font-size: 0.95rem; color: var(--text-secondary);">
+          Além de modelos de linguagem de uso geral (como ChatGPT, Claude e Gemini), destacam-se ferramentas específicas que podem ser aplicadas para a assessoria e produção pedagógica:
+        </p>
+        <ul style="padding-left:1.25rem; display:flex; flex-direction:column; gap:0.75rem; font-size:0.95rem; color:var(--text-secondary);">
+          <li><a href="https://notebooklm.google.com/" target="_blank"><strong>NotebookLM:</strong></a> Carregue transcrições, atas de reuniões e documentos de diretrizes para obter resumos imediatos e criar podcasts explicativos de forma inteligente.</li>
+          <li><a href="https://app.napkin.ai/" target="_blank"><strong>Napkin AI:</strong></a> Gera fluxogramas, tabelas e infográficos explicativos instantaneamente a partir de textos.</li>
+          <li><a href="https://app.magicschool.ai/" target="_blank"><strong>MagicSchool.ai:</strong></a> Plataforma repleta de geradores didáticos e assistentes sob medida para professores.</li>
+          <li><a href="https://www.eduaide.ai/" target="_blank"><strong>Eduaide.Ai:</strong></a> Assistente completo para planejamento curricular e geração de atividades (Instruction by Design).</li>
+          <li><strong>IA no Moodle:</strong> Integrações e micro-aplicações diretas em ambientes virtuais de aprendizagem para capacitação ativa.</li>
+        </ul>
+      </section>
+
+    </div>
+    
+    <div class="page-navigation">
+      <a href="/formacao" class="page-nav-link nav-prev">
+        <span class="page-nav-label">Anterior</span>
+        <span class="page-nav-title">← Formação de Professores</span>
+      </a>
+        
+      <a href="/estudos" class="page-nav-link nav-next">
+        <span class="page-nav-label">Próximo</span>
+        <span class="page-nav-title">Estudos de Caso →</span>
+      </a>
+        </div>
+    <!-- Rodapé -->
+    <footer class="main-footer">
+      <div class="footer-divider"></div>
+      <p>Desenvolvido pelo professor <strong>Dr. Glauber Santiago</strong> — DAC/UFSCar</p>
+      <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.25rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
+        Apoio: 
+        <a href="https://grupohorizonte.ufscar.br/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--accent-color); font-weight: 500; text-decoration: underline;">
+          <img src="/cropped-logo-horizonte.png" alt="Logo Grupo Horizonte" style="height: 56px; width: auto; padding: 4px 8px; background: #ffffff; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); vertical-align: middle; filter: grayscale(1) contrast(1.2); opacity: 0.8; transition: var(--transition-smooth);" onmouseover="this.style.filter='none'; this.style.opacity='1'" onmouseout="this.style.filter='grayscale(1) contrast(1.2)'; this.style.opacity='0.8'">
+          <span>Grupo de Pesquisa Horizonte</span>
+        </a>
+      </p>
+      <div class="footer-links">
+        <a href="https://servidores.ufscar.br/glauber/" target="_blank" rel="noopener noreferrer">🌐 Website do Docente</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfg-6_2hWVv2xKnol7sd8NOmPBasLncsDgCHqKOZHztWox2_w/viewform" target="_blank" rel="noopener noreferrer">💬 Dê sua opinião e sugestões!</a>
+      </div>
+      <p style="font-size: 0.72rem; color: var(--text-secondary); opacity: 0.7; margin-top: 0.75rem; margin-bottom: 0; text-align: center;">
+        Última atualização: 16/07/2026 às 23:42
+      </p>
+    </footer>
+  </div>
+</body>
+</html>

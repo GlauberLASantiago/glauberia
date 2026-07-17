@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Propostas Pedagógicas - GlauberIA</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  
+  <!-- Fontes Premium do Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/glauberia.css">
+  
+  <!-- Firebase App e Analytics SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCInnUSp8NQ_PWwlvpLF5Mw9ueq3jDMFmE",
+      authDomain: "horizonte-7ec73.firebaseapp.com",
+      projectId: "horizonte-7ec73",
+      storageBucket: "horizonte-7ec73.firebasestorage.app",
+      messagingSenderId: "717322550690",
+      appId: "1:717322550690:web:a6d62ae0c8110d69b846fb",
+      measurementId: "G-4Q1W69W69K"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+  
+  <!-- Script de Inicialização de Tema para Evitar Flash -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- Barra de Navegação Superior (Top Navbar) -->
+  <nav class="top-navbar">
+    <a href="/" class="top-navbar-brand">
+      Glauber<span>IA</span>
+    </a>
+    
+    <!-- Menu para Desktop -->
+    <div class="top-navbar-menu">
+      <a href="/" class="top-nav-item ">🏠 Início</a>
+      <a href="/prompts" class="top-nav-item ">✍ Prompts</a>
+      <a href="/assistentes" class="top-nav-item ">🤖 Assistentes</a>
+      <a href="/canvas" class="top-nav-item ">🧩 Apps & Canvas</a>
+      <a href="/propostas" class="top-nav-item active">📚 Propostas</a>
+      
+      <!-- Dropdown Formação -->
+      <div class="top-nav-dropdown">
+        <a href="/formacao" class="top-nav-dropdown-trigger " style="text-decoration: none;">🎓 Formação ▾</a>
+        <div class="top-nav-dropdown-menu">
+          <a href="/formacao" class="top-nav-dropdown-item">
+            <span>🎓 Formação de Professores</span>
+          </a>
+          <a href="/roteiro" class="top-nav-dropdown-item">
+            <span>📋 Roteiro de Implantação</span>
+          </a>
+          <a href="/estudos" class="top-nav-dropdown-item">
+            <span>💼 Estudos de Caso</span>
+          </a>
+          <a href="/videos" class="top-nav-dropdown-item">
+            <span>🎥 Vídeo-Aulas & Tutoriais</span>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Botão Tema Noturno Desktop -->
+      <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Alternar Tema" style="background: none; border: none; cursor: pointer; font-size: 1.15rem; display: flex; align-items: center; justify-content: center; padding: 0.25rem 0.5rem; color: rgba(255,255,255,0.85); transition: var(--transition-smooth); margin-left: 0.5rem;">
+        <span class="theme-toggle-icon">🌙</span>
+      </button>
+    </div>
+    
+    <!-- Botão Menu Hamburguer (Mobile) e Toggle Tema Mobile -->
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <button class="theme-toggle-btn mobile-only-toggle" onclick="toggleTheme()" aria-label="Alternar Tema" style="background: none; border: none; cursor: pointer; font-size: 1.15rem; color: #ffffff; display: none; align-items: center; justify-content: center; padding: 0.5rem; margin: 0;">
+        <span class="theme-toggle-icon">🌙</span>
+      </button>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Abrir Menu" style="margin: 0;">
+        ☰
+      </button>
+    </div>
+  </nav>
+
+  <!-- Overlay do Drawer Mobile -->
+  <div id="mobile-drawer-overlay" class="mobile-drawer-overlay" onclick="toggleMobileMenu()"></div>
+
+  <!-- Drawer Menu Mobile -->
+  <div id="mobile-drawer" class="mobile-drawer">
+    <div class="mobile-drawer-header">
+      <span class="top-navbar-brand">Glauber<span>IA</span></span>
+      <button class="mobile-drawer-close" onclick="toggleMobileMenu()" aria-label="Fechar Menu">✕</button>
+    </div>
+    <div class="mobile-drawer-links">
+      <a href="/" class="mobile-drawer-link ">🏠 Início</a>
+      <a href="/prompts" class="mobile-drawer-link ">✍ Prompts para Educadores</a>
+      <a href="/assistentes" class="mobile-drawer-link ">🤖 Assistentes & Agentes</a>
+      <a href="/canvas" class="mobile-drawer-link ">🧩 Apps, Artefatos & Canvas</a>
+      <a href="/propostas" class="mobile-drawer-link active">📚 Propostas Pedagógicas</a>
+      
+      <div class="mobile-drawer-section-title">Formação</div>
+      <a href="/formacao" class="mobile-drawer-link">🎓 Formação de Professores</a>
+      <a href="/roteiro" class="mobile-drawer-link">📋 Roteiro de Implantação</a>
+      <a href="/videos" class="mobile-drawer-link">🎥 Vídeo-Aulas & Tutoriais</a>
+    </div>
+  </div>
+
+  <script src="/glauberia.js"></script>
+
+  <!-- Hero Banner (Banner GlauberIA.png) -->
+  <div class="hero-banner">
+    <div class="hero-content">
+      <h1 class="hero-title">Propostas Pedagógicas com IA</h1>
+      <div class="hero-underline"></div>
+    </div>
+  </div>
+
+  <!-- Faixa de Informações (Intro Band) -->
+  <div class="intro-band">
+    <p>Encontre roteiros estruturados e propostas ativas organizadas por disciplinas curriculares para implantar diretamente na sala de aula.</p>
+  </div>
+
+  <div class="container">
+
+    <h2 class="section-title">📚 Propostas Pedagógicas Ativas com IA</h2>
+    <p style="margin-bottom: 2rem; color: var(--text-secondary); line-height:1.6;">
+      Abaixo constam propostas pedagógicas de atividades e dinâmicas criativas prontas para serem aplicadas em sala de aula, adaptadas do guia oficial <em>"Aplicações pedagógicas com inteligência artificial: dicas para docentes"</em> (Tagliavini & Santiago, 2024 - ISBN 978-65-85914-01-7).
+    </p>
+    
+    <div style="background: rgba(130, 113, 83, 0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.25rem; margin-bottom: 2rem;">
+      <p style="font-size:0.9rem; line-height:1.5; color:var(--text-secondary); margin:0;">
+        💡 <strong>Dica de Uso:</strong> Escolha a disciplina nos chips abaixo e clique no card da proposta desejada para expandir o roteiro completo. O roteiro inclui objetivos pedagógicos detalhados, materiais de infraestrutura necessários, integrações transversais e diretrizes essenciais sobre segurança.
+      </p>
+    </div>
+    
+    <!-- Busca e Filtros -->
+    <div class="search-bar-container" style="margin-bottom:1rem;">
+      <input type="text" id="prop-search" class="search-input" placeholder="Pesquisar por título, descrição, objetivos ou ferramenta..." oninput="handlePropSearch()">
+    </div>
+    
+    <div class="filter-chips" style="margin-bottom:1.5rem;">
+      <button class="chip-btn active" onclick="filterPropCategory('all')">Todos</button>
+      <button class="chip-btn" onclick="filterPropCategory('Arte')">🎨 Artes</button>
+      <button class="chip-btn" onclick="filterPropCategory('Língua Portuguesa')">📚 Língua Portuguesa</button>
+      <button class="chip-btn" onclick="filterPropCategory('Língua estrangeira')">🌐 Língua Estrangeira</button>
+      <button class="chip-btn" onclick="filterPropCategory('Biologia')">🌿 Biologia / Ciências</button>
+      <button class="chip-btn" onclick="filterPropCategory('Geografia')">🗺 Geografia</button>
+      <button class="chip-btn" onclick="filterPropCategory('História e Sociologia')">⏳ História & Sociologia</button>
+      <button class="chip-btn" onclick="filterPropCategory('Matemática')">📐 Matemática & Code</button>
+      <button class="chip-btn" onclick="filterPropCategory('Projeto de Vida')">✨ Projeto de Vida</button>
+    </div>
+    
+    <!-- Grid de Propostas -->
+    <div id="propostas-list"></div>
+    
+    <script>
+      const propostas = [{"id": 1, "discipline": "Arte", "title": "1. Exame de apresentações artísticas", "desc": "os alunos assistem a vídeos de apresentações artísticas e utilizam o ChatGPT (ou similar) para explorar elementos como expressividade corporal, utilização do espaço e mensagem transmitida. Em seguida, debatem como esses componentes potencializam a efetividade da performance.", "objetivos": ["Desenvolver a habilidade de análise crítica em artes performáticas, identificando elementos expressivos e estruturais das apresentações.", "Estimular a percepção estética e a interpretação de mensagens artísticas."], "materiais": ["Computadores ou tablets com acesso à internet.", "Espaço adequado para visualização de vídeos (sala com projetor ou TV).", "Fones de ouvido para análise individual (opcional)."], "ia": "ChatGPT ou similares para suporte na análise e elaboração de reflexões críticas.", "integracao": "pode ser integrada com disciplinas como Língua Portuguesa (interpretação de textos visuais e orais) e Educação Física (expressividade corporal).", "seguranca": ["Garantir que os vídeos utilizados sejam apropriados para a faixa etária dos alunos.", "Orientar o uso ético da IA, reforçando que a ferramenta complementa, mas não substitui, a análise crítica pessoal."]}, {"id": 2, "discipline": "Arte", "title": "2. Desenvolvimento de projetos artísticos em equipe", "desc": "Com o suporte do ChatGPT (ou similar), os estudantes geram ideias para projetos artísticos conjuntos, abarcando modalidades como pintura, escultura, instalação ou arte digital. Discutem sobre o processo criativo, os obstáculos encontrados e a relevância do espírito de equipe na criação artística.", "objetivos": ["Estimular a criatividade e a colaboração entre os alunos.", "Desenvolver habilidades de planejamento e execução de projetos artísticos.", "Refletir sobre a importância do trabalho em equipe no processo criativo."], "materiais": ["Materiais artísticos variados (tintas, pincéis, argila, etc.).", "Computadores ou tablets com acesso à internet para suporte da IA.", "Espaço amplo para realização das atividades artísticas."], "ia": "a) ChatGPT para brainstorming de ideias e soluções criativas.\n\nb) Ferramentas de design digital (como Canva ou Adobe Express) para projetos de arte digital.", "integracao": "pode ser articulado com História (exploração de contextos históricos das modalidades artísticas) e Tecnologia (uso de ferramentas digitais na criação).", "seguranca": ["Garantir o uso responsável de materiais e ferramentas artísticas.", "Supervisão durante o uso de plataformas digitais, assegurando que não sejam acessados conteúdos inadequados."]}, {"id": 3, "discipline": "Arte", "title": "3. Apreciação crítica de arte digital", "desc": "os alunos exploram obras de arte virtualmente e empregam uma IA para elaborar análises críticas. Apresentam suas avaliações, abordando composição, cor e estilo, e como esses fatores influenciam a interpretação da obra.", "objetivos": ["Desenvolver o olhar crítico para obras de arte digital.", "Ampliar o vocabulário e a capacidade de análise técnica e estética em arte."], "materiais": ["Computadores ou tablets com acesso à internet.", "Acesso a galerias de arte digital ou exposições virtuais.", "Espaço adequado para debates e apresentações."], "ia": "a) ChatGPT para elaboração de análises críticas e insights sobre as obras.\n\nb) IA de reconhecimento de imagem (como DALL-E) para demonstração de conceitos artísticos.", "integracao": "relaciona-se com disciplinas como Informática (análise de softwares e algoritmos usados na arte digital) e Filosofia (discussão sobre estética e ética na arte).", "seguranca": ["Garantir que as plataformas de arte digital sejam confiáveis e seguras.", "Discutir com os alunos a ética na utilização de IA para criar ou avaliar obras de arte."]}, {"id": 4, "discipline": "Arte", "title": "4. Simulação de curadoria", "desc": "os alunos escolhem temas para uma mostra imaginária e utilizam o ChatGPT (ou similar) para ajudar na seleção de obras que sejam pertinentes ao tema. Posteriormente, debatem suas escolhas, abordando as conexões entre as obras e o tema central.", "objetivos": ["Estimular a organização e a conexão temática entre obras de arte.", "Desenvolver habilidades de argumentação e justificação de escolhas artísticas."], "materiais": ["Computadores ou tablets com acesso à internet.", "Acesso a bancos de dados ou coleções de arte (virtuais ou físicas).", "Espaço para apresentações e debates."], "ia": "ChatGPT para apoio na pesquisa de obras e justificativas curatoriais.", "integracao": "relaciona-se com História (contextualização das obras escolhidas) e Língua Portuguesa (elaboração de textos curatoriais).", "seguranca": ["Filtrar conteúdos inapropriados ou que possam não ser adequados para a faixa etária.", "Orientar para o uso ético de obras de arte digital e respeito aos direitos autorais."]}, {"id": 5, "discipline": "Língua Portuguesa", "title": "5. Produção poética", "desc": "cada aluno compõe um poema com auxílio do ChatGPT (ou similar) e o apresenta à classe, detalhando o caminho criativo percorrido.", "objetivos": ["Desenvolver habilidades criativas e literárias na composição poética.", "Explorar diferentes estilos poéticos e narrativas.", "Promover a auto expressão por meio da poesia."], "materiais": ["Computadores ou tablets com acesso ao ChatGPT.", "Espaço para apresentações orais.", "Recursos impressos ou digitais sobre técnicas poéticas."], "ia": "ChatGPT para suporte na composição poética e sugestões estilísticas.", "integracao": "relaciona-se com Arte (exploração de rimas e musicalidade) e Filosofia (reflexão sobre temas abstratos ou éticos na poesia).", "seguranca": ["Orientar o uso ético da IA e garantir que os poemas sejam originais, evitando cópias ou plágios.", "Filtrar temas inapropriados para a faixa etária."]}, {"id": 6, "discipline": "Língua Portuguesa", "title": "6. Laboratório de histórias", "desc": "O professor introduz uma premissa inicial para uma narrativa e solicita que os alunos a expandam com o ChatGPT (ou similar). Após cinco interações, devem mostrar a história desenvolvida, discutindo as escolhas criativas feitas.", "objetivos": ["Incentivar a criatividade e a narrativa estruturada.", "Desenvolver habilidades de escrita e revisão colaborativa.", "Refletir sobre o processo de construção de histórias."], "materiais": ["Computadores ou tablets com acesso ao ChatGPT.", "Espaço para debates e apresentações."], "ia": "ChatGPT para criação colaborativa e evolução de narrativas.", "integracao": "relaciona-se com História (uso de eventos históricos como base para narrativas) e Arte (adaptação de histórias para mídias visuais).", "seguranca": ["Monitorar o conteúdo gerado para evitar temas sensíveis ou inapropriados.", "Incentivar o uso ético e criativo da IA, promovendo a originalidade."]}, {"id": 7, "discipline": "Língua Portuguesa", "title": "7. Exame literário", "desc": "Depois de lerem uma obra, os alunos questionam o ChatGPT (ou similar) sobre o texto e debatem as análises e interpretações obtidas.", "objetivos": ["Estimular a análise crítica e a interpretação literária.", "Promover o debate de ideias e perspectivas sobre uma obra.", "Desenvolver habilidades de argumentação."], "materiais": ["Computadores ou tablets com acesso ao ChatGPT.", "Cópias da obra literária para consulta."], "ia": "a) ChatGPT para gerar análises, interpretações e reflexões sobre a obra.", "integracao": "pode ser integrada com Filosofia (debates sobre temas éticos ou existenciais na obra) e História (contextualização histórica da narrativa).", "seguranca": ["Garantir que o conteúdo da obra e as análises sejam adequados à faixa etária.", "Orientar o uso da IA para complementar, e não substituir, a reflexão crítica dos alunos."]}, {"id": 8, "discipline": "Língua Portuguesa", "title": "8. Avaliação/verificação de informações/fatos", "desc": "Os alunos consultam o ChatGPT (ou similar) sobre temas contemporâneos e comparam as respostas com outras fontes, discutindo a credibilidade dos dados adquiridos.", "objetivos": ["Desenvolver habilidades de verificação de informações e pensamento crítico.", "Promover a análise da credibilidade de fontes e dados.", "Discutir o papel da mídia e da tecnologia na disseminação de informações."], "materiais": ["Computadores ou tablets com acesso à internet e ao ChatGPT.", "Acesso a fontes confiáveis para comparação (jornais, sites acadêmicos)."], "ia": "ChatGPT para geração de respostas sobre temas contemporâneos.", "integracao": "elaciona-se com História e Geografia (análise de eventos globais) e Sociologia (discussão sobre impacto das informações na sociedade).", "seguranca": ["Monitorar e validar a credibilidade das informações obtidas pelo ChatGPT.", "Evitar que os alunos utilizem informações sem verificação em debates ou trabalhos acadêmicos."]}, {"id": 9, "discipline": "Língua Portuguesa", "title": "9. Diálogo estruturado com o IA", "desc": "Em um espaço de fórum on-line ou sala de aula, os alunos compartilham interações com o ChatGPT (ou similar) seguindo um esquema detalhado:\n\na) Escolha de um tópico específico para direcionar a conversa.\n\nb) Utilização de um modelo de prompt previamente estabelecido para iniciar a interação.\n\nc) Diretrizes claras sobre como prosseguir nas interações seguintes.\n\nd) Definição das regras para a conclusão da interação (prompt final).\n\ne) Critérios para avaliar a qualidade e eficácia da conversa.\n\nf) Compartilhamento da interação com o grupo para análise coletiva.\n\ng) Avaliação em conjunto da atividade, focando na relevância ao tema, criatividade e profundidade da discussão.", "objetivos": ["Desenvolver habilidades de comunicação estruturada e interação com IA.", "Estimular a análise crítica de respostas geradas pela IA.", "Promover o debate e a reflexão em grupo."], "materiais": ["Computadores ou tablets com acesso ao ChatGPT.", "Espaço para compartilhamento e análise das interações."], "ia": "ChatGPT para interação estruturada e simulação de diálogo.", "integracao": "relaciona-se com Filosofia (debates sobre ética e lógica) e Sociologia (análise de respostas no contexto social).", "seguranca": ["Monitorar a interação para evitar que os alunos insiram informações pessoais ou recebam conteúdo inadequado.", "Garantir a relevância dos tópicos abordados ao contexto educacional."]}, {"id": 10, "discipline": "Língua Portuguesa", "title": "10. Redação assistida por tutor virtual", "desc": "Os alunos são orientados na escrita de um breve ensaio, utilizando o ChatGPT (ou similar) como ferramenta de suporte, seguindo as seguintes etapas:\n\na) Seleção de um tema para desenvolver uma redação composta por quatro parágrafos.\n\nb) Determinação de orientações específicas para o conteúdo de cada parágrafo (1 – Introdução ao tema; 2 – Contextualização; 3 – Apresentação da tese ou argumento principal; 4 – Conclusão).\n\nc) Utilização do seguinte prompt para interação com o ChatGPT: “Atue como um revisor gramatical e ortográfico em português do Brasil. Ao identificar erros nas minhas frases, por favor, aponte-os e explique as correções de maneira simples, levando em conta que estou no nível do Ensino Médio. Se entendeu as instruções, escreva: ‘Entendi a proposta e estou pronto para ajudar!’”\n\nd) Redação do primeiro parágrafo pelo aluno, seguida de revisão realizada pelo ChatGPT.\n\ne) Reescrita do parágrafo pelo aluno em um editor de texto externo, incorporando as correções sugeridas pela IA, sem utilizar recursos de copiar e colar.\n\nf) Repetição desse processo para os demais parágrafos.\n\ng) No final, o aluno copia cada e cola todos os parágrafos corrigidos e solicita ao ChatGPT que proponha três sugestões de título para a redação.\n\nh) Escolha de um título e montagem da redação final, incluindo o nome do aluno como autor.\n\ni) Apresentação da redação e das interações realizadas ao professor para avaliação, com análise da eficácia das orientações fornecidas pela IA e dos possíveis erros cometidos pela IA como material de aprendizado.", "objetivos": ["Desenvolver habilidades de escrita estruturada e revisão textual.", "Promover o uso de IA como suporte na aprendizagem, e não como ferramenta substitutiva.", "Estimular a autonomia e o aprendizado por meio da correção de erros."], "materiais": ["Computadores ou tablets com acesso ao ChatGPT.", "Editor de texto para escrita e revisão externa."], "ia": "ChatGPT para revisão gramatical, ortográfica e de estilo.", "integracao": "Relaciona-se com História ou Geografia (temas de redação relacionados a eventos ou locais específicos) e Filosofia (análise argumentativa).", "seguranca": ["Evitar que a IA forneça respostas prontas para o ensaio.", "Monitorar a interação para garantir a adequação ao nível de aprendizado dos alunos."]}, {"id": 11, "discipline": "Língua Portuguesa", "title": "11. Jornalismo e verificação de fatos", "desc": "Os alunos criam notícias imaginárias e usam o ChatGPT (ou similar) para checar os fatos, discutindo a relevância do jornalismo ético e da verificação de informações.", "objetivos": ["Desenvolver a capacidade de verificar a credibilidade de informações.", "Refletir sobre o impacto do jornalismo ético na sociedade.", "Estimular a escrita e a análise crítica."], "materiais": ["Computadores ou tablets com acesso ao ChatGPT.", "Acesso a bases de dados e fontes confiáveis."], "ia": "ChatGPT para checagem inicial de fatos e análise de conteúdos.", "integracao": "relaciona-se com Sociologia (impacto da informação na sociedade) e História (contextualização de eventos).", "seguranca": ["Orientar o uso de fontes confiáveis para complementar as respostas da IA.", "Discutir com os alunos a importância de evitar notícias falsas ou tendenciosas."]}, {"id": 12, "discipline": "Língua estrangeira", "title": "12. Imersão em língua estrangeira", "desc": "os alunos mantêm conversas em um idioma estrangeiro com o ChatGPT (ou similar), relatando posteriormente a experiência e destacando novas palavras ou expressões aprendidas.", "objetivos": ["Melhorar a fluência na língua estrangeira por meio da prática interativa.", "Expandir o vocabulário e a compreensão de expressões idiomáticas.", "Promover a confiança na comunicação em uma língua estrangeira."], "materiais": ["Computadores ou tablets com acesso ao ChatGPT.", "Espaço silencioso para interação individual."], "ia": "ChatGPT configurado para conversação em diferentes idiomas.", "integracao": "relaciona-se com Cultura (exploração de elementos culturais associados ao idioma) e História (contextualização histórica de expressões ou palavras).", "seguranca": ["Monitorar o uso para evitar respostas inadequadas ou traduções incorretas.", "Orientar os alunos a avaliar criticamente o conteúdo gerado pela IA."]}, {"id": 13, "discipline": "Biologia", "title": "13. Análise de impacto ambiental", "desc": "Os alunos investigam um problema ambiental com o ChatGPT (ou similar) e apresentam possíveis soluções e suas implicações.", "objetivos": ["Desenvolver habilidades de pesquisa e análise de dados ambientais.", "Promover a conscientização sobre problemas ambientais e soluções sustentáveis.", "Estimular o pensamento crítico sobre o impacto das atividades humanas no meio ambiente."], "materiais": ["Computadores ou tablets com acesso ao ChatGPT e materiais de consulta adicionais.", "Espaço para apresentação e discussão em grupo."], "ia": "ChatGPT para explorar dados e discutir soluções ambientais.", "integracao": "relaciona-se com Geografia (análise de impacto ambiental em diferentes regiões) e Ciências Sociais (debates sobre políticas públicas e sustentabilidade).", "seguranca": ["Verificar a confiabilidade das informações ambientais sugeridas pela IA.", "Incentivar a busca por fontes complementares para validar os dados gerados."]}, {"id": 14, "discipline": "Biologia", "title": "14. Aventura educativa familiar no parque", "desc": "Esta atividade busca unir atividade física, aprendizado ao ar livre e interação familiar. Os alunos, acompanhados por seus pais ou responsáveis, participarão de uma expedição educacional em um parque local ou área natural. As etapas são as seguintes:\n\na) Planejamento: os alunos utilizarão o ChatGPT para pesquisar informações sobre a flora, fauna e geologia do parque selecionado, com o objetivo de criar um guia informativo. Os pais colaborarão na pesquisa e na elaboração do guia, promovendo discussões sobre biodiversidade e conservação ambiental.\n\nb) Expedição: no dia da atividade, alunos e pais participarão de uma caminhada exploratória pelo parque, utilizando o guia criado para identificar espécies de plantas e animais, além de características geológicas presentes no local.\n\nc) Desafios educativos: durante a caminhada, os professores proporão desafios relacionados ao meio ambiente, como localizar uma espécie específica ou reconhecer diferentes tipos de rochas.\n\nd) Discussão guiada: após a expedição, haverá uma sessão de discussão em grupo para que alunos e pais compartilhem suas observações e aprendizados. Antes da discussão, os alunos poderão consultar o ChatGPT para aprofundar informações ou esclarecer dúvidas sobre o que observaram.\n\ne) Atividade de encerramento: com o auxílio dos pais, cada aluno criará um diário de campo digital, documentando a expedição por meio de fotos, anotações e desenhos.\n\nf) Apresentação: os diários de campo serão apresentados à turma, incentivando a troca de experiências e o compartilhamento dos conhecimentos adquiridos durante a atividade.", "objetivos": ["Promover a interação entre alunos, pais e professores em um ambiente educativo.", "Estimular a prática de atividade física em contato com a natureza.", "Conscientizar sobre biodiversidade e conservação ambiental."], "materiais": ["Computadores ou tablets para pesquisa inicial.", "Guias informativos, binóculos e outros materiais exploratórios.", "Espaço natural adequado para a expedição."], "ia": "ChatGPT para pesquisa sobre biodiversidade e geologia local.", "integracao": "a) Relaciona-se com Ciências (exploração da fauna, flora e geologia) e Artes (elaboração do diário de campo).", "seguranca": ["Planejar rotas seguras no parque e orientar os participantes sobre cuidados com o meio ambiente.", "Monitorar o uso da IA para garantir que as informações pesquisadas sejam confiáveis."]}, {"id": 15, "discipline": "Biologia", "title": "15. Experimentação científica virtual", "desc": "Os alunos descrevem um experimento científico ao ChatGPT (ou similar), discutindo os resultados esperados e confrontando-os com as previsões do assistente.", "objetivos": ["Promover a compreensão do método científico.", "Estimular o pensamento crítico ao comparar previsões e resultados.", "Desenvolver habilidades de análise e argumentação."], "materiais": ["Computadores ou tablets com acesso ao ChatGPT.", "Recursos para experimentos científicos simples."], "ia": "ChatGPT para prever e discutir resultados experimentais.", "integracao": "Relaciona-se com Matemática (análise de dados experimentais) e Química/Física (realização de experimentos específicos).", "seguranca": ["Garantir que os experimentos propostos sejam seguros para os alunos.", "Orientar para o uso responsável da IA na formulação de hipóteses."]}, {"id": 16, "discipline": "Geografia", "title": "16. Exploração do sistema solar (uma jornada pela Taxonomia de Bloom com IA)", "desc": "Utilizando a Taxonomia de Bloom, esta atividade orienta os alunos através de diversos níveis de aprendizado sobre o sistema solar. As etapas a serem realizadas em grupos e depois compartilhadas com a classe são:\n\na) Conhecimento: Os alunos devem questionar a IA sobre informações básicas dos planetas do sistema solar (nomes, ordem, características-chave).\n\nb) Compreensão: Pedir para os alunos explicarem, com suas próprias palavras, as diferenças entre os planetas terrestres e os gigantes gasosos, baseando-se nas informações coletadas.\n\nc) Aplicação: Os alunos usam o ChatGPT (ou similar) para entender como diferentes condições planetárias afetariam a existência humana.\n\nd) Análise: Analisar com a IA os dados sobre missões espaciais, identificando propósitos e desafios de cada missão.\n\ne) Síntese: Elaborar um projeto de uma missão espacial hipotética com o ChatGPT, incluindo objetivo, planejamento e recursos necessários.\n\nf) Avaliação: Discutir com o ChatGPT os impactos possíveis das explorações espaciais no sistema solar, contemplando aspectos éticos, ambientais e científicos.", "objetivos": ["Desenvolver habilidades de pesquisa e análise sobre o sistema solar.", "Promover a aplicação do conhecimento adquirido em projetos hipotéticos.", "Estimular discussões éticas e científicas sobre exploração espacial."], "materiais": ["Computadores ou tablets com acesso ao ChatGPT.", "Materiais de apoio sobre astronomia."], "ia": "ChatGPT para informações, análises e suporte na elaboração de projetos espaciais.", "integracao": "Relaciona-se com Física (conceitos de gravidade e atmosfera), Filosofia (discussões éticas) e História (evolução das missões espaciais).", "seguranca": ["Validar as informações fornecidas pelo ChatGPT com fontes acadêmicas.", "Incentivar uma análise crítica das implicações éticas e ambientais discutidas."]}, {"id": 17, "discipline": "História e Sociologia", "title": "17. Entrevistas com figuras históricas", "desc": "Os alunos criam perguntas para um personagem histórico e usam o ChatGPT (ou similar) para responder como se fosse essa personalidade, seguido de uma análise crítica das respostas.", "objetivos": ["Estimular o interesse por personalidades históricas e seus contextos.", "Desenvolver habilidades de análise crítica e comparação histórica.", "Promover a criatividade na formulação de perguntas."], "materiais": ["Computadores ou tablets com acesso ao ChatGPT.", "Materiais de pesquisa sobre a figura histórica selecionada."], "ia": "ChatGPT configurado para responder em primeira pessoa como personagens históricos.", "integracao": "Relaciona-se com Filosofia (análise de ideias e pensamentos) e Literatura (interpretação textual).", "seguranca": ["Garantir que as respostas da IA sejam historicamente precisas e não propaguem estereótipos.", "Incentivar o uso da IA como complemento, não como substituto de pesquisas aprofundadas."]}, {"id": 18, "discipline": "História e Sociologia", "title": "18. Estudo interativo de movimentos culturais", "desc": "Os alunos consultam o ChatGPT (ou similar) sobre diversos movimentos artísticos, do Renascimento à arte moderna. Posteriormente, compartilham com a turma as características e influências desses movimentos, destacando artistas renomados e suas criações.", "objetivos": ["Ampliar o conhecimento sobre a história da arte e seus movimentos culturais.", "Desenvolver habilidades de pesquisa e apresentação oral.", "Compreender a influência histórica e cultural das manifestações artísticas."], "materiais": ["Computadores ou tablets com acesso ao ChatGPT.", "Materiais visuais (reproduções de obras) para apresentações."], "ia": "ChatGPT para pesquisa e síntese de informações sobre movimentos culturais.", "integracao": "Relaciona-se com Arte (análise de obras e estilos) e Literatura (exploração de contextos literários contemporâneos aos movimentos).", "seguranca": ["Verificar as informações fornecidas pela IA em fontes confiáveis.", "Orientar para o uso ético das imagens e informações de obras artísticas."]}, {"id": 19, "discipline": "História e Sociologia", "title": "19. Entrevistas históricas interativas", "desc": "Os alunos interrogam o ChatGPT (ou similar) sobre um determinado período histórico, registrando as respostas. Mais tarde, compartilham com a classe os aspectos mais intrigantes descobertos.", "objetivos": ["Estimular a curiosidade e o interesse por períodos históricos específicos.", "Desenvolver habilidades de pesquisa e apresentação.", "Promover o debate sobre interpretações históricas."], "materiais": ["Computadores ou tablets com acesso ao ChatGPT.", "Espaço para apresentação em grupo."], "ia": "ChatGPT para fornecer informações sobre eventos e contextos históricos.", "integracao": "Relaciona-se com Geografia (contextos espaciais dos eventos) e Literatura (textos literários relacionados ao período).", "seguranca": ["Garantir a precisão histórica das respostas.", "Incentivar o uso crítico das informações, validando-as em outras fontes."]}, {"id": 20, "discipline": "História e Sociologia", "title": "20. Simulação de debate político", "desc": "A turma se divide em grupos, cada um representando uma visão política distinta. Utilizam o ChatGPT (ou similar) para criar argumentos e réplicas, culminando em um debate ao vivo.", "objetivos": ["Desenvolver habilidades de argumentação e pensamento crítico.", "Estimular o interesse por ideologias políticas e seus impactos históricos.", "Promover a empatia ao explorar diferentes visões de mundo."], "materiais": ["Computadores ou tablets com acesso ao ChatGPT.", "Espaço organizado para o debate em grupo."], "ia": "ChatGPT para gerar argumentos com base em ideologias políticas.", "integracao": "Relaciona-se com Filosofia (exploração de ideologias) e Sociologia (análise de impacto social e político).", "seguranca": ["Monitorar a discussão para evitar preconceitos ou desinformação.", "Estimular o respeito pelas opiniões diferentes durante o debate."]}, {"id": 21, "discipline": "Matemática", "title": "21. Desafio matemático", "desc": "Os alunos expõem questões matemáticas complicadas ao ChatGPT (ou similar), esforçando-se para entender as resoluções propostas e, posteriormente, explicando o raciocínio para os colegas de classe.", "objetivos": ["Melhorar a compreensão de conceitos matemáticos avançados.", "Desenvolver habilidades de explicação e argumentação lógica.", "Estimular a cooperação ao resolver problemas complexos."], "materiais": ["Computadores ou tablets com acesso ao ChatGPT.", "Materiais de apoio, como livros didáticos ou calculadoras."], "ia": "ChatGPT para resolução de problemas matemáticos e explicações.", "integracao": "Relaciona-se com Física (aplicação de conceitos matemáticos) e Tecnologia (uso de software de cálculo).", "seguranca": ["Garantir que os alunos validem as respostas da IA.", "Orientar para o uso responsável da IA, evitando respostas automáticas."]}, {"id": 22, "discipline": "Matemática", "title": "22. Desafio de codificação", "desc": "Os alunos apresentam um problema de programação à IA, analisando a solução proposta e debatendo sua lógica e eficiência.", "objetivos": ["Estimular o pensamento computacional e a resolução de problemas.", "Desenvolver habilidades de análise crítica de algoritmos.", "Promover a cooperação e o aprendizado prático."], "materiais": ["Computadores com acesso ao ChatGPT e a plataformas de codificação.", "Espaço para discussão em grupo."], "ia": "ChatGPT para gerar e explicar soluções de programação.", "integracao": "Relaciona-se com Tecnologia (uso de linguagens de programação) e Matemática (lógica e álgebra).", "seguranca": ["Validar as soluções propostas pela IA em ambientes de teste.", "Evitar dependência excessiva da IA para resolver os problemas."]}, {"id": 23, "discipline": "Projeto de Vida", "title": "23. Aprimoramento de habilidades sociais", "desc": "Os alunos interagem com o ChatGPT (ou similar) em simulações de contextos sociais complexos, como entrevistas de emprego, e depois debatem sobre as técnicas de comunicação utilizadas.", "objetivos": ["Desenvolver habilidades de comunicação interpessoal.", "Promover a confiança em situações complexas.", "Refletir sobre estratégias de diálogo e negociação."], "materiais": ["Computadores ou tablets com acesso ao ChatGPT.", "Espaço para discussões em grupo."], "ia": "ChatGPT para simulação de interações sociais e análise de respostas.", "integracao": "Relaciona-se com Sociologia (análise de comportamentos sociais) e Língua Portuguesa (comunicação verbal e escrita).", "seguranca": ["Garantir que as simulações sejam adequadas à faixa etária.", "Orientar para o uso ético e reflexivo das técnicas discutidas."]}, {"id": 24, "discipline": "Projeto de Vida", "title": "24. Exploração de profissões", "desc": "Os alunos entrevistam o ChatGPT (ou similar) sobre diversas ocupações, relatando suas descobertas e discutindo aspectos como requisitos profissionais e desafios da carreira.", "objetivos": ["Ampliar o conhecimento sobre carreiras e profissões.", "Promover a reflexão sobre interesses e habilidades pessoais.", "Desenvolver habilidades de pesquisa e apresentação."], "materiais": ["Computadores ou tablets com acesso ao ChatGPT.", "Espaço para apresentações."], "ia": "ChatGPT para fornecer informações sobre profissões e carreiras.", "integracao": "Relaciona-se com Economia (requisitos econômicos de carreiras) e Sociologia (impacto social das profissões).", "seguranca": ["Garantir a precisão e a relevância das informações geradas pela IA.", "Orientar para uma análise crítica das informações, complementando com outras fontes."]}, {"id": 25, "discipline": "Projeto de Vida", "title": "25. O que isso tem a ver comigo?", "desc": "Os alunos recebem um tema ou texto do professor e devem utilizar a IA para, por meio do diálogo com a ferramenta, buscar uma ligação entre aquele tema ou texto e sua vida prática. A ideia é incentivar o aluno a encontrar por si só, com o apoio da IA, razões para estudar aquele tema ou compreender o texto, conectando-o às suas experiências, interesses e desafios pessoais.\n\n<strong>Passos para a execução:</strong>\na) Apresentação do tema ou texto: O professor introduz o material ou tópico a ser explorado e explica a atividade.\n\nb) Interação com a IA: Os alunos utilizam a IA para explorar conexões entre o tema/texto e suas vidas. Eles podem perguntar, refletir e debater com a ferramenta para encontrar respostas.\n\nc) Análise crítica e discussão: Os alunos organizam suas descobertas e compartilham com a turma ou em pequenos grupos.\n\nd) Produção final: Podem criar uma apresentação, texto ou debate para mostrar como conectaram o tema à sua realidade.\n\ne) Reflexão coletiva: O professor e os alunos discutem o que aprenderam e como o uso da IA contribuiu para a atividade.", "objetivos": ["Estimular a reflexão sobre a relevância prática de temas ou textos propostos em sala de aula.", "Desenvolver a capacidade de usar a tecnologia como ferramenta para aprendizado autônomo.", "Promover o engajamento ativo do aluno na construção de significado para o conteúdo estudado.", "Incentivar a personalização do aprendizado, conectando temas acadêmicos à realidade do estudante."], "materiais": ["Computadores, tablets ou smartphones com acesso a uma ferramenta de IA (como ChatGPT).", "Espaço adequado para discussões em grupo ou individuais."], "ia": "ChatGPT (ou similar) para apoiar os alunos na construção de conexões práticas e pessoais com o tema ou texto proposto.", "integracao": "A atividade pode ser adaptada a diversas disciplinas, como Língua Portuguesa (Explorar temas literários ou textos e relacioná-los à vida cotidiana), Ciências (Relacionar conceitos científicos com a saúde, o meio ambiente ou a tecnologia cotidiana), História (Refletir sobre eventos históricos e seus impactos no presente) e Geografia (Associar questões ambientais ou sociais a experiências locais).", "seguranca": ["Orientar os alunos a analisar criticamente as informações geradas pela IA, complementando-as com outras fontes confiáveis.", "Garantir que as informações fornecidas sejam relevantes e adequadas ao tema proposto.", "Estimular a mediação e supervisão docente para direcionar o diálogo com a IA de forma construtiva."]}];
+      let currentPropCategory = 'all';
+      
+      function filterPropCategory(category) {
+        currentPropCategory = category;
+        document.querySelectorAll('.chip-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        const activeBtn = Array.from(document.querySelectorAll('.chip-btn')).find(btn => {
+          const onclickAttr = btn.getAttribute('onclick');
+          return onclickAttr && onclickAttr.includes("'" + category + "'");
+        });
+        if (activeBtn) activeBtn.classList.add('active');
+        
+        renderPropostas();
+      }
+      
+      function handlePropSearch() {
+        renderPropostas();
+      }
+      
+      function togglePropCard(cardElement) {
+        const isExpanded = cardElement.classList.contains('expanded');
+        
+        document.querySelectorAll('#propostas-list .prompt-card').forEach(c => {
+          if (c !== cardElement) c.classList.remove('expanded');
+        });
+        
+        if (isExpanded) {
+          cardElement.classList.remove('expanded');
+        } else {
+          cardElement.classList.add('expanded');
+        }
+      }
+      
+      function renderPropostas() {
+        const list = document.getElementById('propostas-list');
+        const query = document.getElementById('prop-search').value.toLowerCase().trim();
+        list.innerHTML = '';
+        
+        const filtered = propostas.filter(p => {
+          if (currentPropCategory !== 'all' && p.discipline !== currentPropCategory) return false;
+          if (query) {
+            return p.title.toLowerCase().includes(query) || 
+                   p.desc.toLowerCase().includes(query) || 
+                   p.discipline.toLowerCase().includes(query) ||
+                   p.ia.toLowerCase().includes(query) ||
+                   p.integracao.toLowerCase().includes(query);
+          }
+          return true;
+        });
+        
+        if (filtered.length === 0) {
+          list.innerHTML = `
+            <div style="text-align:center; padding: 2rem; color: var(--text-muted); font-size: 0.85rem;">
+              Nenhuma proposta pedagógica correspondente encontrada.
+            </div>
+          `;
+          return;
+        }
+        
+        const grid = document.createElement('div');
+        grid.id = 'prompts-list';
+        
+        filtered.forEach(p => {
+          const card = document.createElement('div');
+          card.className = 'prompt-card';
+          card.setAttribute('data-id', p.id);
+          card.setAttribute('onclick', 'togglePropCard(this)');
+          
+          let objetivosHtml = p.objetivos.map(obj => `<li>${obj}</li>`).join('');
+          let materiaisHtml = p.materiais.map(mat => `<li>${mat}</li>`).join('');
+          let segurancaHtml = p.seguranca.map(seg => `<li>${seg}</li>`).join('');
+          
+          // Formatar primeiro parágrafo para a descrição rápida do card
+          let shortDesc = p.desc.split('\n')[0];
+          if (shortDesc.length > 120) {
+            shortDesc = shortDesc.substring(0, 120) + '...';
+          }
+          
+          card.innerHTML = `
+            <div class="prompt-header">
+              <span class="prompt-title">${p.title}</span>
+              <span class="prompt-badge">${p.discipline}</span>
+              <div class="prompt-arrow">
+                <svg style="width:20px;height:20px;fill:var(--text-muted);transition:transform 0.3s;" viewBox="0 0 24 24" class="chevron-icon">
+                  <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+                </svg>
+              </div>
+            </div>
+            <p class="prompt-desc">${shortDesc}</p>
+            
+            <div class="prompt-text-container" onclick="event.stopPropagation()">
+              <div style="margin-top: 1.25rem; border-top: 1px solid var(--border-color); padding-top: 1.25rem; display:flex; flex-direction:column; gap:1.25rem;">
+                
+                <div>
+                  <h4 style="margin: 0 0 0.5rem 0; color: var(--accent-color); font-family: var(--font-display);">📝 Descrição da Atividade</h4>
+                  <p style="font-size:0.9rem; line-height:1.6; color:var(--text-secondary); margin:0; text-align:justify; white-space:pre-wrap;">${p.desc}</p>
+                </div>
+                
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;">
+                  <div>
+                    <h4 style="margin: 0 0 0.5rem 0; color: var(--accent-color); font-family: var(--font-display);">🎯 Objetivos Pedagógicos</h4>
+                    <ul style="padding-left:1.2rem; font-size:0.85rem; line-height:1.5; color:var(--text-secondary); margin:0;">
+                      ${objetivosHtml}
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h4 style="margin: 0 0 0.5rem 0; color: var(--accent-color); font-family: var(--font-display);">🎒 Materiais & Infraestrutura</h4>
+                    <ul style="padding-left:1.2rem; font-size:0.85rem; line-height:1.5; color:var(--text-secondary); margin:0;">
+                      ${materiaisHtml}
+                    </ul>
+                  </div>
+                </div>
+                
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;">
+                  <div style="background: rgba(130, 113, 83, 0.02); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem;">
+                    <h4 style="margin: 0 0 0.4rem 0; color: var(--text-primary); font-family: var(--font-display); font-size:0.95rem;">🤖 Ferramentas de IA</h4>
+                    <p style="font-size:0.85rem; line-height:1.5; color:var(--text-secondary); margin:0;">${p.ia}</p>
+                  </div>
+                  
+                  <div style="background: rgba(130, 113, 83, 0.02); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem;">
+                    <h4 style="margin: 0 0 0.4rem 0; color: var(--text-primary); font-family: var(--font-display); font-size:0.95rem;">🌐 Integração Transversal</h4>
+                    <p style="font-size:0.85rem; line-height:1.5; color:var(--text-secondary); margin:0;">${p.integracao}</p>
+                  </div>
+                </div>
+                
+                <div style="background: rgba(229, 62, 62, 0.03); border: 1px solid rgba(229, 62, 62, 0.15); border-radius: 8px; padding: 1rem;">
+                  <h4 style="margin: 0 0 0.5rem 0; color: #c53030; font-family: var(--font-display); font-size:0.95rem; display:flex; align-items:center; gap:0.4rem;">
+                    <span>⚠️</span> Considerações sobre Segurança
+                  </h4>
+                  <ul style="padding-left:1.2rem; font-size:0.85rem; line-height:1.5; color:#9b2c2c; margin:0;">
+                    ${segurancaHtml}
+                  </ul>
+                </div>
+                
+              </div>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+        list.appendChild(grid);
+      }
+      
+      renderPropostas();
+    </script>
+    
+    <div class="page-navigation">
+      <a href="/canvas" class="page-nav-link nav-prev">
+        <span class="page-nav-label">Anterior</span>
+        <span class="page-nav-title">← Apps, Artefatos & Canvas</span>
+      </a>
+        
+      <a href="/formacao" class="page-nav-link nav-next">
+        <span class="page-nav-label">Próximo</span>
+        <span class="page-nav-title">Formação de Professores →</span>
+      </a>
+        </div>
+    <!-- Rodapé -->
+    <footer class="main-footer">
+      <div class="footer-divider"></div>
+      <p>Desenvolvido pelo professor <strong>Dr. Glauber Santiago</strong> — DAC/UFSCar</p>
+      <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.25rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
+        Apoio: 
+        <a href="https://grupohorizonte.ufscar.br/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--accent-color); font-weight: 500; text-decoration: underline;">
+          <img src="/cropped-logo-horizonte.png" alt="Logo Grupo Horizonte" style="height: 56px; width: auto; padding: 4px 8px; background: #ffffff; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); vertical-align: middle; filter: grayscale(1) contrast(1.2); opacity: 0.8; transition: var(--transition-smooth);" onmouseover="this.style.filter='none'; this.style.opacity='1'" onmouseout="this.style.filter='grayscale(1) contrast(1.2)'; this.style.opacity='0.8'">
+          <span>Grupo de Pesquisa Horizonte</span>
+        </a>
+      </p>
+      <div class="footer-links">
+        <a href="https://servidores.ufscar.br/glauber/" target="_blank" rel="noopener noreferrer">🌐 Website do Docente</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfg-6_2hWVv2xKnol7sd8NOmPBasLncsDgCHqKOZHztWox2_w/viewform" target="_blank" rel="noopener noreferrer">💬 Dê sua opinião e sugestões!</a>
+      </div>
+      <p style="font-size: 0.72rem; color: var(--text-secondary); opacity: 0.7; margin-top: 0.75rem; margin-bottom: 0; text-align: center;">
+        Última atualização: 16/07/2026 às 23:42
+      </p>
+    </footer>
+  </div>
+</body>
+</html>

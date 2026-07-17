@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apps, Artefatos & Canvas - GlauberIA</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  
+  <!-- Fontes Premium do Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/glauberia.css">
+  
+  <!-- Firebase App e Analytics SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCInnUSp8NQ_PWwlvpLF5Mw9ueq3jDMFmE",
+      authDomain: "horizonte-7ec73.firebaseapp.com",
+      projectId: "horizonte-7ec73",
+      storageBucket: "horizonte-7ec73.firebasestorage.app",
+      messagingSenderId: "717322550690",
+      appId: "1:717322550690:web:a6d62ae0c8110d69b846fb",
+      measurementId: "G-4Q1W69W69K"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+  
+  <!-- Script de Inicialização de Tema para Evitar Flash -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- Barra de Navegação Superior (Top Navbar) -->
+  <nav class="top-navbar">
+    <a href="/" class="top-navbar-brand">
+      Glauber<span>IA</span>
+    </a>
+    
+    <!-- Menu para Desktop -->
+    <div class="top-navbar-menu">
+      <a href="/" class="top-nav-item ">🏠 Início</a>
+      <a href="/prompts" class="top-nav-item ">✍ Prompts</a>
+      <a href="/assistentes" class="top-nav-item ">🤖 Assistentes</a>
+      <a href="/canvas" class="top-nav-item active">🧩 Apps & Canvas</a>
+      <a href="/propostas" class="top-nav-item ">📚 Propostas</a>
+      
+      <!-- Dropdown Formação -->
+      <div class="top-nav-dropdown">
+        <a href="/formacao" class="top-nav-dropdown-trigger " style="text-decoration: none;">🎓 Formação ▾</a>
+        <div class="top-nav-dropdown-menu">
+          <a href="/formacao" class="top-nav-dropdown-item">
+            <span>🎓 Formação de Professores</span>
+          </a>
+          <a href="/roteiro" class="top-nav-dropdown-item">
+            <span>📋 Roteiro de Implantação</span>
+          </a>
+          <a href="/estudos" class="top-nav-dropdown-item">
+            <span>💼 Estudos de Caso</span>
+          </a>
+          <a href="/videos" class="top-nav-dropdown-item">
+            <span>🎥 Vídeo-Aulas & Tutoriais</span>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Botão Tema Noturno Desktop -->
+      <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Alternar Tema" style="background: none; border: none; cursor: pointer; font-size: 1.15rem; display: flex; align-items: center; justify-content: center; padding: 0.25rem 0.5rem; color: rgba(255,255,255,0.85); transition: var(--transition-smooth); margin-left: 0.5rem;">
+        <span class="theme-toggle-icon">🌙</span>
+      </button>
+    </div>
+    
+    <!-- Botão Menu Hamburguer (Mobile) e Toggle Tema Mobile -->
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <button class="theme-toggle-btn mobile-only-toggle" onclick="toggleTheme()" aria-label="Alternar Tema" style="background: none; border: none; cursor: pointer; font-size: 1.15rem; color: #ffffff; display: none; align-items: center; justify-content: center; padding: 0.5rem; margin: 0;">
+        <span class="theme-toggle-icon">🌙</span>
+      </button>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Abrir Menu" style="margin: 0;">
+        ☰
+      </button>
+    </div>
+  </nav>
+
+  <!-- Overlay do Drawer Mobile -->
+  <div id="mobile-drawer-overlay" class="mobile-drawer-overlay" onclick="toggleMobileMenu()"></div>
+
+  <!-- Drawer Menu Mobile -->
+  <div id="mobile-drawer" class="mobile-drawer">
+    <div class="mobile-drawer-header">
+      <span class="top-navbar-brand">Glauber<span>IA</span></span>
+      <button class="mobile-drawer-close" onclick="toggleMobileMenu()" aria-label="Fechar Menu">✕</button>
+    </div>
+    <div class="mobile-drawer-links">
+      <a href="/" class="mobile-drawer-link ">🏠 Início</a>
+      <a href="/prompts" class="mobile-drawer-link ">✍ Prompts para Educadores</a>
+      <a href="/assistentes" class="mobile-drawer-link ">🤖 Assistentes & Agentes</a>
+      <a href="/canvas" class="mobile-drawer-link active">🧩 Apps, Artefatos & Canvas</a>
+      <a href="/propostas" class="mobile-drawer-link ">📚 Propostas Pedagógicas</a>
+      
+      <div class="mobile-drawer-section-title">Formação</div>
+      <a href="/formacao" class="mobile-drawer-link">🎓 Formação de Professores</a>
+      <a href="/roteiro" class="mobile-drawer-link">📋 Roteiro de Implantação</a>
+      <a href="/videos" class="mobile-drawer-link">🎥 Vídeo-Aulas & Tutoriais</a>
+    </div>
+  </div>
+
+  <script src="/glauberia.js"></script>
+
+  <!-- Hero Banner (Banner GlauberIA.png) -->
+  <div class="hero-banner">
+    <div class="hero-content">
+      <h1 class="hero-title">Apps, Artefatos & Canvas</h1>
+      <div class="hero-underline"></div>
+    </div>
+  </div>
+
+  <!-- Faixa de Informações (Intro Band) -->
+  <div class="intro-band">
+    <p>Desenvolva suas próprias aplicações e recursos interativos (quizzes, timelines, mapas e calculadoras) por meio de ambientes guiados de IA.</p>
+  </div>
+
+  <div class="container">
+
+    <div style="display:flex; flex-direction:column; gap: 2.5rem;">
+      
+      <!-- 1. Contextualização -->
+      <section class="about-card" style="margin-bottom:0;">
+        <h3>🧩 O que são Apps, Artefatos & Canvas?</h3>
+        <p style="line-height:1.6; margin-bottom: 1rem;">
+          Nesta seção, exploramos a criação de <strong>artefatos educacionais digitais</strong>: recursos produzidos por professores e estudantes em coautoria com ferramentas avançadas de inteligência artificial generativa e agentes autônomos, como Claude, Gemini, ChatGPT e modelos abertos de alta performance.
+        </p>
+        <p style="line-height:1.6; margin-bottom: 1.5rem;">
+          Esses artefatos transcenderam os formatos estáticos. Hoje, incluem desde vídeos interativos e quizzes até micro-ferramentas web completas, visualizadores em 3D, laboratórios virtuais e aplicações responsivas que consomem dados externos. Mais do que produtos digitais, são expressões criativas do processo de aprendizagem, capazes de estimular a autoria, o pensamento sistêmico e a experimentação iterativa.
+        </p>
+        
+        <div style="background: rgba(130, 113, 83, 0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.25rem;">
+          <h4 style="margin: 0 0 0.75rem 0; font-family: var(--font-display); font-size:1.05rem; font-weight:600; color:var(--text-primary); display:flex; align-items:center; gap:0.5rem;">
+            <span>📍</span> Nomenclaturas por Plataforma
+          </h4>
+          <p style="font-size:0.9rem; line-height:1.5; color:var(--text-secondary); margin:0;">
+            No <strong>Claude</strong>, esses ambientes de renderização e código são chamados de <strong>Artefatos (Artifacts)</strong>. No <strong>ChatGPT</strong> e no <strong>Gemini</strong>, são conhecidos como <strong>Canvas</strong>. Em plataformas de desenvolvimento avançado (como Replit ou Vercel v0), são instanciados como <strong>Apps</strong> ou componentes interativos de código aberto.
+          </p>
+        </div>
+      </section>
+
+      <!-- 2. Galeria de Micro-Apps -->
+      <section class="about-card" style="margin-bottom:0;">
+        <h3>📲 Galeria de Micro-Apps Desenvolvidos pelo Docente</h3>
+        <p style="margin-bottom:1.5rem; line-height:1.5; color: var(--text-secondary);">
+          Uma coleção de ferramentas de código interativo criadas sob medida com o auxílio de IA. Contempla desde visualizadores acústico-musicais a simuladores físicos aplicados à pesquisa científica:
+        </p>
+        <div class="apps-grid">
+        <a class="app-card" href="https://glauberlasantiago.github.io/vitopamos/" target="_blank" rel="noopener noreferrer">
+          <div>
+            <h4>ViToPaMoS</h4>
+            <p>Visualizador e Tocador de Partituras Online.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 0.75rem; text-align:right;">Abrir App ↗</span>
+        </a>
+        
+        <a class="app-card" href="https://glauberlasantiago.github.io/dedo-de-saxofonista-alto/" target="_blank" rel="noopener noreferrer">
+          <div>
+            <h4>Dedo de Saxofonista Alto</h4>
+            <p>Mapa de digitação interativo para saxofonistas alto.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 0.75rem; text-align:right;">Abrir App ↗</span>
+        </a>
+        
+        <a class="app-card" href="https://glauberlasantiago.github.io/dedo-de-trompetista/" target="_blank" rel="noopener noreferrer">
+          <div>
+            <h4>Dedo de trompetista</h4>
+            <p>Mapa de digitação de pistões e notas para trompetistas.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 0.75rem; text-align:right;">Abrir App ↗</span>
+        </a>
+        
+        <a class="app-card" href="https://glauberlasantiago.github.io/BIAS-band-in-a-site/" target="_blank" rel="noopener noreferrer">
+          <div>
+            <h4>BIAS: Band-in-a-Site</h4>
+            <p>Acompanhamento musical de acordes diretamente no navegador.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 0.75rem; text-align:right;">Abrir App ↗</span>
+        </a>
+        
+        <a class="app-card" href="https://glauberlasantiago.github.io/doce-pointer/" target="_blank" rel="noopener noreferrer">
+          <div>
+            <h4>Doce Pointer</h4>
+            <p>Micro-ferramenta interativa de flauta doce e posições de notas.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 0.75rem; text-align:right;">Abrir App ↗</span>
+        </a>
+        
+        <a class="app-card" href="https://glauberlasantiago.github.io/GravadorMidi/" target="_blank" rel="noopener noreferrer">
+          <div>
+            <h4>Estúdio MIDI Online - Edição Pastel</h4>
+            <p>Gravador e sequenciador MIDI em tons suaves para educação musical.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 0.75rem; text-align:right;">Abrir App ↗</span>
+        </a>
+        
+        <a class="app-card" href="https://glauberlasantiago.github.io/PEM-piano-eletrico-microtonal/" target="_blank" rel="noopener noreferrer">
+          <div>
+            <h4>Teclado Microtonal</h4>
+            <p>Piano elétrico microtonal interativo para explorações acústicas.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 0.75rem; text-align:right;">Abrir App ↗</span>
+        </a>
+        
+        <a class="app-card" href="https://glauberlasantiago.github.io/MaxiBiblia/" target="_blank" rel="noopener noreferrer">
+          <div>
+            <h4>Maxi Bíblia</h4>
+            <p>Visualizador e buscador de versículos bíblicos.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 0.75rem; text-align:right;">Abrir App ↗</span>
+        </a>
+        
+        <a class="app-card" href="https://glauberlasantiago.github.io/ame/" target="_blank" rel="noopener noreferrer">
+          <div>
+            <h4>AME (Aprimora Música & Eventos)</h4>
+            <p>Assistente de IA para organização empresarial.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 0.75rem; text-align:right;">Abrir App ↗</span>
+        </a>
+        
+        <a class="app-card" href="https://glauberlasantiago.github.io/TreinaNotasQuerty/" target="_blank" rel="noopener noreferrer">
+          <div>
+            <h4>Treinador de Notas QWERTY</h4>
+            <p>Pratique a leitura de notas na pauta usando as teclas do teclado.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 0.75rem; text-align:right;">Abrir App ↗</span>
+        </a>
+        
+        <a class="app-card" href="https://glauberlasantiago.github.io/AferidorDeEntonacao/" target="_blank" rel="noopener noreferrer">
+          <div>
+            <h4>Aferidor de Entonação</h4>
+            <p>Use o microfone do dispositivo para aferir a frequência e afinação de canto.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 0.75rem; text-align:right;">Abrir App ↗</span>
+        </a>
+        
+        <a class="app-card" href="https://glauberlasantiago.github.io/sinterlab/" target="_blank" rel="noopener noreferrer">
+          <div>
+            <h4>DEMa Lab · Sinterização</h4>
+            <p>Simulador interativo de laboratório metalúrgico de sinterização.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 0.75rem; text-align:right;">Abrir App ↗</span>
+        </a>
+        </div>
+      </section>
+
+      <!-- 3. Tutoriais & Paleta de Cores -->
+      <section class="about-card" style="margin-bottom:0;">
+        <h3>🎥 Vídeos Tutoriais & Gerador de Paletas</h3>
+        <p style="margin-bottom:1.25rem; line-height:1.5; color:var(--text-secondary);">
+          Aprenda a criar e integrar seus próprios micro-apps utilizando diferentes ferramentas do mercado:
+        </p>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom:1.5rem;">
+          <a href="https://youtu.be/3JCS_AuEJIA?si=YQmELhK9XG9j-fcO" target="_blank" class="style-item" style="text-decoration:none;">
+            <span class="style-pt">🎥 Como criar no Claude</span>
+            <span class="style-en" style="color:var(--text-secondary); font-family:inherit;">Guia prático sobre Claude Artifacts.</span>
+          </a>
+          <a href="https://youtu.be/cJ5YAG1ySdw?si=2ntr5hAqfhHvEZuJ" target="_blank" class="style-item" style="text-decoration:none;">
+            <span class="style-pt">🎥 Como criar no ChatGPT</span>
+            <span class="style-en" style="color:var(--text-secondary); font-family:inherit;">Uso do ChatGPT Canvas para código.</span>
+          </a>
+          <a href="https://youtu.be/wXEEtYaO8a4?si=1dsBmcsXaMg8ZCeQ" target="_blank" class="style-item" style="text-decoration:none;">
+            <span class="style-pt">🎥 Como incorporar em sites</span>
+            <span class="style-en" style="color:var(--text-secondary); font-family:inherit;">Como hospedar e embutir os apps.</span>
+          </a>
+          <a href="https://youtu.be/cILorFyVvvo?si=fh2aXa_U3pMZ63hq" target="_blank" class="style-item" style="text-decoration:none;">
+            <span class="style-pt">🎥 Google AI Studio</span>
+            <span class="style-en" style="color:var(--text-secondary); font-family:inherit;">Criação profissional no sandbox da Google.</span>
+          </a>
+        </div>
+        <div style="background: rgba(130, 113, 83, 0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.25rem;">
+          <h4 style="margin:0 0 0.5rem 0; font-family:var(--font-display); color:var(--text-primary);"><a href="https://glauberlasantiago.github.io/paleta_de_cores/" target="_blank" style="color:var(--accent-color); text-decoration:underline;">🎨 App para Geração de Paletas de Cores</a></h4>
+          <p style="font-size:0.9rem; line-height:1.5; color:var(--text-secondary); margin:0;">
+            Uma micro-ferramenta interativa desenvolvida pelo docente para auxiliar na criação de paletas de cores refinadas e acessíveis de modo que seus artefatos e layouts fiquem bonitos e modernos.
+          </p>
+        </div>
+      </section>
+
+      <!-- 4. Prompts Interativos de Criação de Apps -->
+      <section class="about-card" style="margin-bottom:0;">
+        <h3>✍ Prompts Prontos para Gerar Apps, Simuladores e Interfaces</h3>
+        <p style="margin-bottom:1.5rem; line-height:1.5; color: var(--text-secondary);">
+          Clique em qualquer card abaixo para visualizar e copiar automaticamente o prompt estruturado de criação de micro-aplicativos. Você pode colar o prompt no Claude, ChatGPT ou Gemini Advanced indicando o seu tema de escolha:
+        </p>
+
+        <!-- Filtros e Busca -->
+        <div class="search-bar-container" style="margin-bottom:1rem;">
+          <input type="text" id="canvas-prompt-search" class="search-input" placeholder="Pesquisar por título ou descrição..." oninput="handleCanvasSearch()">
+        </div>
+        
+        <div class="filter-chips" style="margin-bottom:1.5rem;">
+          <button class="chip-btn active" onclick="filterCanvasCategory('all')">Todos</button>
+          <button class="chip-btn" onclick="filterCanvasCategory('web')">💻 Interfaces Web</button>
+          <button class="chip-btn" onclick="filterCanvasCategory('mapas')">🗺 Mapas</button>
+          <button class="chip-btn" onclick="filterCanvasCategory('linhas_tempo')">📅 Cronogramas & Linhas</button>
+          <button class="chip-btn" onclick="filterCanvasCategory('jogos_simuladores')">🎮 Jogos & Simuladores</button>
+          <button class="chip-btn" onclick="filterCanvasCategory('dados')">📊 Dados & Planilhas</button>
+        </div>
+
+        <div id="canvas-prompts-list"></div>
+      </section>
+
+      <!-- 5. Prompt de Restauração de Fotos -->
+      <section class="about-card" style="margin-bottom:0;">
+        <h3>📸 Prompt Avançado para Restauração de Fotos Antigas</h3>
+        <p style="margin-bottom:1.25rem; line-height:1.5; color: var(--text-secondary);">
+          Clique no card abaixo para copiar e utilizar em IAs generativas de imagem ou de texto a fim de recuperar fotografias antigas danificadas e obter colorização realista:
+        </p>
+        <div class="prompt-card" onclick="copyRestorationPrompt(this)" style="min-height: 120px;">
+          <div class="prompt-card-feedback-overlay" id="restoration-toast">
+            <svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+            <span>Copiado!</span>
+          </div>
+          <div class="prompt-header">
+            <span class="prompt-title">Restaurar e Colorir Fotos Históricas (Inglês)</span>
+            <span class="prompt-badge">Imagens</span>
+            <div class="prompt-arrow">
+              <svg style="width:20px;height:20px;fill:var(--text-muted);" viewBox="0 0 24 24">
+                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+              </svg>
+            </div>
+          </div>
+          <p class="prompt-desc">Restaura rasgos, manchas e arranhões mantendo a identidade e aplicando colorização natural.</p>
+          <div class="prompt-text-container" style="margin-top: 1rem;" onclick="event.stopPropagation()">
+            <pre class="prompt-text" style="font-size:0.8rem; line-height:1.5; background:rgba(0,0,0,0.02); padding:1rem; border-radius:8px; white-space:pre-wrap; font-family:monospace;">Restore this old damaged photograph. Remove scratches, stains, tears, and fading while preserving as much detail as possible. Apply realistic and natural colorization: vibrant and natural skin tones, authentic hair texture, subtle clothing colors faithful to the era, and a harmonious background without oversaturation. Preserve facial sharpness and original details, but smooth imperfections without altering the person’s identity. The final result should look like a naturally taken color photo from that time, elegant and historical.</pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Estilos de Imagens -->
+      <section class="about-card" style="margin-bottom:0;">
+        <h3>🎨 Paleta de Estilos para Gerar Imagens em IA</h3>
+        <p style="margin-bottom:1.5rem; line-height:1.5; color: var(--text-secondary);">
+          Clique em qualquer chip/card de estilo abaixo para copiar a tag de estilo em inglês diretamente para sua área de transferência. Adicione estes termos aos seus prompts de imagem (como Midjourney, DALL-E 3, SeaArt) para obter estéticas sofisticadas:
+        </p>
+        
+        <h4 style="margin-top:1.5rem; margin-bottom: 0.5rem; color: var(--accent-color); font-family: var(--font-display); font-weight:600; display:flex; align-items:center; gap:0.5rem;">📸 Técnicas Fotográficas & Visuais</h4>
+        <div class="styles-grid" id="grid-fotograficos"></div>
+
+        <h4 style="margin-top:2rem; margin-bottom: 0.5rem; color: var(--accent-color); font-family: var(--font-display); font-weight:600; display:flex; align-items:center; gap:0.5rem;">🎨 Estilos Artísticos & Pinturas</h4>
+        <div class="styles-grid" id="grid-arte"></div>
+
+        <h4 style="margin-top:2rem; margin-bottom: 0.5rem; color: var(--accent-color); font-family: var(--font-display); font-weight:600; display:flex; align-items:center; gap:0.5rem;">💻 Estilos Digitais & Vetores</h4>
+        <div class="styles-grid" id="grid-digitais"></div>
+
+        <h4 style="margin-top:2rem; margin-bottom: 0.5rem; color: var(--accent-color); font-family: var(--font-display); font-weight:600; display:flex; align-items:center; gap:0.5rem;">🌐 Modelos 3D & Esculturas</h4>
+        <div class="styles-grid" id="grid-3d"></div>
+
+        <h4 style="margin-top:2rem; margin-bottom: 0.5rem; color: var(--accent-color); font-family: var(--font-display); font-weight:600; display:flex; align-items:center; gap:0.5rem;">✨ Outras Técnicas de Alta Performance</h4>
+        <div class="styles-grid" id="grid-outros"></div>
+      </section>
+
+      <!-- Banner/Link para o LabEduTec -->
+      <div style="background: linear-gradient(135deg, rgba(130, 113, 83, 0.05) 0%, rgba(130, 113, 83, 0.02) 100%); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; margin-top: 3rem; margin-bottom: 2rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+        <span style="font-size: 2.5rem;">🔬</span>
+        <h3 style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; color: var(--text-primary); margin: 0;">Laboratório de Tecnologias Educacionais (LabEduTec)</h3>
+        <p style="font-size: 0.95rem; color: var(--text-secondary); max-width: 600px; line-height: 1.6; margin: 0;">
+          Acesse o espaço oficial de experimentos, protótipos e pesquisas em tecnologia educacional desenvolvidas sob a coordenação do professor Glauber Santiago.
+        </p>
+        <a href="https://sites.google.com/view/labedutec-glaubersantiago" target="_blank" rel="noopener noreferrer" class="download-btn" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
+          <span>Explorar o LabEduTec</span>
+          <span>↗</span>
+        </a>
+      </div>
+
+      <!-- 7. Referências Bibliográficas (Accordion) -->
+      <div class="references-accordion" id="ref-accordion">
+        <div class="references-header" onclick="toggleReferences()">
+          <h4>📚 Referências Bibliográficas & Leituras Recomendadas</h4>
+          <span class="references-arrow">
+            <svg style="width:24px;height:24px;fill:var(--text-muted);" viewBox="0 0 24 24">
+              <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+            </svg>
+          </span>
+        </div>
+        <div class="references-content">
+          <div id="ref-list-container"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+      const canvasPrompts = [{"id": 1, "title": "1. Aplicação Web Rica em Interações", "category": "web", "desc": "Prompt mestre para criar aplicações web com animações, múltiplas seções e feedback visual completo.", "text": "Faça uma aplicação web rica em interações, com animações suaves, múltiplas seções navegáveis e feedback visual para cada ação do usuário sobre [indicar um tema]."}, {"id": 2, "title": "2. Mapa Interativo com Leaflet.js", "category": "mapas", "desc": "Criação de um mapa interativo autossuficiente (single-file HTML) com marcadores e dados geográficos.", "text": "Crie um aplicativo web em um como um único arquivo HTML, autossuficiente. Utilize a biblioteca Leaflet.JS para exibir um mapa interativo sobre [indicar algum tema pertinente ao uso de mapas]."}, {"id": 3, "title": "3. Interface Moderna com Elementos Expansíveis", "category": "web", "desc": "Desenvolvimento de interfaces modernas, modais, transições e sliders focados em engajamento.", "text": "Desenvolva uma interface moderna com transições animadas, elementos que se expandem ao clicar, sliders, modais e máxima interatividade possível sobre [indicar um tema]."}, {"id": 4, "title": "4. Timeline Interativa com Eventos Clicáveis", "category": "linhas_tempo", "desc": "Linha do tempo interativa com navegação temporal, hover effects e filtros por categoria.", "text": "Crie uma timeline interativa com eventos clicáveis que expandem detalhes, animações de scroll suave, marcadores temporais com hover effects, filtros por categoria e navegação por décadas sobre [indicar um tema]."}, {"id": 5, "title": "5. Linha do Tempo Histórica Cinematográfica", "category": "linhas_tempo", "desc": "Visualização histórica avançada com zoom dinâmico, mini-mapa de contexto e transições animadas.", "text": "Desenvolva uma linha do tempo histórica com pontos interativos, modais de informações detalhadas, zoom in/out animado, mini-mapas de contexto e transições cinematográficas entre períodos sobre [indicar um tema]."}, {"id": 6, "title": "6. Cronograma de Projetos (Gantt Interativo)", "category": "linhas_tempo", "desc": "Gestão de tarefas com barras de progresso, prazos, dependências visuais e calendário integrado.", "text": "Faça um cronograma de projeto com tarefas drag-and-drop, barras de progresso animadas, dependências visuais conectadas por linhas, alertas de prazo e calendário interativo integrado sobre [indicar um tema]."}, {"id": 7, "title": "7. Mapa Interativo com Filtros Dinâmicos", "category": "mapas", "desc": "Mapa geográfico complexo com camadas (layers), rotas animadas e ferramentas de zoom e busca.", "text": "Construa um mapa interativo com marcadores clicáveis, zoom suave, layers ativáveis, tooltips informativos, rotas animadas e filtros geográficos dinâmicos sobre [indicar um tema]."}, {"id": 8, "title": "8. Painel de Controle Futurista", "category": "web", "desc": "Painel de ficção científica (sci-fi) com muitos elementos interativos, luzes, timers e barra de status.", "text": "Construa um painel de controle futurista com pelo menos 20 botões interativos, animações de loading, barras de progresso animadas, tooltips em cada elemento e efeitos de hover únicos sobre [indicar um tema]."}, {"id": 9, "title": "9. Aplicação de Produtividade (Múltiplos Componentes)", "category": "web", "desc": "Interface rica com drag and drop, formulários estruturados, notificações e modais.", "text": "Desenvolva uma aplicação de produtividade com drag and drop, múltiplos modais pop-up, tabs dinâmicas, formulários com validação em tempo real e notificações animadas sobre [indicar um tema]."}, {"id": 10, "title": "10. Interface para Jogos e Gamificação", "category": "jogos_simuladores", "desc": "Estruturas dinâmicas com placares interativos, animações que emulam som, timers e feedback de ações.", "text": "Crie uma interface de jogos com botões que mudam de cor ao clicar, sons visuais (animações que simulam som), scoreboards dinâmicos, timers animados e pelo menos 15 elementos interativos diferentes sobre [indicar um tema]."}, {"id": 11, "title": "11. Simulador Interativo com Gráficos em Tempo Real", "category": "jogos_simuladores", "desc": "Simulações orientadas a sliders matemáticos ou físicos com gráficos que reagem instantaneamente.", "text": "Faça um simulador interativo com sliders que afetam gráficos em tempo real, botões de reset animados, múltiplas visualizações que alternam, e feedback visual instantâneo para cada mudança sobre [indicar um tema]."}, {"id": 12, "title": "12. Catálogo Educacional com Carrinho/Favoritos", "category": "web", "desc": "Filtros interativos de cards 3D com modais detalhados e animações de estado.", "text": "Desenvolva uma aplicação educacional com carrinho animado, filtros interativos, cards de produtos com hover 3D, modal de detalhes, botões de favoritar com animação de coração sobre [indicar um tema]."}, {"id": 13, "title": "13. Editor Visual e Canvas Interativo", "category": "jogos_simuladores", "desc": "Ferramenta de criação visual com paleta de cores clicável, histórico de ações (desfazer) e preview.", "text": "Construa um editor visual com paleta de cores clicável, ferramentas que se destacam ao selecionar, canvas interativo, histórico de ações navegável e preview em tempo real sobre [indicar um tema]."}, {"id": 14, "title": "14. Organograma e Árvores Hierárquicas", "category": "linhas_tempo", "desc": "Organograma interativo com ramos expansíveis, busca em tempo real e modais de detalhes.", "text": "Desenvolva um organograma com cards expansíveis, conexões hierárquicas animadas, busca em tempo real, modo de visualização em árvore e detalhes pop-up sobre [indicar um tema]."}, {"id": 15, "title": "15. Painel de Monitoramento (Status & Gauges)", "category": "dados", "desc": "Painel de controle com ponteiros (gauges), alertas que piscam e atualização de dados simulados.", "text": "Desenvolva um sistema de monitoramento com gauges animados, alertas que piscam, gráficos que se atualizam automaticamente, botões de ação rápida e indicators de status coloridos sobre [indicar um tema]."}, {"id": 16, "title": "16. Aplicação Social e Micro-Interações", "category": "web", "desc": "Interface com curtidas animadas, comentários expansíveis e múltiplas camadas de transição.", "text": "Faça uma aplicação com cards expansíveis, botões de like animados, comentários que aparecem suavemente, filtros de conteúdo interativos e pelo menos 25 micro-interações diferentes sobre [indicar um tema]."}, {"id": 17, "title": "17. Fluxograma e Mapeador de Processos", "category": "linhas_tempo", "desc": "Gráfico de processos interativo com caminhos que se acendem e simulação de fluxos.", "text": "Crie um fluxograma de processos com nós interativos, caminhos que se iluminam ao passar o mouse, decisões clicáveis, simulação de fluxo animada e editor visual integrado sobre [indicar um tema]."}, {"id": 18, "title": "18. Visualizador 3D Controlado pelo Teclado/Mouse", "category": "jogos_simuladores", "desc": "Ambiente 3D tridimensional com tempos de resposta rápidos, textos explicativos e paleta de cores personalizada.", "text": "Crie uma representação em 3D na qual a visualização seja controlada pelas setas e barra de espaço do teclado (ou pelo mouse), com textos explicativos e com a seguinte paleta de cores: #FF6F61, #D83F87, #4A4E69, #F9A828, #F2E9E4, #22223B, para simular/ilustrar... [indicar um tema]."}, {"id": 19, "title": "19. Grelha Wireframe Retrô Ondulante", "category": "jogos_simuladores", "desc": "Estética hacker/retrô com tipografia vintage e física 3D responsiva ao mouse.", "text": "Crie uma aplicação web com fundo preto e uma grelha 3D verde, em wireframe, que ondula. A perspectiva da grelha deve ser interativa com o movimento do mouse. Sobreponha textos que percorrem a tela aleatoriamente com uma fonte retro de tamanho grande, de cor contrastante com o verde, com palavras-chave sobre: [indicar um texto ou tema]."}, {"id": 20, "title": "20. Tecnologia Visual Matemática Paramétrica", "category": "jogos_simuladores", "desc": "Desenvolvimento com caleidoscópio, partículas com física, grids ondulados ou distorção de vértices.", "text": "Crie uma aplicação web interativa utilizando a seguinte tecnologia visual: [escolha uma destas: Ondas Senoidais Sobrepostas, ou, Matriz de Rotação e Escala, ou Sistema de Partículas com Física, ou Desenho Paramétrico (Caleidoscópio), ou Distorção de Vértices (Warp Grid)] para ilustrar o seguinte tema: [indicar um tema]."}, {"id": 21, "title": "21. Painel de Dados Analítico Complexo", "category": "dados", "desc": "Painel repleto de elementos estatísticos, botões interativos e gráficos reativos.", "text": "Crie um dashboard interativo com MUITOS elementos clicáveis, hover effects, gráficos que respondem ao mouse e pelo menos 10 botões diferentes sobre [indicar um tema]."}, {"id": 22, "title": "22. Criação de Interface Baseada em Rabisco", "category": "jogos_simuladores", "desc": "Instruções para a IA replicar um layout ou design a partir de uma foto de rascunho de papel.", "text": "Crie uma aplicação web interativa [ou um jogo, ou um modelo em 3D] baseada nesta figura. [Anexe uma figura com algum rabisco ou imagem para servir de base]."}, {"id": 23, "title": "23. Simulador 3D Baseado em Planta Baixa", "category": "mapas", "desc": "Criação de uma simulação espacial tridimensional interativa a partir do anexo de um mapa de arquitetura.", "text": "Crie um modelo interativo em 3D baseado nesta planta para eu poder experimentar o layout. [Anexe uma figura com algum rabisco de uma planta baixa para servir de base]."}, {"id": 24, "title": "24. Página Web com Swiper.js e Carrosséis", "category": "web", "desc": "Página autossuficiente diurna de alto impacto estético, sliders mascarados e sem links externos.", "text": "Crie uma página da web em um único arquivo HTML com uma estética moderna e animações. A página deve ser visualmente atraente, responsiva e usar carrosséis interativos (sliders) com a biblioteca Swiper.js para destacar os pontos principais. Inclua cards com imagens mascaradas em diferentes formatos (círculos, formas abstratas, etc.), botões com animações ao passar o mouse, uma paleta de cores vibrantes em diurna. Não utilize links para imagens ou sites externos. Deve abordar o seguinte tema: [indicar um tema]."}, {"id": 25, "title": "25. Consumo de Planilha Google (Google Sheets API)", "category": "dados", "desc": "Leitura dinâmica de dados estruturados em JSON vindos de uma planilha Google pública.", "text": "Crie uma aplicação [HTML/JS ou React] para ler dados de uma planilha do Google Sheets pública. Utilize obrigatoriamente a API de Visualização do Google através do endpoint /gviz/tq?tqx=out:json. [Crie a planilha, compartilhe-a como link aberto e cole o link aqui]"}, {"id": 26, "title": "26. Estética Glassmorphism Neon Dark Mode", "category": "web", "desc": "Prompt de estilo visual refinado usando gradientes escuros, desfoque de fundo e tons de neon.", "text": "Crie um layout HTML/CSS com estética Glassmorphism em dark mode. Use um fundo com gradiente de #0f0c29 para #302b63. Aplique backdrop-filter: blur(15px) e bordas semi-transparentes (rgba(255,255,255,0.1)) nos cards. Destaque elementos com gradientes de vibrant violet para electric indigo e utilize a fonte 'Outfit' com acentos em neon cyan."}, {"id": 27, "title": "27. Envio de Formulário via Apps Script (No-CORS)", "category": "dados", "desc": "Gravação de dados de formulário web em uma planilha Google utilizando Apps Script autônomo com no-cors.", "text": "Crie uma aplicação web simples em HTML/JS com Tailwind CSS para enviar dados para uma folha de cálculo Google através de um Apps Script (URL: [URL_EXEC]). A aplicação deve conter campos para [LISTA_CAMPOS] e realizar um envio via POST utilizando obrigatoriamente mode: 'no-cors' no fetch. A interface deve ser focada apenas no formulário, com feedback visual de 'Enviando' e 'Sucesso'.\\n\\nINSTRUÇÕES DE CONFIGURAÇÃO:\\nNo Google Sheets: 'Extensões' > 'Apps Script'.\\nCole a função:\\nfunction doPost(e) {\\n  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];\\n  var data = JSON.parse(e.postData.contents);\\n  sheet.appendRow([data.campo1, data.campo2...]); // Ajuste conforme seus campos\\n  return ContentService.createTextOutput(\"OK\");\\n}\\n'Implantar' > 'Nova implantação' > 'App da Web' > 'Qualquer pessoa'.\\nCole o link .exec gerado em [URL_EXEC]."}];
+      const sf = [{"pt": "Interior", "en": "Add an indoor setting to the image"}, {"pt": "Exterior", "en": "Place the subject in an outdoor environment"}, {"pt": "Efeito Bokeh", "en": "Add a bokeh effect in the background"}, {"pt": "Preto e Branco", "en": "Render the image in black and white"}, {"pt": "Close-up", "en": "Make a close-up shot of the subject"}, {"pt": "Publicidade - Testemunho", "en": "Style the image like a testimonial advertisement"}, {"pt": "Cyberpunk", "en": "Use a cyberpunk aesthetic with neon lights and futuristic city"}, {"pt": "Olho de Peixe", "en": "Use a fisheye lens effect for distortion"}, {"pt": "Foto de Estúdio", "en": "Create a studio-style photo with lighting and backdrop"}, {"pt": "Colódio Úmido", "en": "Apply a wet collodion vintage effect"}, {"pt": "Desfoque de Movimento", "en": "Add a sense of motion blur to suggest movement"}, {"pt": "Foto Instantânea", "en": "Style it like an instant camera photo"}, {"pt": "Retrato Intimista", "en": "Use a moody portrait style with dramatic lighting"}, {"pt": "Retrato Ousado", "en": "Use a bold portrait style with confident expressions and strong light"}, {"pt": "Ação na Água", "en": "Show the subject in water action, splashing or moving"}, {"pt": "Pôr do Sol", "en": "Set the background during a sunset"}, {"pt": "Produto Brutalista", "en": "Design a product using a brutalist aesthetic"}, {"pt": "Produto de Verão", "en": "Highlight the product in a summer-themed setting"}, {"pt": "Publicidade - Produto", "en": "Present the product in a stylized advertisement"}, {"pt": "Produto Náutico", "en": "Place the product in a nautical setting"}, {"pt": "Publicidade - Pódio", "en": "Position the product on a podium for advertising"}, {"pt": "Emoldurado", "en": "Show the image as if it's framed on a wall"}, {"pt": "Hieróglifo", "en": "Include hieroglyphic elements or symbols in the design"}];
+      const sa = [{"pt": "Aquarela", "en": "Render the image in watercolor painting style"}, {"pt": "Tons Pastéis", "en": "Use soft pastel colors and drawing textures"}, {"pt": "Desenho Animado", "en": "Style the scene like a cartoon illustration"}, {"pt": "Pintura em Óleo", "en": "Paint the image in a classic oil painting style"}, {"pt": "Esboço a Lápis", "en": "Draw the image as a pencil sketch"}, {"pt": "Colagem de Papel", "en": "Create a paper collage look with layered cutouts"}, {"pt": "Arte de Rua", "en": "Add street art or graffiti-style elements"}, {"pt": "Psicodélico", "en": "Use psychedelic colors and patterns"}, {"pt": "Ukiyo-e (Arte Japonesa)", "en": "Render the scene in Ukiyo-e Japanese woodblock print style"}, {"pt": "Barroco", "en": "Add baroque artistic elements and rich detailing"}, {"pt": "Livro de Colorir", "en": "Make the image look like a coloring book page"}, {"pt": "Pop Art", "en": "Use a pop art style with bold colors and comic effects"}, {"pt": "Art Nouveau", "en": "Add Art Nouveau-style curves and florals"}, {"pt": "Anime", "en": "Render the characters in anime style"}, {"pt": "Mangá", "en": "Style the image like a manga comic panel"}, {"pt": "Antropomórfico", "en": "Draw anthropomorphic characters"}, {"pt": "Boho Vintage", "en": "Use boho vintage decor and fashion elements"}, {"pt": "Floral", "en": "Add floral patterns or backgrounds"}, {"pt": "Cubismo", "en": "Use cubist shapes and fragmentation"}, {"pt": "Arte em Azulejo", "en": "Style it like ceramic tile artwork"}, {"pt": "Medieval", "en": "Use medieval art elements or costumes"}, {"pt": "Surreal", "en": "Add surreal imagery and dreamlike settings"}, {"pt": "Álbum de Rock", "en": "Style it like a rock album cover"}, {"pt": "Ilustração Infantil", "en": "Make it look like a children’s book illustration"}, {"pt": "Steampunk", "en": "Design a steampunk-style portrait"}, {"pt": "Expressionista", "en": "Apply expressionist art techniques"}, {"pt": "Sinistro", "en": "Use a sinister and dark aesthetic"}, {"pt": "Desenho Fantasioso", "en": "Draw a fantasy-themed scene"}, {"pt": "Mosaico", "en": "Style the image as a mosaic artwork"}];
+      const sd = [{"pt": "Pixel Art", "en": "Render the image in pixel art style"}, {"pt": "Ilustração de Blog", "en": "Create a blog-style illustration"}, {"pt": "Ícone de Aplicativo", "en": "Design it as an app icon"}, {"pt": "Adesivo Fofo", "en": "Make it look like a cute sticker"}, {"pt": "Design Simples", "en": "Use a clean and simple design"}, {"pt": "Vinheta Vetorial", "en": "Add a vector vignette illustration"}, {"pt": "Figurinha em Linhas", "en": "Style the character like a line-drawn sticker"}, {"pt": "Papercraft", "en": "Make it look like a papercraft model"}, {"pt": "Futurista", "en": "Use a futuristic look and feel"}, {"pt": "Tinta Espalhada", "en": "Add ink splash effects around the subject"}, {"pt": "Arte Mínima", "en": "Draw with minimalist line art"}, {"pt": "Emoji", "en": "Include emoji-style characters or expressions"}, {"pt": "Tiki", "en": "Use Tiki-inspired art and decoration"}, {"pt": "Vitral", "en": "Style the scene like a stained glass window"}, {"pt": "Tropical", "en": "Add tropical themes and colors"}, {"pt": "Punk", "en": "Use a punk-inspired aesthetic"}, {"pt": "Avatar de Neon", "en": "Design a neon-style avatar"}, {"pt": "Logotipo de Esportes", "en": "Create a sports team logo design"}];
+      const s3 = [{"pt": "Isométrico Fofo", "en": "Render in a cute isometric 3D style"}, {"pt": "Neon", "en": "Use neon lighting and glowing elements"}, {"pt": "Lowpoly", "en": "Make it look like a lowpoly 3D model"}, {"pt": "Metálico", "en": "Add a metallic texture or material"}, {"pt": "Personagem Fofo", "en": "Design a cute 3D character"}, {"pt": "Avatar Fofo", "en": "Render a cute 3D avatar"}, {"pt": "Origami", "en": "Create the image using origami paper folds"}, {"pt": "Mecha (Robôs)", "en": "Design a mecha robot character"}, {"pt": "Personagem Animado", "en": "Draw an animated character in 3D style"}, {"pt": "Modelo em Argila", "en": "Sculpt it like a clay model"}, {"pt": "Escultura em Madeira", "en": "Make it look like a wood carving or sculpture"}, {"pt": "Balão Pequeno", "en": "Design it as a small balloon figure"}, {"pt": "Escultura em Pedra", "en": "Sculpt it as if made of stone"}, {"pt": "LEGO", "en": "Use plastic building blocks (like LEGO)"}];
+      const so = [{"pt": "Realismo Fantástico", "en": "Create a fantasy realism scene"}, {"pt": "Risógrafo", "en": "Use a risograph print effect"}, {"pt": "Arte Pop Digital", "en": "Style it as digital pop art"}, {"pt": "Chibi", "en": "Draw in chibi anime style"}, {"pt": "Minimalista", "en": "Use a minimalist art approach"}, {"pt": "Retro", "en": "Add a retro aesthetic or color palette"}, {"pt": "Arte Vetorial", "en": "Draw as vector illustration"}, {"pt": "Ilustração 3D", "en": "Make a 3D digital illustration"}, {"pt": "Fotorrealista", "en": "Render a photorealistic illustration"}, {"pt": "Cyberpunk Neon", "en": "Apply a cyberpunk neon color palette"}, {"pt": "Graffiti", "en": "Include graffiti art elements"}, {"pt": "Foto de Produto", "en": "Style the image like a high-end product photoshoot"}, {"pt": "Pintura Digital", "en": "Render as a digital painting"}, {"pt": "Arte Abstrata", "en": "Use abstract art elements"}, {"pt": "Ilustração de Fantasia", "en": "Create a fantasy illustration"}, {"pt": "Mix Híbrido", "en": "Mix multiple styles for a hybrid composition"}];
+      const refs = ["BASGEN, Brian. AI as a thought partner in higher education. EDUCAUSE Review, 9 abr. 2025. Disponível em: <a href=\"https://www.educause.edu\" target=\"_blank\">https://www.educause.edu</a>. Acesso em: 12 jun. 2025.", "BEGHETTO, Ronald A. There is no creativity without uncertainty: Dubito Ergo Creo. Journal of Creativity, v. 31, e100005, 2021. Disponível em: <a href=\"https://www.sciencedirect.com/science/article/pii/S2713374521000054\" target=\"_blank\">https://www.sciencedirect.com</a>. Acesso em: 10 nov. 2023.", "CHI, Michelene T. H. Active constructive interactive: A conceptual framework for differentiating learning activities. Topics in Cognitive Science, v. 1, p. 73–105, 2009.", "CHI, Michelene T. H.; WYLIE, Ruth. The ICAP framework: linking cognitive engagement to active learning outcomes. Educational Psychologist, v. 49, n. 4, p. 219–243, 2014. Disponível em: <a href=\"https://doi.org/10.1080/00461520.2014.965823\" target=\"_blank\">https://doi.org/10.1080/00461520.2014.965823</a>. Acesso em: 13 jun. 2025.", "CIEB – CENTRO DE INOVAÇÃO PARA A EDUCAÇÃO BRASILEIRA. Jornada de recursos educacionais digitais. São Paulo: CIEB, 2022. Disponível em: <a href=\"https://cieb.net.br/publicacoes/jornada-de-red/\" target=\"_blank\">https://cieb.net.br</a>. Acesso em: 13 jun. 2025.", "FULLAN, Michael; LANGWORTHY, Maria. A rich seam: how new pedagogies find deep learning. Londres: Pearson, 2014.", "GOOGLE DEEPMIND. LearnLM: improving Gemini for learning. 2024. Disponível em: <a href=\"https://deepmind.google/discover/blog/learnlm-improving-gemini-for-learning\" target=\"_blank\">https://deepmind.google</a>. Acesso em: 12 jun. 2025.", "HASSOUN, A. et al. The influencer next door: how misinformation creators use GenAI. ArXiv, maio 2024. Disponível em: <a href=\"https://arxiv.org/abs/2405.13554\" target=\"_blank\">https://arxiv.org</a>. Acesso em: 12 jun. 2025.", "IEEE LTSC. Draft Standard for Learning Object Metadata. IEEE Learning Technology Standards Committee, 2002.", "KEARSLEY, Greg; SHNEIDERMAN, Ben. Engagement Theory: a framework for technology-based teaching and learning. Educational Technology, v. 38, n. 5, p. 20‑23, 1998.", "LAURILLARD, Diana et al. The learning designer: supporting teachers in developing effective learning designs. British Journal of Educational Technology, v. 49, n. 6, p. 998–1012, 2018.", "LAURILLARD, Diana. Teaching as a design science: building pedagogical patterns for learning and technology. Londres: Routledge, 2012.", "MARIOTTI, Maria Alessandra. Artifacts and signs after a Vygotskian perspective: the role of the teacher. ZDM - International Journal on Mathematics Education, v. 41, p. 427–440, 1 ago. 2009. DOI: <a href=\"https://doi.org/10.1007/s11858-009-0199-z\" target=\"_blank\">https://doi.org/10.1007/s11858-009-0199-z</a>. Acesso em: 12 jun. 2025.", "MAYER, Richard E. Multimedia Learning. Cambridge University Press, 2009.", "PAPERT, Seymour. A máquina das crianças: repensando a escola na era da informática. Tradução de Sandra Costa. Porto Alegre: Artmed, 2008.", "RESNICK, Mitchel et al. Scratch: programming for all. Communications of the ACM, New York, v. 52, n. 11, p. 60–67, nov. 2009.", "RESNICK, Mitchel. Lifelong kindergarten: cultivating creativity through projects, passion, peers, and play. Cambridge: MIT Press, 2017.", "SOOMRO, S. A.; CASAKIN, H.; GEORGIEV, G. V. A systematic review on FabLab environments and creativity: implications for design. Buildings, v. 12, n. 6, p. 804, 2022. Disponível em: <a href=\"https://www.mdpi.com/2075-5309/12/6/804\" target=\"_blank\">https://www.mdpi.com</a>. Acesso em: 12 jun. 2025.", "WILEY, David A. Connecting learning objects to instructional design theory: A definition, a metaphor, and a taxonomy. In: WILEY, D. A. (Ed.). The instructional use of learning objects. Utah: Association for Educational Communications and Technology, 2000.", "WING, Jeannette M. Computational thinking is thinking at multiple levels of abstraction. Communications of the ACM, v. 49, n. 3, p. 33–35, 2006. Disponível em: <a href=\"https://www.cs.cmu.edu\" target=\"_blank\">https://www.cs.cmu.edu</a>. Acesso em: 12 jun. 2025."];
+      
+      let activeCanvasCategory = 'all';
+      
+      function filterCanvasCategory(category) {
+        activeCanvasCategory = category;
+        const panel = document.querySelector('.filter-chips');
+        panel.querySelectorAll('.chip-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        const activeBtn = Array.from(panel.querySelectorAll('.chip-btn')).find(btn => {
+          const onclickAttr = btn.getAttribute('onclick');
+          return onclickAttr && onclickAttr.includes("'" + category + "'");
+        });
+        if (activeBtn) activeBtn.classList.add('active');
+        
+        renderCanvasPrompts();
+      }
+      
+      function handleCanvasSearch() {
+        renderCanvasPrompts();
+      }
+      
+      function toggleCanvasCard(cardElement) {
+        const isExpanded = cardElement.classList.contains('expanded');
+        
+        document.querySelectorAll('#canvas-prompts-list .prompt-card').forEach(c => {
+          if (c !== cardElement) c.classList.remove('expanded');
+        });
+        
+        if (isExpanded) {
+          cardElement.classList.remove('expanded');
+        } else {
+          cardElement.classList.add('expanded');
+          const promptId = parseInt(cardElement.getAttribute('data-id'));
+          const p = canvasPrompts.find(item => item.id === promptId);
+          if (p) {
+            copyPromptTextOnly(p.text, cardElement);
+          }
+        }
+      }
+      
+      function copyPromptTextOnly(text, cardElement) {
+        navigator.clipboard.writeText(text).then(() => {
+          const overlay = cardElement.querySelector('.prompt-card-feedback-overlay');
+          if (overlay) {
+            overlay.classList.add('show');
+            setTimeout(() => {
+              overlay.classList.remove('show');
+            }, 1500);
+          }
+        }).catch(err => {
+          console.error('Falha ao copiar:', err);
+        });
+      }
+      
+      function copyRestorationPrompt(cardElement) {
+        const text = cardElement.querySelector('.prompt-text').textContent;
+        navigator.clipboard.writeText(text).then(() => {
+          const overlay = cardElement.querySelector('.prompt-card-feedback-overlay');
+          if (overlay) {
+            overlay.classList.add('show');
+            setTimeout(() => {
+              overlay.classList.remove('show');
+            }, 1500);
+          }
+        }).catch(err => {
+          console.error('Falha ao copiar:', err);
+        });
+      }
+
+      function copyStyleTag(tags, element) {
+        navigator.clipboard.writeText(tags).then(() => {
+          element.classList.add('copied');
+          setTimeout(() => {
+            element.classList.remove('copied');
+          }, 1500);
+        }).catch(err => {
+          console.error('Falha ao copiar:', err);
+        });
+      }
+      
+      function renderCanvasPrompts() {
+        const list = document.getElementById('canvas-prompts-list');
+        const query = document.getElementById('canvas-prompt-search').value.toLowerCase().trim();
+        list.innerHTML = '';
+        
+        const filtered = canvasPrompts.filter(p => {
+          if (activeCanvasCategory !== 'all' && p.category !== activeCanvasCategory) return false;
+          if (query) {
+            return p.title.toLowerCase().includes(query) || 
+                   p.desc.toLowerCase().includes(query) || 
+                   p.text.toLowerCase().includes(query);
+          }
+          return true;
+        });
+        
+        if (filtered.length === 0) {
+          list.innerHTML = `
+            <div style="text-align:center; padding: 2rem; color: var(--text-muted); font-size: 0.85rem;">
+              Nenhum prompt correspondente.
+            </div>
+          `;
+          return;
+        }
+        
+        const grid = document.createElement('div');
+        grid.id = 'prompts-list'; 
+        
+        filtered.forEach(p => {
+          const card = document.createElement('div');
+          card.className = 'prompt-card';
+          card.setAttribute('data-id', p.id);
+          card.setAttribute('onclick', 'toggleCanvasCard(this)');
+          
+          card.innerHTML = `
+            <div class="prompt-card-feedback-overlay">
+              <svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Copiado!</span>
+            </div>
+            <div class="prompt-header">
+              <span class="prompt-title">${p.title}</span>
+              <span class="prompt-badge">${p.category}</span>
+              <div class="prompt-arrow">
+                <svg style="width:20px;height:20px;fill:var(--text-muted);transition:transform 0.3s;" viewBox="0 0 24 24" class="chevron-icon">
+                  <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+                </svg>
+              </div>
+            </div>
+            <p class="prompt-desc">${p.desc}</p>
+            <div class="prompt-text-container" onclick="event.stopPropagation()">
+              <pre class="prompt-text" style="white-space: pre-wrap; font-family: monospace; font-size: 0.85rem; background:rgba(0,0,0,0.02); padding:1rem; border-radius:8px;">${escapeHtml(p.text)}</pre>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+        list.appendChild(grid);
+      }
+      
+      function renderStyleGrid(data, containerId) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = data.map(item => {
+          const escapedEn = item.en.replace(/'/g, "\'");
+          return `
+            <div class="style-item" onclick="copyStyleTag('${escapedEn}\', this)">
+              <span class="style-item-copy-indicator">Copiado!</span>
+              <span class="style-pt">${item.pt}</span>
+              <span class="style-en">${item.en}</span>
+            </div>
+          `;
+        }).join('');
+      }
+
+      function toggleReferences() {
+        const accordion = document.getElementById('ref-accordion');
+        accordion.classList.toggle('open');
+      }
+
+      function renderReferences() {
+        const container = document.getElementById('ref-list-container');
+        container.innerHTML = refs.map(ref => {
+          return `<div class="reference-list-item">${ref}</div>`;
+        }).join('');
+      }
+      
+      function escapeHtml(str) {
+        return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+      }
+      
+      renderCanvasPrompts();
+      renderStyleGrid(sf, 'grid-fotograficos');
+      renderStyleGrid(sa, 'grid-arte');
+      renderStyleGrid(sd, 'grid-digitais');
+      renderStyleGrid(s3, 'grid-3d');
+      renderStyleGrid(so, 'grid-outros');
+      renderReferences();
+    </script>
+    
+    <div class="page-navigation">
+      <a href="/assistentes" class="page-nav-link nav-prev">
+        <span class="page-nav-label">Anterior</span>
+        <span class="page-nav-title">← Assistentes & Agentes</span>
+      </a>
+        
+      <a href="/propostas" class="page-nav-link nav-next">
+        <span class="page-nav-label">Próximo</span>
+        <span class="page-nav-title">Propostas Pedagógicas →</span>
+      </a>
+        </div>
+    <!-- Rodapé -->
+    <footer class="main-footer">
+      <div class="footer-divider"></div>
+      <p>Desenvolvido pelo professor <strong>Dr. Glauber Santiago</strong> — DAC/UFSCar</p>
+      <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.25rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
+        Apoio: 
+        <a href="https://grupohorizonte.ufscar.br/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--accent-color); font-weight: 500; text-decoration: underline;">
+          <img src="/cropped-logo-horizonte.png" alt="Logo Grupo Horizonte" style="height: 56px; width: auto; padding: 4px 8px; background: #ffffff; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); vertical-align: middle; filter: grayscale(1) contrast(1.2); opacity: 0.8; transition: var(--transition-smooth);" onmouseover="this.style.filter='none'; this.style.opacity='1'" onmouseout="this.style.filter='grayscale(1) contrast(1.2)'; this.style.opacity='0.8'">
+          <span>Grupo de Pesquisa Horizonte</span>
+        </a>
+      </p>
+      <div class="footer-links">
+        <a href="https://servidores.ufscar.br/glauber/" target="_blank" rel="noopener noreferrer">🌐 Website do Docente</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfg-6_2hWVv2xKnol7sd8NOmPBasLncsDgCHqKOZHztWox2_w/viewform" target="_blank" rel="noopener noreferrer">💬 Dê sua opinião e sugestões!</a>
+      </div>
+      <p style="font-size: 0.72rem; color: var(--text-secondary); opacity: 0.7; margin-top: 0.75rem; margin-bottom: 0; text-align: center;">
+        Última atualização: 16/07/2026 às 23:42
+      </p>
+    </footer>
+  </div>
+</body>
+</html>

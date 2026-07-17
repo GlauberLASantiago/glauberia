@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estudos de Caso Pedagógicos - GlauberIA</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  
+  <!-- Fontes Premium do Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/glauberia.css">
+  
+  <!-- Firebase App e Analytics SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCInnUSp8NQ_PWwlvpLF5Mw9ueq3jDMFmE",
+      authDomain: "horizonte-7ec73.firebaseapp.com",
+      projectId: "horizonte-7ec73",
+      storageBucket: "horizonte-7ec73.firebasestorage.app",
+      messagingSenderId: "717322550690",
+      appId: "1:717322550690:web:a6d62ae0c8110d69b846fb",
+      measurementId: "G-4Q1W69W69K"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+  
+  <!-- Script de Inicialização de Tema para Evitar Flash -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- Barra de Navegação Superior (Top Navbar) -->
+  <nav class="top-navbar">
+    <a href="/" class="top-navbar-brand">
+      Glauber<span>IA</span>
+    </a>
+    
+    <!-- Menu para Desktop -->
+    <div class="top-navbar-menu">
+      <a href="/" class="top-nav-item ">🏠 Início</a>
+      <a href="/prompts" class="top-nav-item ">✍ Prompts</a>
+      <a href="/assistentes" class="top-nav-item ">🤖 Assistentes</a>
+      <a href="/canvas" class="top-nav-item ">🧩 Apps & Canvas</a>
+      <a href="/propostas" class="top-nav-item ">📚 Propostas</a>
+      
+      <!-- Dropdown Formação -->
+      <div class="top-nav-dropdown">
+        <a href="/formacao" class="top-nav-dropdown-trigger active" style="text-decoration: none;">🎓 Formação ▾</a>
+        <div class="top-nav-dropdown-menu">
+          <a href="/formacao" class="top-nav-dropdown-item">
+            <span>🎓 Formação de Professores</span>
+          </a>
+          <a href="/roteiro" class="top-nav-dropdown-item">
+            <span>📋 Roteiro de Implantação</span>
+          </a>
+          <a href="/estudos" class="top-nav-dropdown-item">
+            <span>💼 Estudos de Caso</span>
+          </a>
+          <a href="/videos" class="top-nav-dropdown-item">
+            <span>🎥 Vídeo-Aulas & Tutoriais</span>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Botão Tema Noturno Desktop -->
+      <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Alternar Tema" style="background: none; border: none; cursor: pointer; font-size: 1.15rem; display: flex; align-items: center; justify-content: center; padding: 0.25rem 0.5rem; color: rgba(255,255,255,0.85); transition: var(--transition-smooth); margin-left: 0.5rem;">
+        <span class="theme-toggle-icon">🌙</span>
+      </button>
+    </div>
+    
+    <!-- Botão Menu Hamburguer (Mobile) e Toggle Tema Mobile -->
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <button class="theme-toggle-btn mobile-only-toggle" onclick="toggleTheme()" aria-label="Alternar Tema" style="background: none; border: none; cursor: pointer; font-size: 1.15rem; color: #ffffff; display: none; align-items: center; justify-content: center; padding: 0.5rem; margin: 0;">
+        <span class="theme-toggle-icon">🌙</span>
+      </button>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Abrir Menu" style="margin: 0;">
+        ☰
+      </button>
+    </div>
+  </nav>
+
+  <!-- Overlay do Drawer Mobile -->
+  <div id="mobile-drawer-overlay" class="mobile-drawer-overlay" onclick="toggleMobileMenu()"></div>
+
+  <!-- Drawer Menu Mobile -->
+  <div id="mobile-drawer" class="mobile-drawer">
+    <div class="mobile-drawer-header">
+      <span class="top-navbar-brand">Glauber<span>IA</span></span>
+      <button class="mobile-drawer-close" onclick="toggleMobileMenu()" aria-label="Fechar Menu">✕</button>
+    </div>
+    <div class="mobile-drawer-links">
+      <a href="/" class="mobile-drawer-link ">🏠 Início</a>
+      <a href="/prompts" class="mobile-drawer-link ">✍ Prompts para Educadores</a>
+      <a href="/assistentes" class="mobile-drawer-link ">🤖 Assistentes & Agentes</a>
+      <a href="/canvas" class="mobile-drawer-link ">🧩 Apps, Artefatos & Canvas</a>
+      <a href="/propostas" class="mobile-drawer-link ">📚 Propostas Pedagógicas</a>
+      
+      <div class="mobile-drawer-section-title">Formação</div>
+      <a href="/formacao" class="mobile-drawer-link">🎓 Formação de Professores</a>
+      <a href="/roteiro" class="mobile-drawer-link">📋 Roteiro de Implantação</a>
+      <a href="/videos" class="mobile-drawer-link">🎥 Vídeo-Aulas & Tutoriais</a>
+    </div>
+  </div>
+
+  <script src="/glauberia.js"></script>
+
+  <!-- Hero Banner (Banner GlauberIA.png) -->
+  <div class="hero-banner">
+    <div class="hero-content">
+      <h1 class="hero-title">Estudo de Caso Prático</h1>
+      <div class="hero-underline"></div>
+    </div>
+  </div>
+
+  <!-- Faixa de Informações (Intro Band) -->
+  <div class="intro-band">
+    <p>Veja demonstrações reais de uso de IAs para a otimização do planejamento pedagógico institucional e orientação de professores.</p>
+  </div>
+
+  <div class="container">
+
+    <div style="display:flex; flex-direction:column; gap:2rem;">
+      <section class="about-card">
+        <h3>💼 Caso Prático: Orientação Pedagógica na DiDPed/UFSCar</h3>
+        <p>
+          Este estudo ilustra o uso prático de inteligência artificial generativa em rotinas de assessoria pedagógica institucional.
+        </p>
+        <p>
+          <strong>Contexto:</strong> A convite da palestra <em>"Ideias no Horizonte"</em> para assessores de diversas partes do Brasil organizada pelo GEAPU, realizamos uma entrevista com a coordenação e profissionais responsáveis pelo desenvolvimento pedagógico na <strong>UFSCar (DiDPed)</strong>.
+        </p>
+        
+        <div class="quote-box" style="margin: 1.5rem 0;">
+          <div class="quote-box-title">Metodologia e Fluxo de Trabalho:</div>
+          <ol style="padding-left:1.25rem; display:flex; flex-direction:column; gap:0.5rem; font-size:0.9rem;">
+            <li>Gravação em áudio das preocupações e necessidades relatadas pelas assessoras.</li>
+            <li>Processamento do áudio no <strong>NotebookLM</strong> da Google para transcrição automática.</li>
+            <li>Refinamento conceitual, síntese de dúvidas recorrentes e extração de insights por meio de interações no Claude e ChatGPT.</li>
+            <li>Elaboração de planos de ação personalizados para professores baseados em inteligências artificiais.</li>
+          </ol>
+        </div>
+        
+        <p>
+          O documento completo detalhando a transcrição, os prompts aplicados e as análises pedagógicas geradas pode ser conferido diretamente no Google Docs no link abaixo:
+        </p>
+        
+        <div style="margin-top:1.5rem;">
+          <a href="https://docs.google.com/document/d/1JcLhTH3FtuVkH6pYQrvjHuG9yY2rJkEVB4dyLITvUfA/edit?tab=t.0#heading=h.ebteer76pf0c" target="_blank" rel="noopener noreferrer" class="download-btn">
+            📄 Ler Conversa sobre IA na DiDPed (Google Docs)
+          </a>
+        </div>
+      </section>
+      
+      <!-- Seção de links úteis adicionais -->
+      <section class="about-card">
+        <h3>🛠 Assistentes Úteis para Liderança & Gestão</h3>
+        <ul style="padding-left:1.25rem; display:flex; flex-direction:column; gap:0.75rem; font-size:0.95rem; color:var(--text-secondary);">
+          <li><a href="https://notebooklm.google.com/" target="_blank"><strong>NotebookLM:</strong></a> Carregue transcrições, atas de reuniões e documentos de diretrizes para obter resumos imediatos e criar podcasts de áudio explicativos.</li>
+          <li><a href="https://app.napkin.ai/" target="_blank"><strong>Napkin AI:</strong></a> Gera fluxogramas, tabelas e infográficos explicativos de forma instantânea a partir de descrições textuais.</li>
+          <li><a href="https://app.magicschool.ai/" target="_blank"><strong>MagicSchool.ai:</strong></a> Plataforma focada em geradores didáticos e assistentes para professores do ensino básico.</li>
+        </ul>
+      </section>
+    </div>
+    
+    <div class="page-navigation">
+      <a href="/roteiro" class="page-nav-link nav-prev">
+        <span class="page-nav-label">Anterior</span>
+        <span class="page-nav-title">← Roteiro de Implantação Escolar</span>
+      </a>
+        
+      <a href="/videos" class="page-nav-link nav-next">
+        <span class="page-nav-label">Próximo</span>
+        <span class="page-nav-title">Vídeo-Aulas & Tutoriais →</span>
+      </a>
+        </div>
+    <!-- Rodapé -->
+    <footer class="main-footer">
+      <div class="footer-divider"></div>
+      <p>Desenvolvido pelo professor <strong>Dr. Glauber Santiago</strong> — DAC/UFSCar</p>
+      <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.25rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
+        Apoio: 
+        <a href="https://grupohorizonte.ufscar.br/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--accent-color); font-weight: 500; text-decoration: underline;">
+          <img src="/cropped-logo-horizonte.png" alt="Logo Grupo Horizonte" style="height: 56px; width: auto; padding: 4px 8px; background: #ffffff; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); vertical-align: middle; filter: grayscale(1) contrast(1.2); opacity: 0.8; transition: var(--transition-smooth);" onmouseover="this.style.filter='none'; this.style.opacity='1'" onmouseout="this.style.filter='grayscale(1) contrast(1.2)'; this.style.opacity='0.8'">
+          <span>Grupo de Pesquisa Horizonte</span>
+        </a>
+      </p>
+      <div class="footer-links">
+        <a href="https://servidores.ufscar.br/glauber/" target="_blank" rel="noopener noreferrer">🌐 Website do Docente</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfg-6_2hWVv2xKnol7sd8NOmPBasLncsDgCHqKOZHztWox2_w/viewform" target="_blank" rel="noopener noreferrer">💬 Dê sua opinião e sugestões!</a>
+      </div>
+      <p style="font-size: 0.72rem; color: var(--text-secondary); opacity: 0.7; margin-top: 0.75rem; margin-bottom: 0; text-align: center;">
+        Última atualização: 16/07/2026 às 23:42
+      </p>
+    </footer>
+  </div>
+</body>
+</html>

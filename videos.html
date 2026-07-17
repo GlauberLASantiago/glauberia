@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vídeos & Tutoriais sobre IA - GlauberIA</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  
+  <!-- Fontes Premium do Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/glauberia.css">
+  
+  <!-- Firebase App e Analytics SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCInnUSp8NQ_PWwlvpLF5Mw9ueq3jDMFmE",
+      authDomain: "horizonte-7ec73.firebaseapp.com",
+      projectId: "horizonte-7ec73",
+      storageBucket: "horizonte-7ec73.firebasestorage.app",
+      messagingSenderId: "717322550690",
+      appId: "1:717322550690:web:a6d62ae0c8110d69b846fb",
+      measurementId: "G-4Q1W69W69K"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+  
+  <!-- Script de Inicialização de Tema para Evitar Flash -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- Barra de Navegação Superior (Top Navbar) -->
+  <nav class="top-navbar">
+    <a href="/" class="top-navbar-brand">
+      Glauber<span>IA</span>
+    </a>
+    
+    <!-- Menu para Desktop -->
+    <div class="top-navbar-menu">
+      <a href="/" class="top-nav-item ">🏠 Início</a>
+      <a href="/prompts" class="top-nav-item ">✍ Prompts</a>
+      <a href="/assistentes" class="top-nav-item ">🤖 Assistentes</a>
+      <a href="/canvas" class="top-nav-item ">🧩 Apps & Canvas</a>
+      <a href="/propostas" class="top-nav-item ">📚 Propostas</a>
+      
+      <!-- Dropdown Formação -->
+      <div class="top-nav-dropdown">
+        <a href="/formacao" class="top-nav-dropdown-trigger active" style="text-decoration: none;">🎓 Formação ▾</a>
+        <div class="top-nav-dropdown-menu">
+          <a href="/formacao" class="top-nav-dropdown-item">
+            <span>🎓 Formação de Professores</span>
+          </a>
+          <a href="/roteiro" class="top-nav-dropdown-item">
+            <span>📋 Roteiro de Implantação</span>
+          </a>
+          <a href="/estudos" class="top-nav-dropdown-item">
+            <span>💼 Estudos de Caso</span>
+          </a>
+          <a href="/videos" class="top-nav-dropdown-item">
+            <span>🎥 Vídeo-Aulas & Tutoriais</span>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Botão Tema Noturno Desktop -->
+      <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Alternar Tema" style="background: none; border: none; cursor: pointer; font-size: 1.15rem; display: flex; align-items: center; justify-content: center; padding: 0.25rem 0.5rem; color: rgba(255,255,255,0.85); transition: var(--transition-smooth); margin-left: 0.5rem;">
+        <span class="theme-toggle-icon">🌙</span>
+      </button>
+    </div>
+    
+    <!-- Botão Menu Hamburguer (Mobile) e Toggle Tema Mobile -->
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <button class="theme-toggle-btn mobile-only-toggle" onclick="toggleTheme()" aria-label="Alternar Tema" style="background: none; border: none; cursor: pointer; font-size: 1.15rem; color: #ffffff; display: none; align-items: center; justify-content: center; padding: 0.5rem; margin: 0;">
+        <span class="theme-toggle-icon">🌙</span>
+      </button>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Abrir Menu" style="margin: 0;">
+        ☰
+      </button>
+    </div>
+  </nav>
+
+  <!-- Overlay do Drawer Mobile -->
+  <div id="mobile-drawer-overlay" class="mobile-drawer-overlay" onclick="toggleMobileMenu()"></div>
+
+  <!-- Drawer Menu Mobile -->
+  <div id="mobile-drawer" class="mobile-drawer">
+    <div class="mobile-drawer-header">
+      <span class="top-navbar-brand">Glauber<span>IA</span></span>
+      <button class="mobile-drawer-close" onclick="toggleMobileMenu()" aria-label="Fechar Menu">✕</button>
+    </div>
+    <div class="mobile-drawer-links">
+      <a href="/" class="mobile-drawer-link ">🏠 Início</a>
+      <a href="/prompts" class="mobile-drawer-link ">✍ Prompts para Educadores</a>
+      <a href="/assistentes" class="mobile-drawer-link ">🤖 Assistentes & Agentes</a>
+      <a href="/canvas" class="mobile-drawer-link ">🧩 Apps, Artefatos & Canvas</a>
+      <a href="/propostas" class="mobile-drawer-link ">📚 Propostas Pedagógicas</a>
+      
+      <div class="mobile-drawer-section-title">Formação</div>
+      <a href="/formacao" class="mobile-drawer-link">🎓 Formação de Professores</a>
+      <a href="/roteiro" class="mobile-drawer-link">📋 Roteiro de Implantação</a>
+      <a href="/videos" class="mobile-drawer-link">🎥 Vídeo-Aulas & Tutoriais</a>
+    </div>
+  </div>
+
+  <script src="/glauberia.js"></script>
+
+  <!-- Hero Banner (Banner GlauberIA.png) -->
+  <div class="hero-banner">
+    <div class="hero-content">
+      <h1 class="hero-title">Vídeos e Tutoriais</h1>
+      <div class="hero-underline"></div>
+    </div>
+  </div>
+
+  <!-- Faixa de Informações (Intro Band) -->
+  <div class="intro-band">
+    <p>Veja uma seleção de palestras didáticas, lives e tutoriais práticos produzidos pelo docente para aprimorar seu domínio sobre a Inteligência Artificial.</p>
+  </div>
+
+  <div class="container">
+<div class="top4-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+        <a class="top4-card video-card" href="https://www.youtube.com/watch?v=wUwgztdRLsM" target="_blank" rel="noopener noreferrer" style="min-height: 200px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div class="top4-name">Palestra: Ideias no Horizonte - Aplicações pedagógicas do ChatGPT</div>
+            <p class="top4-desc" style="margin-top: 0.75rem; font-size: 0.85rem;">Palestra focada em estratégias pedagógicas e integrações práticas do ChatGPT no ambiente acadêmico.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 1rem; display:block; text-align:right;">Assistir no YouTube ↗</span>
+        </a>
+        
+        <a class="top4-card video-card" href="https://www.youtube.com/watch?v=DegSOmJ_ZKI" target="_blank" rel="noopener noreferrer" style="min-height: 200px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div class="top4-name">IA ChatGPT no apoio ao trabalho docente</div>
+            <p class="top4-desc" style="margin-top: 0.75rem; font-size: 0.85rem;">Como usar a inteligência artificial para otimizar a preparação de aulas de música e outros componentes curriculares.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 1rem; display:block; text-align:right;">Assistir no YouTube ↗</span>
+        </a>
+        
+        <a class="top4-card video-card" href="https://www.youtube.com/watch?v=F4voIT9R51o" target="_blank" rel="noopener noreferrer" style="min-height: 200px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div class="top4-name">IA como Auxiliar na Pesquisa Acadêmica - Unidade 1</div>
+            <p class="top4-desc" style="margin-top: 0.75rem; font-size: 0.85rem;">Fundamentos da busca científica apoiada por ferramentas inteligentes.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 1rem; display:block; text-align:right;">Assistir no YouTube ↗</span>
+        </a>
+        
+        <a class="top4-card video-card" href="https://www.youtube.com/watch?v=0pCV4qz9FqI" target="_blank" rel="noopener noreferrer" style="min-height: 200px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div class="top4-name">IA como Auxiliar na Pesquisa Acadêmica - Unidade 2</div>
+            <p class="top4-desc" style="margin-top: 0.75rem; font-size: 0.85rem;">Organização conceitual e leitura de artigos automatizada.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 1rem; display:block; text-align:right;">Assistir no YouTube ↗</span>
+        </a>
+        
+        <a class="top4-card video-card" href="https://www.youtube.com/watch?v=BWOtqZgAteI" target="_blank" rel="noopener noreferrer" style="min-height: 200px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div class="top4-name">IA como Auxiliar na Pesquisa Acadêmica - Unidade 3</div>
+            <p class="top4-desc" style="margin-top: 0.75rem; font-size: 0.85rem;">Escrita científica ética e conformidade acadêmica com suporte de IA.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 1rem; display:block; text-align:right;">Assistir no YouTube ↗</span>
+        </a>
+        
+        <a class="top4-card video-card" href="https://www.youtube.com/watch?v=3JCS_AuEJIA" target="_blank" rel="noopener noreferrer" style="min-height: 200px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div class="top4-name">Artefatos Educacionais no Claude</div>
+            <p class="top4-desc" style="margin-top: 0.75rem; font-size: 0.85rem;">Como criar recursos web responsivos e interativos diretamente na interface do Claude AI.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 1rem; display:block; text-align:right;">Assistir no YouTube ↗</span>
+        </a>
+        
+        <a class="top4-card video-card" href="https://www.youtube.com/watch?v=cJ5YAG1ySdw" target="_blank" rel="noopener noreferrer" style="min-height: 200px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div class="top4-name">Artefatos Educacionais no ChatGPT (Canvas)</div>
+            <p class="top4-desc" style="margin-top: 0.75rem; font-size: 0.85rem;">Aproveitando o ambiente Canvas do ChatGPT para desenvolver micro-aplicações e simuladores.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 1rem; display:block; text-align:right;">Assistir no YouTube ↗</span>
+        </a>
+        
+        <a class="top4-card video-card" href="https://www.youtube.com/watch?v=wXEEtYaO8a4" target="_blank" rel="noopener noreferrer" style="min-height: 200px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div class="top4-name">Objetos de Aprendizagem HTML para Incorporação</div>
+            <p class="top4-desc" style="margin-top: 0.75rem; font-size: 0.85rem;">Passo-a-passo de como exportar e incorporar micro-apps interativos em páginas web ou LMS (Moodle).</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 1rem; display:block; text-align:right;">Assistir no YouTube ↗</span>
+        </a>
+        
+        <a class="top4-card video-card" href="https://www.youtube.com/watch?v=cILorFyVvvo" target="_blank" rel="noopener noreferrer" style="min-height: 200px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div class="top4-name">Desenvolvimento com Google AI Studio</div>
+            <p class="top4-desc" style="margin-top: 0.75rem; font-size: 0.85rem;">Criando assistentes e consumindo as chaves de API da Google de forma direta para suas ferramentas.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 1rem; display:block; text-align:right;">Assistir no YouTube ↗</span>
+        </a>
+        
+        <a class="top4-card video-card" href="https://www.youtube.com/watch?v=u6-fF-jIUH4" target="_blank" rel="noopener noreferrer" style="min-height: 200px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div class="top4-name">React Eleven Reader - IA na Educação</div>
+            <p class="top4-desc" style="margin-top: 0.75rem; font-size: 0.85rem;">Demonstração prática de desenvolvimento com React para leituras dinâmicas.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 1rem; display:block; text-align:right;">Assistir no YouTube ↗</span>
+        </a>
+        
+        <a class="top4-card video-card" href="https://www.youtube.com/watch?v=6CV1AWIxLsI" target="_blank" rel="noopener noreferrer" style="min-height: 200px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div class="top4-name">Visão Geral do SciSpace na Academia</div>
+            <p class="top4-desc" style="margin-top: 0.75rem; font-size: 0.85rem;">Como analisar tabelas complexas de PDF científicos usando a IA do SciSpace.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 1rem; display:block; text-align:right;">Assistir no YouTube ↗</span>
+        </a>
+        
+        <a class="top4-card video-card" href="https://www.youtube.com/watch?v=FwIZ6xAMJgs" target="_blank" rel="noopener noreferrer" style="min-height: 200px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div class="top4-name">Uso geral do Perplexity.ai para pesquisas rápidas</div>
+            <p class="top4-desc" style="margin-top: 0.75rem; font-size: 0.85rem;">Como extrair referências bibliográficas robustas e atualizadas da internet usando o motor Perplexity.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 1rem; display:block; text-align:right;">Assistir no YouTube ↗</span>
+        </a>
+        
+        <a class="top4-card video-card" href="https://www.youtube.com/watch?v=f4gPnjMfujg" target="_blank" rel="noopener noreferrer" style="min-height: 200px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div class="top4-name">SmartArt com IA baseado em textos curriculares</div>
+            <p class="top4-desc" style="margin-top: 0.75rem; font-size: 0.85rem;">Crie diagramas inteligentes, organogramas e fluxogramas no PowerPoint em segundos.</p>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-color); font-weight:600; margin-top: 1rem; display:block; text-align:right;">Assistir no YouTube ↗</span>
+        </a>
+        </div>
+    <div class="page-navigation">
+      <a href="/estudos" class="page-nav-link nav-prev">
+        <span class="page-nav-label">Anterior</span>
+        <span class="page-nav-title">← Estudos de Caso</span>
+      </a>
+        </div>
+    <!-- Rodapé -->
+    <footer class="main-footer">
+      <div class="footer-divider"></div>
+      <p>Desenvolvido pelo professor <strong>Dr. Glauber Santiago</strong> — DAC/UFSCar</p>
+      <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.25rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
+        Apoio: 
+        <a href="https://grupohorizonte.ufscar.br/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--accent-color); font-weight: 500; text-decoration: underline;">
+          <img src="/cropped-logo-horizonte.png" alt="Logo Grupo Horizonte" style="height: 56px; width: auto; padding: 4px 8px; background: #ffffff; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); vertical-align: middle; filter: grayscale(1) contrast(1.2); opacity: 0.8; transition: var(--transition-smooth);" onmouseover="this.style.filter='none'; this.style.opacity='1'" onmouseout="this.style.filter='grayscale(1) contrast(1.2)'; this.style.opacity='0.8'">
+          <span>Grupo de Pesquisa Horizonte</span>
+        </a>
+      </p>
+      <div class="footer-links">
+        <a href="https://servidores.ufscar.br/glauber/" target="_blank" rel="noopener noreferrer">🌐 Website do Docente</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfg-6_2hWVv2xKnol7sd8NOmPBasLncsDgCHqKOZHztWox2_w/viewform" target="_blank" rel="noopener noreferrer">💬 Dê sua opinião e sugestões!</a>
+      </div>
+      <p style="font-size: 0.72rem; color: var(--text-secondary); opacity: 0.7; margin-top: 0.75rem; margin-bottom: 0; text-align: center;">
+        Última atualização: 16/07/2026 às 23:42
+      </p>
+    </footer>
+  </div>
+</body>
+</html>

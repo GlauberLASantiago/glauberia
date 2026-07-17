@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assistentes & Agentes de IA - GlauberIA</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  
+  <!-- Fontes Premium do Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/glauberia.css">
+  
+  <!-- Firebase App e Analytics SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCInnUSp8NQ_PWwlvpLF5Mw9ueq3jDMFmE",
+      authDomain: "horizonte-7ec73.firebaseapp.com",
+      projectId: "horizonte-7ec73",
+      storageBucket: "horizonte-7ec73.firebasestorage.app",
+      messagingSenderId: "717322550690",
+      appId: "1:717322550690:web:a6d62ae0c8110d69b846fb",
+      measurementId: "G-4Q1W69W69K"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+  
+  <!-- Script de Inicialização de Tema para Evitar Flash -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- Barra de Navegação Superior (Top Navbar) -->
+  <nav class="top-navbar">
+    <a href="/" class="top-navbar-brand">
+      Glauber<span>IA</span>
+    </a>
+    
+    <!-- Menu para Desktop -->
+    <div class="top-navbar-menu">
+      <a href="/" class="top-nav-item ">🏠 Início</a>
+      <a href="/prompts" class="top-nav-item ">✍ Prompts</a>
+      <a href="/assistentes" class="top-nav-item active">🤖 Assistentes</a>
+      <a href="/canvas" class="top-nav-item ">🧩 Apps & Canvas</a>
+      <a href="/propostas" class="top-nav-item ">📚 Propostas</a>
+      
+      <!-- Dropdown Formação -->
+      <div class="top-nav-dropdown">
+        <a href="/formacao" class="top-nav-dropdown-trigger " style="text-decoration: none;">🎓 Formação ▾</a>
+        <div class="top-nav-dropdown-menu">
+          <a href="/formacao" class="top-nav-dropdown-item">
+            <span>🎓 Formação de Professores</span>
+          </a>
+          <a href="/roteiro" class="top-nav-dropdown-item">
+            <span>📋 Roteiro de Implantação</span>
+          </a>
+          <a href="/estudos" class="top-nav-dropdown-item">
+            <span>💼 Estudos de Caso</span>
+          </a>
+          <a href="/videos" class="top-nav-dropdown-item">
+            <span>🎥 Vídeo-Aulas & Tutoriais</span>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Botão Tema Noturno Desktop -->
+      <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Alternar Tema" style="background: none; border: none; cursor: pointer; font-size: 1.15rem; display: flex; align-items: center; justify-content: center; padding: 0.25rem 0.5rem; color: rgba(255,255,255,0.85); transition: var(--transition-smooth); margin-left: 0.5rem;">
+        <span class="theme-toggle-icon">🌙</span>
+      </button>
+    </div>
+    
+    <!-- Botão Menu Hamburguer (Mobile) e Toggle Tema Mobile -->
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <button class="theme-toggle-btn mobile-only-toggle" onclick="toggleTheme()" aria-label="Alternar Tema" style="background: none; border: none; cursor: pointer; font-size: 1.15rem; color: #ffffff; display: none; align-items: center; justify-content: center; padding: 0.5rem; margin: 0;">
+        <span class="theme-toggle-icon">🌙</span>
+      </button>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Abrir Menu" style="margin: 0;">
+        ☰
+      </button>
+    </div>
+  </nav>
+
+  <!-- Overlay do Drawer Mobile -->
+  <div id="mobile-drawer-overlay" class="mobile-drawer-overlay" onclick="toggleMobileMenu()"></div>
+
+  <!-- Drawer Menu Mobile -->
+  <div id="mobile-drawer" class="mobile-drawer">
+    <div class="mobile-drawer-header">
+      <span class="top-navbar-brand">Glauber<span>IA</span></span>
+      <button class="mobile-drawer-close" onclick="toggleMobileMenu()" aria-label="Fechar Menu">✕</button>
+    </div>
+    <div class="mobile-drawer-links">
+      <a href="/" class="mobile-drawer-link ">🏠 Início</a>
+      <a href="/prompts" class="mobile-drawer-link ">✍ Prompts para Educadores</a>
+      <a href="/assistentes" class="mobile-drawer-link active">🤖 Assistentes & Agentes</a>
+      <a href="/canvas" class="mobile-drawer-link ">🧩 Apps, Artefatos & Canvas</a>
+      <a href="/propostas" class="mobile-drawer-link ">📚 Propostas Pedagógicas</a>
+      
+      <div class="mobile-drawer-section-title">Formação</div>
+      <a href="/formacao" class="mobile-drawer-link">🎓 Formação de Professores</a>
+      <a href="/roteiro" class="mobile-drawer-link">📋 Roteiro de Implantação</a>
+      <a href="/videos" class="mobile-drawer-link">🎥 Vídeo-Aulas & Tutoriais</a>
+    </div>
+  </div>
+
+  <script src="/glauberia.js"></script>
+
+  <!-- Hero Banner (Banner GlauberIA.png) -->
+  <div class="hero-banner">
+    <div class="hero-content">
+      <h1 class="hero-title">Assistentes & Agentes</h1>
+      <div class="hero-underline"></div>
+    </div>
+  </div>
+
+  <!-- Faixa de Informações (Intro Band) -->
+  <div class="intro-band">
+    <p>Nesta seção você explora a transição da IA reativa para a proativa, conhecendo assistentes conversacionais (GPTs) e a nova geração de agentes autônomos de execução.</p>
+  </div>
+
+  <div class="container">
+
+    <div class="conceptual-hero">
+      <div class="conceptual-header">
+        <span class="conceptual-icon">💡</span>
+        <h2>Entendendo a Diferença: Assistentes vs. Agentes de IA</h2>
+      </div>
+      <div class="conceptual-body">
+        <p>A tecnologia de Inteligência Artificial evoluiu rapidamente. De modelos puramente conversacionais (chatbots) para sistemas capazes de executar tarefas de múltiplos passos de forma autônoma, compreender essa transição é fundamental para escolher a ferramenta certa para o seu contexto pedagógico.</p>
+        <div class="concept-cards">
+          <div class="concept-card">
+            <h3>🤖 Assistentes de IA</h3>
+            <p><strong>O que são:</strong> Chatbots personalizados (como Custom GPTs no ChatGPT, Gems no Gemini ou Bots no Poe). Eles agem de forma <strong>reativa</strong> — respondem e interagem sob demanda a partir das instruções e arquivos que você fornece no prompt.</p>
+            <p class="concept-example"><strong>Exemplo:</strong> Um robô que formata referências bibliográficas na ABNT ou ajuda a revisar o tom de um texto didático.</p>
+          </div>
+          <div class="concept-card">
+            <h3>⚡ Agentes Autônomos</h3>
+            <p><strong>O que são:</strong> Sistemas proativos que possuem <strong>agência</strong>. Eles planejam caminhos sozinhos, utilizam ferramentas reais (como pesquisar na web, escrever código e executar programas em sandbox) e trabalham de forma independente até concluir um objetivo.</p>
+            <p class="concept-example"><strong>Exemplo:</strong> Um agente que acessa links sugeridos, extrai dados específicos de tabelas e envia um relatório pronto por e-mail.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h3 class="assistants-section-title">⚡ Agentes Autônomos & Executores</h3><div class="top4-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-bottom: 2rem;">
+        <a class="top4-card" href="https://manus.im/app" target="_blank" rel="noopener noreferrer" style="min-height: 200px;">
+          <div>
+            <div class="top4-name">Agente de IA Manus <span class="service-category-badge" style="font-size: 0.65rem; background: rgba(130, 113, 83, 0.08); color: var(--accent-color); padding: 0.2rem 0.5rem; border-radius: 8px;">Manus App</span></div>
+            <p class="top4-desc" style="margin-top: 0.75rem;">Um agente autônomo revolucionário de propósito geral, capaz de navegar na web, ler e editar arquivos, executar código e resolver tarefas complexas de múltiplos passos diretamente no seu computador ou sandbox.</p>
+          </div>
+        </a>
+        
+        <a class="top4-card" href="https://www.anthropic.com/news/3-5-sonnet-computer-use" target="_blank" rel="noopener noreferrer" style="min-height: 200px;">
+          <div>
+            <div class="top4-name">Claude Computer Use <span class="service-category-badge" style="font-size: 0.65rem; background: rgba(130, 113, 83, 0.08); color: var(--accent-color); padding: 0.2rem 0.5rem; border-radius: 8px;">Anthropic API</span></div>
+            <p class="top4-desc" style="margin-top: 0.75rem;">Tecnologia inovadora que permite que a IA controle o cursor, clique e digite em interfaces de computadores reais para automatizar rotinas complexas de navegação e preenchimento de formulários.</p>
+          </div>
+        </a>
+        
+        <a class="top4-card" href="https://www.cognition.ai/blog/introducing-devin" target="_blank" rel="noopener noreferrer" style="min-height: 200px;">
+          <div>
+            <div class="top4-name">Devin AI <span class="service-category-badge" style="font-size: 0.65rem; background: rgba(130, 113, 83, 0.08); color: var(--accent-color); padding: 0.2rem 0.5rem; border-radius: 8px;">Cognition Labs</span></div>
+            <p class="top4-desc" style="margin-top: 0.75rem;">O primeiro engenheiro de software de IA totalmente autônomo, capaz de planejar e executar projetos completos de programação, depuração e deploy de sistemas de forma independente.</p>
+          </div>
+        </a>
+        </div><h3 class="assistants-section-title">🤖 Assistentes Personalizados (GPTs & Robôs)</h3><div class="top4-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+        <a class="top4-card" href="https://chatgpt.com/g/g-674c586975c88191aa81420b49c1f464-apoia-educador" target="_blank" rel="noopener noreferrer" style="min-height: 200px;">
+          <div>
+            <div class="top4-name">ApoIA Educador <span class="service-category-badge" style="font-size: 0.65rem; background: rgba(130, 113, 83, 0.08); color: var(--accent-color); padding: 0.2rem 0.5rem; border-radius: 8px;">ChatGPT</span></div>
+            <p class="top4-desc" style="margin-top: 0.75rem;">Digite um dos números conforme o que você deseja: 1 para Material didático, 2 para Comunicação e 3 para Ferramenta de gestão/apoio pedagógico.</p>
+          </div>
+        </a>
+        
+        <a class="top4-card" href="https://chatgpt.com/g/g-bj5bs77ub-revisa-e-marca-alteracoes" target="_blank" rel="noopener noreferrer" style="min-height: 200px;">
+          <div>
+            <div class="top4-name">Revisa e Marca Alterações <span class="service-category-badge" style="font-size: 0.65rem; background: rgba(130, 113, 83, 0.08); color: var(--accent-color); padding: 0.2rem 0.5rem; border-radius: 8px;">ChatGPT</span></div>
+            <p class="top4-desc" style="margin-top: 0.75rem;">Verifica se seu texto está bem redigido, conserta em caso de erros e marca as alterações feitas de forma clara e legível.</p>
+          </div>
+        </a>
+        
+        <a class="top4-card" href="https://chatgpt.com/g/g-xAYudreGl-revisor-de-texto" target="_blank" rel="noopener noreferrer" style="min-height: 200px;">
+          <div>
+            <div class="top4-name">Revisor de Texto <span class="service-category-badge" style="font-size: 0.65rem; background: rgba(130, 113, 83, 0.08); color: var(--accent-color); padding: 0.2rem 0.5rem; border-radius: 8px;">ChatGPT</span></div>
+            <p class="top4-desc" style="margin-top: 0.75rem;">Verifica se o seu texto acadêmico ou didático está bem redigido e conserta-o automaticamente em caso de falhas e problemas ortográficos.</p>
+          </div>
+        </a>
+        
+        <a class="top4-card" href="https://chatgpt.com/g/g-BaYfGQrJg-abnt-assistente" target="_blank" rel="noopener noreferrer" style="min-height: 200px;">
+          <div>
+            <div class="top4-name">ABNT Assistente <span class="service-category-badge" style="font-size: 0.65rem; background: rgba(130, 113, 83, 0.08); color: var(--accent-color); padding: 0.2rem 0.5rem; border-radius: 8px;">ChatGPT</span></div>
+            <p class="top4-desc" style="margin-top: 0.75rem;">Forneça os dados soltos da obra (título, autor, ano) e receba a referência formatada de acordo com as normas ABNT vigentes.</p>
+          </div>
+        </a>
+        
+        <a class="top4-card" href="https://chatgpt.com/g/g-2yy4uNJkJ-hibrido-planejator-educator" target="_blank" rel="noopener noreferrer" style="min-height: 200px;">
+          <div>
+            <div class="top4-name">Híbrido Planejator Educator <span class="service-category-badge" style="font-size: 0.65rem; background: rgba(130, 113, 83, 0.08); color: var(--accent-color); padding: 0.2rem 0.5rem; border-radius: 8px;">ChatGPT</span></div>
+            <p class="top4-desc" style="margin-top: 0.75rem;">Um assistente de planejamento bem-humorado que auxilia professores na estruturação de metodologias ativas e ensino híbrido.</p>
+          </div>
+        </a>
+        
+        <a class="top4-card" href="https://chatgpt.com/g/g-LO6NsYiDC-assistente-de-avaliacao-de-artigos" target="_blank" rel="noopener noreferrer" style="min-height: 200px;">
+          <div>
+            <div class="top4-name">Assistente de Avaliação de Artigos <span class="service-category-badge" style="font-size: 0.65rem; background: rgba(130, 113, 83, 0.08); color: var(--accent-color); padding: 0.2rem 0.5rem; border-radius: 8px;">ChatGPT</span></div>
+            <p class="top4-desc" style="margin-top: 0.75rem;">Simula um parecerista ou revisor científico avaliando a estrutura conceitual de artigos para submissões em revistas acadêmicas.</p>
+          </div>
+        </a>
+        
+        <a class="top4-card" href="https://poe.com/ProgramaEPI" target="_blank" rel="noopener noreferrer" style="min-height: 200px;">
+          <div>
+            <div class="top4-name">ProgramaEPI <span class="service-category-badge" style="font-size: 0.65rem; background: rgba(130, 113, 83, 0.08); color: var(--accent-color); padding: 0.2rem 0.5rem; border-radius: 8px;">Poe</span></div>
+            <p class="top4-desc" style="margin-top: 0.75rem;">Gera esboços e sugestões de Programas de Educação Individualizados (PEI) para personalizar o aprendizado de alunos com necessidades especiais.</p>
+          </div>
+        </a>
+        
+        <a class="top4-card" href="https://chatgpt.com/g/g-SvSOrTmuR-table-creator" target="_blank" rel="noopener noreferrer" style="min-height: 200px;">
+          <div>
+            <div class="top4-name">Table Creator <span class="service-category-badge" style="font-size: 0.65rem; background: rgba(130, 113, 83, 0.08); color: var(--accent-color); padding: 0.2rem 0.5rem; border-radius: 8px;">ChatGPT</span></div>
+            <p class="top4-desc" style="margin-top: 0.75rem;">Cria e formata tabelas completas baseadas em instruções textuais simples fornecidas pelo usuário em linguagem natural.</p>
+          </div>
+        </a>
+        
+        <a class="top4-card" href="https://poe.com/ApoIA_Educador" target="_blank" rel="noopener noreferrer" style="min-height: 200px;">
+          <div>
+            <div class="top4-name">ApoIA_Educador (Poe Version) <span class="service-category-badge" style="font-size: 0.65rem; background: rgba(130, 113, 83, 0.08); color: var(--accent-color); padding: 0.2rem 0.5rem; border-radius: 8px;">Poe</span></div>
+            <p class="top4-desc" style="margin-top: 0.75rem;">Robô configurado na plataforma Poe para criação de materiais, comunicações e ferramentas de gestão docente.</p>
+          </div>
+        </a>
+        </div>
+    <div class="page-navigation">
+      <a href="/prompts" class="page-nav-link nav-prev">
+        <span class="page-nav-label">Anterior</span>
+        <span class="page-nav-title">← Prompts para Educadores</span>
+      </a>
+        
+      <a href="/canvas" class="page-nav-link nav-next">
+        <span class="page-nav-label">Próximo</span>
+        <span class="page-nav-title">Apps, Artefatos & Canvas →</span>
+      </a>
+        </div>
+    <!-- Rodapé -->
+    <footer class="main-footer">
+      <div class="footer-divider"></div>
+      <p>Desenvolvido pelo professor <strong>Dr. Glauber Santiago</strong> — DAC/UFSCar</p>
+      <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.25rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
+        Apoio: 
+        <a href="https://grupohorizonte.ufscar.br/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--accent-color); font-weight: 500; text-decoration: underline;">
+          <img src="/cropped-logo-horizonte.png" alt="Logo Grupo Horizonte" style="height: 56px; width: auto; padding: 4px 8px; background: #ffffff; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); vertical-align: middle; filter: grayscale(1) contrast(1.2); opacity: 0.8; transition: var(--transition-smooth);" onmouseover="this.style.filter='none'; this.style.opacity='1'" onmouseout="this.style.filter='grayscale(1) contrast(1.2)'; this.style.opacity='0.8'">
+          <span>Grupo de Pesquisa Horizonte</span>
+        </a>
+      </p>
+      <div class="footer-links">
+        <a href="https://servidores.ufscar.br/glauber/" target="_blank" rel="noopener noreferrer">🌐 Website do Docente</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfg-6_2hWVv2xKnol7sd8NOmPBasLncsDgCHqKOZHztWox2_w/viewform" target="_blank" rel="noopener noreferrer">💬 Dê sua opinião e sugestões!</a>
+      </div>
+      <p style="font-size: 0.72rem; color: var(--text-secondary); opacity: 0.7; margin-top: 0.75rem; margin-bottom: 0; text-align: center;">
+        Última atualização: 16/07/2026 às 23:42
+      </p>
+    </footer>
+  </div>
+</body>
+</html>

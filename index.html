@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IA na Educação - GlauberIA</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  
+  <!-- Fontes Premium do Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/glauberia.css">
+  
+  <!-- Firebase App e Analytics SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCInnUSp8NQ_PWwlvpLF5Mw9ueq3jDMFmE",
+      authDomain: "horizonte-7ec73.firebaseapp.com",
+      projectId: "horizonte-7ec73",
+      storageBucket: "horizonte-7ec73.firebasestorage.app",
+      messagingSenderId: "717322550690",
+      appId: "1:717322550690:web:a6d62ae0c8110d69b846fb",
+      measurementId: "G-4Q1W69W69K"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+  
+  <!-- Script de Inicialização de Tema para Evitar Flash -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- Barra de Navegação Superior (Top Navbar) -->
+  <nav class="top-navbar">
+    <a href="/" class="top-navbar-brand">
+      Glauber<span>IA</span>
+    </a>
+    
+    <!-- Menu para Desktop -->
+    <div class="top-navbar-menu">
+      <a href="/" class="top-nav-item active">🏠 Início</a>
+      <a href="/prompts" class="top-nav-item ">✍ Prompts</a>
+      <a href="/assistentes" class="top-nav-item ">🤖 Assistentes</a>
+      <a href="/canvas" class="top-nav-item ">🧩 Apps & Canvas</a>
+      <a href="/propostas" class="top-nav-item ">📚 Propostas</a>
+      
+      <!-- Dropdown Formação -->
+      <div class="top-nav-dropdown">
+        <a href="/formacao" class="top-nav-dropdown-trigger " style="text-decoration: none;">🎓 Formação ▾</a>
+        <div class="top-nav-dropdown-menu">
+          <a href="/formacao" class="top-nav-dropdown-item">
+            <span>🎓 Formação de Professores</span>
+          </a>
+          <a href="/roteiro" class="top-nav-dropdown-item">
+            <span>📋 Roteiro de Implantação</span>
+          </a>
+          <a href="/estudos" class="top-nav-dropdown-item">
+            <span>💼 Estudos de Caso</span>
+          </a>
+          <a href="/videos" class="top-nav-dropdown-item">
+            <span>🎥 Vídeo-Aulas & Tutoriais</span>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Botão Tema Noturno Desktop -->
+      <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Alternar Tema" style="background: none; border: none; cursor: pointer; font-size: 1.15rem; display: flex; align-items: center; justify-content: center; padding: 0.25rem 0.5rem; color: rgba(255,255,255,0.85); transition: var(--transition-smooth); margin-left: 0.5rem;">
+        <span class="theme-toggle-icon">🌙</span>
+      </button>
+    </div>
+    
+    <!-- Botão Menu Hamburguer (Mobile) e Toggle Tema Mobile -->
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <button class="theme-toggle-btn mobile-only-toggle" onclick="toggleTheme()" aria-label="Alternar Tema" style="background: none; border: none; cursor: pointer; font-size: 1.15rem; color: #ffffff; display: none; align-items: center; justify-content: center; padding: 0.5rem; margin: 0;">
+        <span class="theme-toggle-icon">🌙</span>
+      </button>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Abrir Menu" style="margin: 0;">
+        ☰
+      </button>
+    </div>
+  </nav>
+
+  <!-- Overlay do Drawer Mobile -->
+  <div id="mobile-drawer-overlay" class="mobile-drawer-overlay" onclick="toggleMobileMenu()"></div>
+
+  <!-- Drawer Menu Mobile -->
+  <div id="mobile-drawer" class="mobile-drawer">
+    <div class="mobile-drawer-header">
+      <span class="top-navbar-brand">Glauber<span>IA</span></span>
+      <button class="mobile-drawer-close" onclick="toggleMobileMenu()" aria-label="Fechar Menu">✕</button>
+    </div>
+    <div class="mobile-drawer-links">
+      <a href="/" class="mobile-drawer-link active">🏠 Início</a>
+      <a href="/prompts" class="mobile-drawer-link ">✍ Prompts para Educadores</a>
+      <a href="/assistentes" class="mobile-drawer-link ">🤖 Assistentes & Agentes</a>
+      <a href="/canvas" class="mobile-drawer-link ">🧩 Apps, Artefatos & Canvas</a>
+      <a href="/propostas" class="mobile-drawer-link ">📚 Propostas Pedagógicas</a>
+      
+      <div class="mobile-drawer-section-title">Formação</div>
+      <a href="/formacao" class="mobile-drawer-link">🎓 Formação de Professores</a>
+      <a href="/roteiro" class="mobile-drawer-link">📋 Roteiro de Implantação</a>
+      <a href="/videos" class="mobile-drawer-link">🎥 Vídeo-Aulas & Tutoriais</a>
+    </div>
+  </div>
+
+  <script src="/glauberia.js"></script>
+
+  <!-- Hero Banner (Banner GlauberIA.png) -->
+  <div class="hero-banner">
+    <div class="hero-content">
+      <h1 class="hero-title">Dicas sobre IA na Educação</h1>
+      <div class="hero-underline"></div>
+    </div>
+  </div>
+
+  <!-- Faixa de Informações (Intro Band) -->
+  <div class="intro-band">
+    <p>GlauberIA é um site com informações sobre Inteligência Artificial na Educação, elaborado pelo Dr. Glauber Santiago, Professor Titular do Departamento de Artes e Comunicação da UFSCar. Acesse cada uma das páginas do site para ver Serviços, Prompts, Assistentes/Agentes, Artefatos/Canvas (Apps), Propostas Pedagógicas, Formação no uso de IA etc.</p>
+  </div>
+
+  <div class="container">
+
+    <!-- Navegação de Abas -->
+    <nav class="nav-tabs" role="tablist">
+      <button class="tab-button active" onclick="switchTab('services')" role="tab" aria-selected="true">
+        🛠 Serviços de IA
+      </button>
+      <button class="tab-button" onclick="switchTab('readings')" role="tab" aria-selected="false">
+        📖 Leituras & Advertências
+      </button>
+    </nav>
+
+    <!-- ABA 1: SERVIÇOS DE IA -->
+    <div id="tab-services" class="tab-content active">
+      
+      <!-- Top 4 Recomendados -->
+      <div class="top4-title">
+        <svg style="width:18px;height:18px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        Recomendados (Top 4)
+      </div>
+      <div class="top4-grid">
+        <a class="top4-card" href="https://notebooklm.google.com/" target="_blank" rel="noopener noreferrer">
+          <div>
+            <div class="top4-name">NotebookLM</div>
+            <p class="top4-desc">Ideal para transcrever áudios, resumir textos, estudar, criar mapas mentais e gerar podcasts/vídeos educativos.</p>
+          </div>
+        </a>
+        <a class="top4-card" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">
+          <div>
+            <div class="top4-name">ChatGPT</div>
+            <p class="top4-desc">Modelo de linguagem versátil da OpenAI, líder em redação, codificação, raciocínio e geração multimodal.</p>
+          </div>
+        </a>
+        <a class="top4-card" href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer">
+          <div>
+            <div class="top4-name">Gemini</div>
+            <p class="top4-desc">Assistente do Google, com integração nativa ao ecossistema Google, alta janela de contexto e criação de agentes.</p>
+          </div>
+        </a>
+        <a class="top4-card" href="https://claude.ai/chats" target="_blank" rel="noopener noreferrer">
+          <div>
+            <div class="top4-name">Claude</div>
+            <p class="top4-desc">Modelo da Anthropic focado em precisão conceitual, redação primorosa, análise técnica de dados e painel Canvas.</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Barra de Controle Interativa -->
+      <div class="controls-bar">
+        <div style="display: flex; gap: 1rem; align-items: center; flex-grow: 1; max-width: 700px; flex-wrap: wrap;">
+          <div class="search-wrapper" style="flex-grow: 1;">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" class="search-input" placeholder="Pesquisar serviço, funcionalidade ou descrição..." oninput="handleSearch()">
+          </div>
+          <!-- Toggle de visualização -->
+          <div class="view-toggle-container">
+            <button class="view-toggle-btn active" id="view-grid-btn" onclick="setViewMode('grid')" aria-label="Visualizar em Grade">Grade ⊞</button>
+            <button class="view-toggle-btn" id="view-list-btn" onclick="setViewMode('list')" aria-label="Visualizar em Lista">Lista ☰</button>
+          </div>
+        </div>
+        <div class="categories-filter" id="categories-filter">
+          <button class="filter-btn active" onclick="filterCategory('all')">Todos</button>
+          <button class="filter-btn" onclick="filterCategory('general')">Uso Geral</button>
+          <button class="filter-btn" onclick="filterCategory('education')">Educação & Pesquisa</button>
+          <button class="filter-btn" onclick="filterCategory('detectors')">Detectores</button>
+          <button class="filter-btn" onclick="filterCategory('audio')">Áudio & Música</button>
+          <button class="filter-btn" onclick="filterCategory('video')">Imagem & Vídeo</button>
+          <button class="filter-btn" onclick="filterCategory('experimental')">Avançado/Outros</button>
+        </div>
+      </div>
+
+      <!-- Contador de Resultados -->
+      <div class="results-counter" id="results-counter">Carregando serviços...</div>
+
+      <!-- Grade de Serviços -->
+      <div class="services-grid" id="services-grid">
+        <!-- Gerado dinamicamente via JS -->
+      </div>
+      
+    </div>
+
+    <!-- ABA 2: LEITURAS & ADVERTÊNCIAS -->
+    <div id="tab-readings" class="tab-content">
+      <div class="articles-container">
+        
+        <div class="alert-banner">
+          <strong>Atenção ao Usuário:</strong> GlauberIA é um repositório voltado a fins didáticos e científicos. As ferramentas e informações apresentadas servem como material de apoio pedagógico no ecossistema de 2026.
+        </div>
+
+        <div class="article-section">
+          <h2 class="article-title">
+            <svg style="width:20px;height:20px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            Informações Básicas sobre IA e Advertências
+          </h2>
+          <div class="article-body">
+            <p>
+              As <strong>Inteligências Artificiais (IA)</strong> não devem ser consideradas inteligentes sob a perspectiva biológica ou no sentido de possuírem consciência ou senciência. O atual paradigma é dominado por <strong>modelos de raciocínio avançado (reasoning models)</strong>. Esses modelos simulam o pensamento crítico através de cadeias de raciocínio interno (Chain of Thought), corrigindo erros, testando hipóteses e planejando suas respostas antes de exibi-las, o que mudou drasticamente a profundidade das respostas lógicas, de programação e matemáticas.
+            </p>
+            <p>
+              Apesar desse avanço no raciocínio e da evolução das buscas ancoradas na web em tempo real, o risco de <strong>alucinação</strong> (invenção de dados com convicção) e inconsistência factual não foi reduzido a zero. As IA continuam sendo sistemas probabilísticos de previsão de dados, não possuindo um filtro de verdade absoluta. Portanto, a <strong>responsabilidade final de validar, auditar e testar as informações fornecidas continua sendo inteiramente do usuário</strong>.
+            </p>
+            <p>
+              O viés algorítmico é frequentemente apontado como um problema estrutural, visto que as redes neurais são treinadas em corpora humanos pré-existentes. No entanto, na prática de sala de aula e de pesquisa, o maior viés continua residindo no próprio usuário — na forma como formula suas perguntas e no que deseja ler como resposta (o viés de confirmação). E, sim, há um tom de ironia nessa constatação.
+            </p>
+            <p>
+              A interação com a IA deixou de ser uma simples caixa de texto estática (chatbot). Consolidou-se a era da <strong>multimodalidade nativa</strong> e dos <strong>agentes de computador (Computer Use)</strong>. Agora, a comunicação ocorre via áudio de baixa latência e com expressões naturais, compartilhamento de tela em tempo real, análise de transmissões de vídeo e arquivos gigantescos, além da delegação de tarefas complexas para agentes autônomos que operam navegadores, terminais e editores de código para resolver problemas complexos.
+            </p>
+            <p>
+              Dentre as principais características das ferramentas de ponta atuais, destacam-se:
+            </p>
+            <ol class="list-numbered">
+              <li><strong>Raciocínio Interno (Reasoning):</strong> A capacidade de gerar tokens de pensamento ocultos ou visíveis, permitindo que a IA planeje caminhos lógicos antes de entregar a resposta final;</li>
+              <li><strong>Janelas de Contexto Gigantescas:</strong> Comportando milhões de tokens de informação, permitindo carregar bibliotecas inteiras, dezenas de livros acadêmicos ou bases de código completas de uma só vez;</li>
+              <li><strong>Agência Autônoma:</strong> A habilidade de os modelos utilizarem ferramentas computacionais reais para resolver um objetivo sem supervisão passo a passo.</li>
+            </ol>
+            <p>
+              A democratização das tecnologias também se acentuou. Além do monopólio inicial de poucas corporações de tecnologia, a ascensão global de modelos com <strong>pesos abertos e de uso livre de alta performance</strong> permite que pesquisadores, universidades e instituições públicas executem modelos de raciocínio de ponta em servidores locais ou a baixo custo, promovendo maior soberania tecnológica e privacidade dos dados.
+            </p>
+          </div>
+        </div>
+
+        <div class="article-section">
+          <h2 class="article-title">
+            <svg style="width:20px;height:20px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5.89 12.57L12 15.9l6.11-3.33c-.71.55-1.9 1.18-6.11 1.18-4.21 0-5.4-0.63-6.11-1.18z"/></svg>
+            IA na Educação
+          </h2>
+          <div class="article-body">
+            <p>
+              O debate institucional sobre o uso da IA na educação ainda patina em velhos problemas estruturais: falta de letramento digital docente, escassez de infraestrutura nas escolas públicas e dependência de softwares proprietários caros. O mero banimento ou a tentativa ingênua de detectar plágio de IA por ferramentas automatizadas (que provaram ser ineficazes e geradoras de falsos positivos) foram substituídos por abordagens focadas em <strong>autoria, pensamento crítico e avaliação processual</strong>.
+            </p>
+            <p>
+              Por outro lado, a descentralização tecnológica deu superpoderes aos professores. A combinação de modelos de linguagem e ferramentas de geração de código e interfaces visuais tornou viável a <strong>coautoria ativa</strong>. Educadores agora podem conceber, testar e publicar seus próprios micro-aplicativos educativos, simuladores, jogos e tutores personalizados em questão de minutos, integrando-os diretamente em ambientes de aprendizagem virtuais.
+            </p>
+            <p>
+              Na gestão escolar e acadêmica, a IA atua como um braço de produtividade insubstituível. Ela automatiza a síntese de avaliações, apoia o planejamento de sequências didáticas alinhadas à BNCC e organiza fluxos administrativos. Contudo, a governança de dados éticos, a privacidade dos menores e a conformidade com a LGPD continuam sendo premissas inegociáveis para qualquer uso institucional.
+            </p>
+            <p>
+              Abraços, Prof. Dr. Glauber Santiago (17/07/2026)
+            </p>
+          </div>
+        </div>
+
+        <div class="article-section">
+          <h2 class="article-title">
+            <svg style="width:20px;height:20px;fill:currentColor" viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+            Visão Geral e Aplicações da Inteligência Artificial (Fundamentação)
+          </h2>
+          <div class="article-body">
+            
+            <div class="quote-box">
+              <div class="quote-box-title">Definição Simplificada</div>
+              "Uma máquina ou um programa construído para 'pensar' como os humanos pensam. Refere-se a uma máquina ou programa que foi programado para aprender e mudar seu comportamento com base em suas experiências... A IA pode referir-se a robôs que se parecem com humanos, mas na essência, IA é um software programado para 'observar e aprender'. Um exemplo é o reconhecimento de voz...
+              O erro na ficção científica é defender 'direitos da IA' ou achar que possuem sentimentos. Tudo o que ela faz foi predeterminado por humanos. São máquinas sem alma. No final do dia, a verdadeira conexão do usuário é com os programadores e estetas por trás dela."
+              <span class="quote-source">STANLEY, Jack C.; GROSS, Erik D. Technology basics dictionary. 2021.</span>
+            </div>
+
+            <div class="quote-box">
+              <div class="quote-box-title">Perspectiva Científica e Tecnológica</div>
+              <ol class="list-numbered" style="margin-top:0.5rem;">
+                <li><strong>Definição e Escopo:</strong> Disciplina destinada a simular habilidades humanas (redes neurais, robótica, controle fuzzy, teoria dos jogos).</li>
+                <li><strong>Funcionalidade:</strong> Realização de funções associadas à inteligência (raciocínio, otimização). Emula o raciocínio humano manipulando conhecimento heurístico.</li>
+                <li><strong>Campo de Estudo:</strong> Foco em dotar computadores com processos de pensamento semelhantes aos humanos.</li>
+                <li><strong>Sistemas:</strong> Comportamento racional automatizado.</li>
+                <li><strong>Contexto Histórico:</strong> Termo cunhado por John McCarthy em 1956. Permite resolver problemas complexos difíceis de abordar via algoritmos padrão.</li>
+                <li><strong>Desafios:</strong> Representação do conhecimento e aprendizado de máquina.</li>
+                <li><strong>Objetivos:</strong> Estudo científico dos princípios da inteligência e engenharia de máquinas inteligentes.</li>
+              </ol>
+              <span class="quote-source">KHOSROW-POUR, Mehdi. Dictionary of Information Science and Technology. 2007.</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    
+    <div class="page-navigation"><div></div>
+      <a href="/prompts" class="page-nav-link nav-next">
+        <span class="page-nav-label">Próximo</span>
+        <span class="page-nav-title">Prompts para Educadores →</span>
+      </a>
+        </div>
+    <!-- Rodapé -->
+    <footer class="main-footer">
+      <div class="footer-divider"></div>
+      <p>Desenvolvido pelo professor <strong>Dr. Glauber Santiago</strong> — DAC/UFSCar</p>
+      <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.25rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
+        Apoio: 
+        <a href="https://grupohorizonte.ufscar.br/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--accent-color); font-weight: 500; text-decoration: underline;">
+          <img src="/cropped-logo-horizonte.png" alt="Logo Grupo Horizonte" style="height: 56px; width: auto; padding: 4px 8px; background: #ffffff; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); vertical-align: middle; filter: grayscale(1) contrast(1.2); opacity: 0.8; transition: var(--transition-smooth);" onmouseover="this.style.filter='none'; this.style.opacity='1'" onmouseout="this.style.filter='grayscale(1) contrast(1.2)'; this.style.opacity='0.8'">
+          <span>Grupo de Pesquisa Horizonte</span>
+        </a>
+      </p>
+      <div class="footer-links">
+        <a href="https://servidores.ufscar.br/glauber/" target="_blank" rel="noopener noreferrer">🌐 Website do Docente</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfg-6_2hWVv2xKnol7sd8NOmPBasLncsDgCHqKOZHztWox2_w/viewform" target="_blank" rel="noopener noreferrer">💬 Dê sua opinião e sugestões!</a>
+      </div>
+      <p style="font-size: 0.72rem; color: var(--text-secondary); opacity: 0.7; margin-top: 0.75rem; margin-bottom: 0; text-align: center;">
+        Última atualização: 16/07/2026 às 23:42
+      </p>
+    </footer>
+
+
+  </div>
+
+  <!-- Banco de Dados e Script de Controle -->
+  <script>
+    // Mapeamento das Funcionalidades
+    const LEGEND = {
+      "📝": "Entra/Gera Texto",
+      "🔊": "Gera Fala",
+      "🎙️": "Entrada de Áudio",
+      "🎥": "Entrada de Vídeo",
+      "🖼️": "Entrada de Imagem",
+      "💻": "Captura de Tela",
+      "🌐": "Acessa Internet",
+      "📎": "Anexa Arquivos",
+      "🎨": "Gera Imagens",
+      "🎬": "Gera Vídeos",
+      "📊": "Gera Gráficos",
+      "🗣️": "Conversa por Áudio",
+      "🔀": "Múltiplos Modelos",
+      "🧠": "Raciocínio Avançado",
+      "🤖": "Criar Assistentes",
+      "🧩": "Gera Artefato/Canvas"
+    };
+
+    // Nomes Legíveis das Categorias
+    const CATEGORY_NAMES = {
+      "general": "Uso Geral (LLM)",
+      "education": "Educação & Pesquisa",
+      "detectors": "Detectores de IA",
+      "audio": "Áudio & Música",
+      "video": "Imagem & Vídeo",
+      "experimental": "Avançado & Outros"
+    };
+
+    // Descricoes editoriais revisadas em 16/07/2026.
+    const UPDATED_DESCRIPTIONS = {
+      "ChatGPT": "Assistente multimodal para pesquisar, escrever, programar, analisar arquivos, criar imagens e trabalhar com voz e aplicativos conectados.",
+      "Gemini": "Assistente multimodal do Google, integrado a Pesquisa, Workspace e serviços da empresa, com forte capacidade para documentos e contexto extenso.",
+      "Grok": "Assistente da xAI com pesquisa em tempo real, análise de documentos e imagens, geração de mídia e integração ao ecossistema X.",
+      "Claude": "Assistente da Anthropic voltado a escrita, análise cuidadosa, programação, pesquisa e criação de documentos, visualizações e aplicativos com Artifacts.",
+      "Microsoft Copilot": "Assistente da Microsoft para pesquisa, criação e produtividade, com integração ao Windows, navegador Edge e aplicativos Microsoft 365.",
+      "Lumo": "Assistente da Proton orientado à privacidade, com código aberto, conversas protegidas e compromisso de não usar os chats para treinar modelos.",
+      "Le Chat - Mistral AI": "Assistente da Mistral com respostas rápidas, pesquisa, análise de documentos, geração de imagens e modelos europeus próprios.",
+      "Manus": "Agente da Meta que executa tarefas em várias etapas, como pesquisa ampla, operação de navegador e criação de sites, apresentações e materiais visuais.",
+      "DeepSeek": "Assistente baseado em modelos chineses eficientes, reconhecido por raciocínio e programação, com opções abertas e baixo custo de API.",
+      "MariTalk": "Assistente brasileiro da Maritaca AI, baseado em modelos treinados com atenção ao português e ao contexto cultural nacional.",
+      "Perplexity": "Mecanismo de respostas com pesquisa na web e citações, indicado para explorar temas, comparar fontes e produzir relatórios de pesquisa.",
+      "Dola AI (antiga Cici)": "Assistente pessoal para conversa, pesquisa e organização cotidiana; o antigo serviço Cici passou a direcionar usuários para a Dola.",
+      "Poe": "Plataforma da Quora que reúne modelos de diferentes empresas e permite conversar em grupo, comparar respostas e criar bots personalizados.",
+      "Pi, your personal AI": "Assistente conversacional da Inflection com diálogo acolhedor e natural, especialmente adequado a conversas por texto e voz.",
+      "Character.ai": "Plataforma de entretenimento para criar personagens e histórias interativas, com conversas ficcionais individuais ou em grupo.",
+      "MetaAI": "Assistente da Meta integrado a WhatsApp, Instagram, Facebook e web, com pesquisa, conversação e criação de conteúdo multimodal.",
+      "Qwen": "Família de modelos da Alibaba para texto, raciocínio, código e multimodalidade, com versões abertas e aplicativo oficial de conversação.",
+      "Tülo": "Ambiente do Allen Institute for AI para experimentar e comparar modelos abertos de linguagem em uma interface de conversa.",
+      "Cohere": "Plataforma empresarial de IA privada, especializada em agentes, busca semântica, recuperação de informação, reranking e implantação segura.",
+      "Chat with Z": "Assistente da Z.ai baseado na família GLM, com foco em raciocínio, pesquisa, programação e execução de tarefas estruturadas.",
+      "Kimi": "Assistente da Moonshot AI voltado a trabalho intelectual, leitura de grandes volumes de conteúdo, pesquisa e programação com agentes.",
+      "StepFun": "Plataforma chinesa de modelos multimodais para conversa, raciocínio, criação de conteúdo e fluxos de trabalho com agentes.",
+      "NotebookLM": "Ambiente de estudo do Google que responde com base nas fontes fornecidas e cria resumos, guias, mapas mentais, áudio e vídeo explicativos.",
+      "Napkin AI": "Transforma textos em diagramas, infográficos e explicações visuais editáveis, útil para aulas, documentos e apresentações.",
+      "Storybook do Gemini": "Recurso do Gemini para criar livros ilustrados personalizados a partir de uma ideia, com narrativa e imagens geradas por IA.",
+      "Prezi": "Cria apresentações por conversa ou a partir de arquivos, com refinamento por chat, colaboração e narrativa visual com zoom.",
+      "Little Language Lessons": "Experimento do Google Labs com atividades breves e contextualizadas para praticar vocabulário, expressão e situações reais em outros idiomas.",
+      "Revisely": "Converte anotações, textos e arquivos em flashcards, questionários, resumos e outros materiais de revisão personalizados.",
+      "Smallppt": "Gera apresentações e estruturas de slides a partir de temas ou documentos, oferecendo modelos, edição e exportação para PowerPoint.",
+      "Coursebox.ai": "Cria cursos completos a partir de documentos, vídeos ou ideias, incluindo estrutura, avaliações, tutoria por IA e publicação em LMS.",
+      "Thea": "Plataforma de estudo que transforma materiais do aluno em resumos, flashcards, questões e sessões de aprendizagem adaptativas.",
+      "MagicSchool.ai": "Suíte educacional para professores e escolas com planejamento, diferenciação, avaliação, comunicação e ferramentas responsáveis para estudantes.",
+      "Teachy": "Plataforma educacional com materiais alinhados a currículos, planejamento de aulas, exercícios e recursos de IA adaptados ao contexto brasileiro.",
+      "Eduaide.Ai": "Assistente para educadores que gera planos, atividades, avaliações, rubricas, adaptações pedagógicas e feedback em diferentes formatos.",
+      "JandaIA": "Caderno digital brasileiro que organiza anotações, facilita revisões e personaliza o estudo com recursos de IA em um ambiente interativo.",
+      "Para Casa Inclusivo": "Ferramenta brasileira que adapta atividades e produz materiais acessíveis para apoiar estudantes com diferentes necessidades educacionais.",
+      "Sci-bot": "Assistente de descoberta científica que ajuda a localizar, organizar e resumir literatura acadêmica para perguntas de pesquisa.",
+      "SciSpace": "Plataforma de pesquisa para buscar artigos, conversar com PDFs, realizar revisões de literatura e apoiar leitura e escrita acadêmica.",
+      "Writify AI": "Assistente de pesquisa e escrita que organiza argumentos, encontra referências e apoia redação acadêmica com citações estruturadas.",
+      "Elicit": "Ferramenta para revisões de literatura que busca estudos, extrai dados, compara evidências e produz relatórios rastreáveis.",
+      "Gamma.app": "Cria apresentações, documentos, páginas e conteúdo para redes sociais a partir de prompts, com edição visual e publicação rápida.",
+      "ProDream.ai": "Copiloto de escrita acadêmica com estruturação, continuação de texto, revisão, citações automáticas e busca em literatura científica.",
+      "Explainpaper": "Explica trechos difíceis de artigos acadêmicos em linguagem mais simples e permite fazer perguntas contextualizadas sobre o documento.",
+      "Nolej": "Transforma documentos, vídeos e outros conteúdos em cursos interativos, questionários, flashcards, resumos e atividades educacionais.",
+      "Socrative.com": "Sistema de avaliação formativa em tempo real para quizzes, perguntas rápidas, acompanhamento da turma e relatórios de aprendizagem.",
+      "Aleks.com": "Plataforma adaptativa da McGraw Hill que diagnostica conhecimentos e oferece percursos personalizados, sobretudo em matemática e ciências.",
+      "carnegielearning.com": "Soluções curriculares e tutoria adaptativa para matemática, idiomas e alfabetização, combinando ciência da aprendizagem e dados educacionais.",
+      "khanacademy.org/khan-labs": "Khanmigo, tutor e assistente pedagógico da Khan Academy, orienta o raciocínio do aluno e apoia planejamento e feedback docente.",
+      "microsoft.com/en-us/ai/ai-business-school": "Formação não técnica da Microsoft sobre estratégia, cultura organizacional, liderança e uso responsável da inteligência artificial.",
+      "teachablemachine.withgoogle.com": "Ferramenta gratuita do Google para treinar modelos simples de imagem, som e pose no navegador, sem exigir programação.",
+      "Generative A.I. Tools for Educators": "Planilha colaborativa que reúne ferramentas, referências e possibilidades de uso da IA generativa por educadores.",
+      "Scribbr.com/ai-detector": "Indicador gratuito que diferencia texto humano, gerado ou refinado por IA e oferece análise por trechos; não comprova autoria isoladamente.",
+      "GPTZero": "Detector com análise de probabilidade, verificação de autoria, citações suspeitas e integrações educacionais; os resultados exigem interpretação humana.",
+      "Notegpt.io/ai-detector": "Verificador de padrões de escrita por IA integrado a uma suíte de resumo, transcrição e estudo; deve ser usado apenas como indício.",
+      "sgen.ai": "Detector multilíngue que estima a presença de texto gerado por modelos e apresenta resultados por trechos, sujeito a falsos positivos.",
+      "Scispace.com/ai-detector": "Detector da SciSpace para textos e PDFs, voltado também ao contexto acadêmico; fornece probabilidades, não prova de autoria.",
+      "Papersowl.com/ai-content-detector": "Verificador gratuito de padrões associados a texto gerado por IA, destinado principalmente a redações e trabalhos acadêmicos.",
+      "Quillbot.com/ai-content-detector": "Detector integrado à suíte QuillBot que distingue texto humano, gerado e refinado por IA, com análise por segmentos.",
+      "Eleven Reader": "Aplicativo de leitura em voz alta para artigos, PDFs, livros e documentos, com vozes naturais, sincronização e recursos de acessibilidade.",
+      "PopPop AI": "Coleção de ferramentas de áudio para síntese de voz, remoção de vocais, covers, clonagem e edição rápida diretamente no navegador.",
+      "Tactiq | transcription": "Assistente de reuniões para Google Meet, Zoom e Teams que transcreve, resume, extrai tarefas e permite consultar o conteúdo das chamadas.",
+      "ai-coustics.com": "Tecnologia de aprimoramento de voz que reduz ruído, reverberação e artefatos para recuperar clareza em gravações e transmissões.",
+      "Suno": "Plataforma de criação musical que gera canções completas a partir de descrições ou letras e permite desenvolver, editar e estender faixas.",
+      "Udio": "Estúdio de música generativa para criar e remixar canções, controlar seções e estilos e desenvolver ideias musicais por iteração.",
+      "Flow Music (antigo ProducerAI)": "Ambiente de criação musical por IA para gerar, continuar e desenvolver faixas; é a nova identidade do antigo ProducerAI.",
+      "FreeBeat.ai": "Cria videoclipes, lyric videos e vídeos de dança sincronizados automaticamente ao ritmo e à estrutura de uma música.",
+      "ElevenLabs": "Plataforma de áudio para síntese e clonagem de voz, dublagem, transcrição, efeitos sonoros, música e agentes conversacionais.",
+      "Wevoicer": "Plataforma brasileira de narração por IA com controle de emoções, vozes em português e produção de áudio para conteúdos e projetos.",
+      "Moises": "Suíte para músicos que separa instrumentos e vocais, detecta acordes, altera tom e andamento e oferece ferramentas de prática e mixagem.",
+      "SAM Audio": "Modelo de pesquisa da Meta para separar, localizar e editar sons em áudio e vídeo usando texto, referências visuais ou intervalos de tempo.",
+      "Roboneo": "Plataforma de criação de vídeos e histórias para redes sociais com geração de cenas, personagens, imagens e edição assistida.",
+      "Ideogram.ai": "Gerador e editor de imagens reconhecido pelo controle de composição, consistência visual e boa renderização de textos em peças gráficas.",
+      "Canva": "Plataforma de design colaborativo com geração e edição de imagens, vídeos, apresentações, textos e sites por meio do Magic Studio.",
+      "LipSync Video": "Ferramenta online que sincroniza movimentos labiais de pessoas ou avatares com um novo áudio, sem exigir edição manual quadro a quadro.",
+      "Microsoft Designer": "Aplicativo da Microsoft para criar e editar posts, cartões, imagens e layouts com modelos, prompts e integração ao ecossistema Copilot.",
+      "Seaart.ai": "Comunidade criativa com geração e edição de imagens e vídeos, treinamento de modelos e ampla variedade de estilos e fluxos prontos.",
+      "Reve": "Gerador e editor de imagens com planejamento de composição, controle de texto e layout, edição iterativa e renderização nativa em alta resolução.",
+      "Leonardo.ai": "Suíte criativa para gerar, editar, ampliar e animar imagens, com modelos variados, consistência de elementos e API para produção visual.",
+      "PromeAI": "Plataforma para arquitetura e design que transforma esboços, modelos e referências em renders, imagens e vídeos com estilos controláveis.",
+      "ClipDrop": "Conjunto de ferramentas para remover fundos e objetos, reluminar, ampliar, limpar e gerar imagens em fluxos rápidos de edição.",
+      "OpusClip": "Transforma vídeos longos em clipes curtos, selecionando trechos, reenquadrando, legendando e adaptando o conteúdo para redes sociais.",
+      "Jogg.ai": "Gerador de vídeos de marketing com avatares, roteiros, tradução, variações de anúncios e produção em escala a partir de produtos ou URLs.",
+      "Mootion": "Transforma ideias, roteiros e materiais em histórias visuais, animações e vídeos, organizando personagens, cenas e fluxo narrativo.",
+      "krea.ai": "Suíte criativa para geração e edição em tempo real de imagens, vídeos e objetos 3D, com aprimoramento e acesso a diversos modelos.",
+      "TopView.ai": "Agente de vídeo para publicidade que cria roteiros, cenas, avatares e variações de anúncios a partir de links ou informações de produtos.",
+      "InVideo": "Agente que desenvolve roteiro, mídia, narração, legendas e edição de vídeo a partir de uma solicitação em linguagem natural.",
+      "Humva": "Ferramenta de vídeo com avatares digitais, clonagem de aparência e voz, tradução e produção de apresentadores em diversos idiomas.",
+      "Dreamina": "Suíte criativa da CapCut para gerar e editar imagens e vídeos com múltiplos modelos, referências visuais e ferramentas de design.",
+      "Google AI Studio": "Ambiente para testar modelos Gemini, experimentar entradas multimodais, ajustar prompts e gerar código para protótipos e APIs.",
+      "Google Opal": "Ferramenta experimental para montar miniaplicativos e fluxos de IA descrevendo etapas em linguagem natural, sem programação tradicional.",
+      "Replit": "Ambiente de desenvolvimento em nuvem com agente que planeja, programa, testa, corrige e publica aplicativos a partir de conversas.",
+      "Huggingface.co": "Comunidade e plataforma para descobrir, compartilhar e executar modelos, conjuntos de dados e demonstrações abertas em Spaces.",
+      "Base44": "Plataforma de desenvolvimento por conversa que cria aplicativos completos com interface, dados, autenticação, integrações e publicação.",
+      "Future Tools": "Diretório editorial de ferramentas e notícias de IA, útil para descoberta, comparação e acompanhamento de novos serviços.",
+      "GizAI": "Plataforma multimodal que reúne chat, geração de imagens, vídeo, voz e outras ferramentas criativas em um único ambiente.",
+      "Stitch - Design with AI": "Ferramenta experimental do Google que transforma descrições e imagens em interfaces de aplicativos e exporta designs e código de frontend.",
+      "GoogleLabs (Flow)": "Estúdio criativo do Google para produzir cenas e vídeos cinematográficos com modelos generativos, referências e controle narrativo.",
+      "Machine learning for kids": "Ambiente educacional que ensina aprendizado de máquina por projetos com texto, imagens ou números, integrado a Scratch e Python.",
+      "Arena AI": "Plataforma de comparação anônima lado a lado de modelos, baseada em votação humana e rankings públicos de preferência.",
+      "Perplexity Labs": "Endereço histórico de experimentação que atualmente redireciona ao Perplexity; não funciona mais como catálogo independente de modelos.",
+      "OpenEvidence": "Plataforma clínica para profissionais de saúde que sintetiza literatura médica e responde com referências; não substitui julgamento profissional.",
+      "Midjourney": "É uma das referências mais consolidadas em geração de imagens e atualmente também transforma imagens em vídeos.",
+      "Adobe Firefly": "Tornou-se uma suíte bastante ampla para geração e edição de imagem, vídeo, áudio e design, incluindo modelos de diferentes fornecedores.",
+      "Runway": "A plataforma reúne geração e edição de vídeo, imagem e áudio, sendo uma das principais referências em criação audiovisual com IA.",
+      "Consensus": "Busca especificamente literatura científica e produz sínteses fundamentadas nos estudos encontrados, complementando Elicit e SciSpace.",
+      "ResearchRabbit": "Excelente para descoberta de literatura por redes de citações, autores relacionados e mapas visuais, facilitando o mapeamento bibliográfico.",
+      "Cursor": "Um dos principais ambientes atuais de programação centrados em agentes de IA, capaz de compreender e modificar projetos inteiros.",
+      "GitHub Copilot": "Assistente de código integrado ao editor, oferecendo autocompletar inteligente, bate-papo técnico e fluxos de desenvolvimento com agentes de IA.",
+      "v0": "Muito relevante para criação de aplicativos: gera interfaces e aplicações web full-stack prontas a partir de texto com opção de publicação direta.",
+      "Descript": "Importante para edição de podcast e vídeo baseada em texto; seu agente Underlord automatiza cortes, tratamento de áudio e tarefas editoriais.",
+      "Otter.ai": "Referência em reuniões: realiza transcrição em tempo real, resumos inteligentes, extração de tarefas e insights colaborativos."
+    };
+
+    // Banco de Dados das Ferramentas
+    const tools = [
+      // USO GERAL (LLM)
+      { name: "ChatGPT", category: "general", features: ["📝", "🌐", "🔊", "📎", "🖼️", "🎨", "📊", "🗣️", "🔀", "🤖", "🧠", "🧩"], description: "Assistente multimodal para escrita, pesquisa aprofundada, análise de arquivos, imagens, voz, código e uso de aplicativos conectados.", link: "https://chatgpt.com/", tags: [] },
+      { name: "Gemini", category: "general", features: ["📝", "🌐", "🔊", "📎", "🖼️", "🎨", "🔀", "🤖", "🧠", "🧩"], description: "Potente assistente do Google.", link: "https://gemini.google.com/app", tags: [] },
+      { name: "Grok", category: "general", features: ["📝", "🌐", "📎", "🎨"], description: "Assistente da xAI com pesquisa na web, análise multimodal, geração de mídia e integração ao ecossistema X.", link: "https://grok.com/", tags: [] },
+      { name: "Claude", category: "general", features: ["📝", "🌐", "🔊", "📎", "🎨", "📊", "🔀", "🧩"], description: "Excelente análise conceitual e painel Canvas.", link: "https://claude.ai/chats", tags: [] },
+      { name: "Microsoft Copilot", category: "general", features: ["📝", "🌐", "🔊", "📎", "🎨"], description: "Assistente da Microsoft para pesquisa, criação e produtividade, integrado aos serviços e aplicativos da empresa.", link: "https://copilot.microsoft.com/", tags: [] },
+      { name: "Lumo", category: "general", features: ["📝", "🌐", "📎"], description: "IA com confidencialidade avançada.", link: "https://lumo.proton.me/", tags: ["Segurança"] },
+      { name: "Le Chat - Mistral AI", category: "general", features: ["📝", "🌐", "📎", "🧩"], description: "Francesa.", link: "https://chat.mistral.ai/chat", tags: ["Francesa"] },
+      { name: "Manus", category: "general", features: [], description: "Agente da Meta orientado à execução de tarefas, com criação de sites, apresentações, design, pesquisa ampla e operação de navegador.", link: "https://manus.im/", tags: ["Agente"] },
+      { name: "DeepSeek", category: "general", features: ["📝", "🌐", "📎", "🧠"], description: "Chinesa de alta performance e baixo custo.", link: "https://chat.deepseek.com", tags: ["Chinesa"] },
+      { name: "MariTalk", category: "general", features: ["📝", "🌐", "📎"], description: "Brasileira.", link: "https://chat.maritaca.ai/", tags: ["Brasileira"] },
+      { name: "Perplexity", category: "general", features: ["📝", "🌐", "🔊", "📎", "🖼️", "🎨", "📊", "🗣️", "🔀", "🧠"], description: "Focado em busca e compilação de fontes.", link: "https://www.perplexity.ai/", tags: ["Busca"] },
+      { name: "Dola AI (antiga Cici)", category: "general", features: ["📝", "🌐", "🔊", "📎", "🖼️", "🎨", "📊", "🗣️", "🔀", "🤖"], description: "Assistente pessoal para conversas, pesquisa e organização cotidiana; o endereço antigo da Cici redireciona para a Dola.", link: "https://www.dola.com/chat/", tags: ["Assistente"] },
+      { name: "Poe", category: "general", features: ["📝", "🌐", "🔊", "📎", "🖼️", "🎨", "📊", "🗣️", "🔀", "🤖"], description: "Oferece acesso a diversos modelos e criação de bots.", link: "https://poe.com/", tags: ["Multi-modelos"] },
+      { name: "Pi, your personal AI", category: "general", features: ["🗣️"], description: "Ideal para conversação falada e natural.", link: "https://pi.ai/profile", tags: ["Conversação"] },
+      { name: "Character.ai", category: "general", features: ["📝", "🗣️"], description: "Ideal para conversas com diferentes personagens históricos ou criados.", link: "https://beta.character.ai/", tags: ["Personagens"] },
+      { name: "MetaAI", category: "general", features: ["📝", "🌐", "🎨"], description: "IA da Meta, disponível nativamente nos aplicativos como WhatsApp.", link: "https://www.meta.ai/", tags: ["Meta"] },
+      { name: "Qwen", category: "general", features: ["📝", "🌐", "📎", "🖼️", "🎨", "🔀", "🧠", "🧩"], description: "Família de modelos da Alibaba para texto, raciocínio, código e multimodalidade, com opções abertas e aplicativo oficial.", link: "https://chat.qwen.ai/", tags: ["Modelos abertos"] },
+      { name: "Tülo", category: "general", features: ["📝", "🌐", "📎", "🖼️", "🎨", "🔀", "🧠", "🧩"], description: "Disponibiliza modelos variados para experimentação.", link: "https://playground.allenai.org/", tags: [] },
+      { name: "Cohere", category: "general", features: ["📝", "🌐", "📎"], description: "Plataforma empresarial de IA privada, especializada em busca, recuperação, reranking e modelos multilíngues para agentes.", link: "https://cohere.com/", tags: ["Empresarial"] },
+      { name: "Chat with Z", category: "general", features: ["📝", "🌐", "🧠", "📎", "🤖", "🔀"], description: "Funciona como um agente estruturado.", link: "https://chat.z.ai/", tags: ["Agente"] },
+      { name: "Kimi", category: "general", features: ["📝", "🌐", "🧠", "📎", "🤖", "🧩"], description: "Agente inteligente focado em leitura de grandes documentos.", link: "https://www.kimi.com", tags: [] },
+      { name: "StepFun", category: "general", features: ["📝", "🌐", "🧠", "📎", "🤖", "🧩"], description: "Plataforma de IA com forte suporte a agentes complexos.", link: "https://stepfun.ai/chats/new", tags: [] },
+
+      // EDUCAÇÃO E PESQUISA
+      {
+        name: "NotebookLM",
+        category: "education",
+        features: ["📝", "🔊", "📎", "🗣️"],
+        description: "Ideal para transcrever áudios, resumir textos, estudar, criar mapas mentais e gerar podcasts e vídeos educativos.",
+        link: "https://notebooklm.google.com/",
+        tags: ["Estudo", "Favoritos"],
+        extensions: [
+          { name: "Youtube", link: "https://chromewebstore.google.com/detail/youtube-to-notebooklm/kobncfkmjelbefaoohoblamnbackjggk?authuser=1" },
+          { name: "Sites", link: "https://chromewebstore.google.com/detail/notebooklm-websync-full-s/hjoonjdnhagnpfgifhjolheimamcafok?authuser=1" },
+          { name: "URLs", link: "https://chromewebstore.google.com/detail/grabbit/madmdgpjgagdmmmiddpiggdnpgjglcdk?authuser=1" },
+          { name: "Pastas", link: "https://chromewebstore.google.com/detail/bookshelf-folder-manager/ibjbgddbhlcookmdhehgljaneccjidik?authuser=1" },
+          { name: "Hub", link: "https://chromewebstore.google.com/detail/kortex-notebooklm/hdapplggdhndkblofffknpmnnnnbncbn?authuser=1" },
+          { name: "Cria Pastas", link: "https://chromewebstore.google.com/detail/folderllm-create-folders/nknkgcmodkaiffdnlpmlnegmeamnbioe" },
+          { name: "Exporter", link: "https://chromewebstore.google.com/detail/notebooklm-ultra-exporter/afchokljnhhggkhedfbmkcmdagjmjchj?hl=es" }
+        ]
+      },
+      { name: "Napkin AI", category: "education", features: ["📊"], description: "Gera fluxogramas, tabelas e gráficos explicativos automaticamente a partir de textos.", link: "https://app.napkin.ai/", tags: ["Gráficos"] },
+      { name: "Storybook do Gemini", category: "education", features: ["📝", "🎨"], description: "Ferramenta experimental para criar livros interativos de histórias infantis.", link: "https://gemini.google.com/gem/storybook", tags: ["Histórias"] },
+      { name: "Prezi", category: "education", features: [], description: "Cria apresentações por conversa ou a partir de PDF, PPTX e DOCX, com refinamento por chat e opção de narrativa visual com zoom.", link: "https://prezi.com/", tags: ["Apresentações"] },
+      { name: "Little Language Lessons", category: "education", features: [], description: "Experimento do Google focado na prática e no aprendizado interativo de novos idiomas.", link: "https://labs.google/lll/pt", tags: ["Idiomas"] },
+      { name: "Revisely", category: "education", features: ["📝"], description: "Gera automaticamente cartões de estudo (flashcards), questionários e resumos de textos digitados ou arquivos PDF.", link: "https://www.revisely.com/", tags: ["Estudos"] },
+      { name: "Smallppt", category: "education", features: [], description: "Gera apresentações profissionais tipo PowerPoint em minutos.", link: "https://smallppt.com/", tags: ["Slides"] },
+      { name: "Coursebox.ai", category: "education", features: [], description: "Desenvolve estruturas completas e recursos para Ambientes Virtuais de Aprendizagem (AVA).", link: "https://my.coursebox.ai", tags: ["Cursos"] },
+      { name: "Thea", category: "education", features: [], description: "Transforma seus PDFs e materiais em kits de estudo personalizados com simulados.", link: "https://www.thea.study", tags: ["Estudos"] },
+      { name: "MagicSchool.ai", category: "education", features: [], description: "Dezenas de ferramentas planejadoras, avaliadoras e facilitadoras exclusivas para professores.", link: "https://app.magicschool.ai/raina?thread=12040178", tags: ["Professores"] },
+      { name: "Teachy", category: "education", features: [], description: "Idem ao MagicSchool, com material focado na BNCC (Nacional).", link: "https://www.teachy.com.br/", tags: ["Brasileiro", "Professores"] },
+      { name: "Eduaide.Ai", category: "education", features: [], description: "Assistente de planejamento de aulas com mais de 100 recursos para professores.", link: "https://www.eduaide.ai/app/generator", tags: ["Professores"] },
+      { name: "JandaIA", category: "education", features: [], description: "Caderno digital brasileiro que organiza anotações, apoia revisões e personaliza o estudo com IA em um ambiente interativo.", link: "https://play.google.com/store/apps/details?id=com.jandaia", tags: ["Estudantes", "Aplicativo"] },
+      { name: "Para Casa Inclusivo", category: "education", features: [], description: "Gera materiais didáticos e gibis interativos focados em acessibilidade e inclusão.", link: "https://www.paracasainclusivo.com.br/", tags: ["Brasileiro", "Inclusão"] },
+      { name: "Sci-bot", category: "education", features: [], description: "Assistente especializado em encontrar e resumir artigos científicos.", link: "https://sci-bot.ru/", tags: ["Pesquisa"] },
+      { name: "SciSpace", category: "education", features: [], description: "Ideal para pesquisadores: decifra textos complexos, encontra papers e auxilia na escrita acadêmica.", link: "https://typeset.io/", tags: ["Artigos", "Pesquisa"] },
+      { name: "Writify AI", category: "education", features: [], description: "Auxilia a redigir artigos com citações científicas estruturadas.", link: "https://writifyai.com/", tags: ["Artigos"] },
+      { name: "Elicit", category: "education", features: [], description: "Analisa literatura de pesquisa de forma sistemática para responder a perguntas acadêmicas.", link: "https://elicit.com/", tags: ["Pesquisa"] },
+      { name: "Gamma.app", category: "education", features: [], description: "Gera apresentações de slides, documentos e páginas web responsivas a partir de prompts.", link: "https://gamma.app/docs/Inteligencia-Artificial-na-Orientacao-Academica-Desafios-e-Oportu-npixry1nsanzuh1?mode=doc", tags: ["Slides", "Websites"] },
+      { name: "ProDream.ai", category: "education", features: [], description: "Editor de escrita acadêmica com recursos de aprimoramento e formatação de texto.", link: "https://prodream.ai/", tags: ["Artigos"] },
+      { name: "Explainpaper", category: "education", features: [], description: "Faça upload de artigos acadêmicos complexos e destaque as frases difíceis para obter explicações simples.", link: "https://www.explainpaper.com/", tags: ["Leitura", "Pesquisa"] },
+      { name: "Nolej", category: "education", features: [], description: "Transforma textos e vídeos estáticos em materiais e questionários de aprendizagem interativa.", link: "https://www.nolej.io/", tags: ["Dinâmico"] },
+      { name: "Socrative.com", category: "education", features: [], description: "Mais possibilidades educacionais e engajamento em tempo real.", link: "http://socrative.com", tags: ["Sala de Aula"] },
+      { name: "Aleks.com", category: "education", features: [], description: "Plataforma de avaliação e aprendizagem matemática adaptativa.", link: "http://aleks.com", tags: ["Matemática"] },
+      { name: "carnegielearning.com", category: "education", features: [], description: "Sistemas tutoriais e soluções educacionais inteligentes.", link: "http://carnegielearning.com", tags: ["Soluções"] },
+      { name: "khanacademy.org/khan-labs", category: "education", features: [], description: "Experimentos e assistente Khanmigo da renomada Khan Academy.", link: "http://khanacademy.org/khan-labs", tags: ["Tutoria"] },
+      { name: "microsoft.com/en-us/ai/ai-business-school", category: "education", features: [], description: "Escola de negócios focada em liderança e desenvolvimento em IA da Microsoft.", link: "http://microsoft.com/en-us/ai/ai-business-school", tags: ["Corporativo"] },
+      { name: "teachablemachine.withgoogle.com", category: "education", features: [], description: "Experimento web para ensinar conceitos práticos de Machine Learning para alunos de forma fácil.", link: "http://teachablemachine.withgoogle.com", tags: ["Prática", "Google"] },
+      { name: "Consensus", category: "education", features: ["📝", "🌐"], description: "Busca especificamente literatura científica e produz sínteses fundamentadas nos estudos encontrados, complementando Elicit e SciSpace.", link: "https://consensus.app/", tags: ["Pesquisa", "Artigos"] },
+      { name: "ResearchRabbit", category: "education", features: ["📊", "🌐"], description: "Excelente para descoberta de literatura por redes de citações, autores relacionados e mapas visuais, facilitando o mapeamento bibliográfico.", link: "https://www.researchrabbit.ai/", tags: ["Pesquisa", "Mapas"] },
+
+      // DETECTORES DE IA
+      { name: "Scribbr.com/ai-detector", category: "detectors", features: [], description: "Plataforma confiável para rastreamento de plágio e escrita de IA.", link: "https://www.scribbr.com/ai-detector", tags: ["Detector"] },
+      { name: "GPTZero", category: "detectors", features: [], description: "Indicador de padrões de escrita por IA com análise avançada, verificação de autoria, citações possivelmente inventadas e integrações educacionais; não constitui prova isolada.", link: "https://gptzero.me/", tags: ["Detector"] },
+      { name: "Notegpt.io/ai-detector", category: "detectors", features: [], description: "Detector rápido de textos e resumos gerados artificialmente.", link: "https://notegpt.io/ai-detector", tags: ["Detector"] },
+      { name: "sgen.ai", category: "detectors", features: [], description: "Detector de IA simplificado e direto.", link: "https://isgen.ai", tags: ["Detector"] },
+      { name: "Scispace.com/ai-detector", category: "detectors", features: [], description: "Ferramenta de detecção focada na escrita acadêmica.", link: "https://scispace.com/ai-detector", tags: ["Detector"] },
+      { name: "Papersowl.com/ai-content-detector", category: "detectors", features: [], description: "Rastreador de autenticidade para trabalhos acadêmicos.", link: "https://papersowl.com/ai-content-detector", tags: ["Detector"] },
+      { name: "Quillbot.com/ai-content-detector", category: "detectors", features: [], description: "Detector integrado à famosa ferramenta de paráfrase.", link: "https://quillbot.com/ai-content-detector", tags: ["Detector"] },
+
+      // ÁUDIO, VOZ E MÚSICA
+      {
+        name: "Eleven Reader",
+        category: "audio",
+        features: ["🔊"],
+        description: "Aplicativo de leitura em voz alta para textos, artigos, PDFs e outros documentos, com vozes naturais e uso voltado a estudo e acessibilidade.",
+        link: "https://elevenreader.io/",
+        tags: ["Leitor"],
+        iosLink: "https://apps.apple.com/br/app/elevenreader-texto-para-%C3%A1udio/id6479373050"
+      },
+      { name: "PopPop AI", category: "audio", features: ["🔊"], description: "Gera falas diferenciadas, remove vocais e cria covers musicais.", link: "https://poppop.ai/", tags: ["Música"] },
+      { name: "Tactiq | transcription", category: "audio", features: ["📝"], description: "Transcreve videoconferências ao vivo em plataformas como Google Meet, Zoom e Teams.", link: "https://app.tactiq.io/", tags: ["Transcrição"] },
+      { name: "ai-coustics.com", category: "audio", features: [], description: "Tecnologia para restauração de clareza e limpeza de ruídos em gravações de áudio ruins.", link: "https://ai-coustics.com/", tags: ["Limpeza"] },
+      { name: "Suno", category: "audio", features: [], description: "Criador de músicas de alta qualidade com instrumentação e vocais a partir de letras.", link: "https://suno.com/", tags: ["Composição"] },
+      { name: "Udio", category: "audio", features: [], description: "Plataforma alternativa ao Suno para composição de canções e trilhas sonoras.", link: "https://www.udio.com/", tags: ["Composição"] },
+      { name: "Flow Music (antigo ProducerAI)", category: "audio", features: [], description: "Plataforma de criação musical por IA para gerar e desenvolver faixas; o endereço ProducerAI agora redireciona para Flow Music.", link: "https://www.flowmusic.app/", tags: ["Música"] },
+      { name: "FreeBeat.ai", category: "audio", features: ["🎬"], description: "Plataforma que integra áudio e geração rítmica de vídeos.", link: "https://freebeat.ai/pt", tags: ["Vídeo"] },
+      { name: "ElevenLabs", category: "audio", features: ["🔊"], description: "Excelente motor de síntese de voz e dublagem de alta fidelidade em dezenas de línguas.", link: "https://elevenlabs.io/speech-synthesis", tags: ["Voz"] },
+      { name: "Wevoicer", category: "audio", features: ["🔊"], description: "Idem ao ElevenLabs, mas de origem brasileira.", link: "https://app.wevoicer.com/", tags: ["Voz", "Brasileiro"] },
+      { name: "Moises", category: "audio", features: [], description: "Ferramenta para isolamento de canais (separa bateria, baixo, vocal) e ajuste de andamento.", link: "https://moises.ai/", tags: ["Músicos"] },
+      { name: "Otter.ai", category: "audio", features: ["📝", "🔊"], description: "Referência em reuniões: realiza transcrição em tempo real, resumos inteligentes, extração de tarefas e insights colaborativos.", link: "https://otter.ai/", tags: ["Transcrição", "Reuniões"] },
+
+      // IMAGEM E VÍDEO
+      { name: "Roboneo", category: "video", features: ["🎬"], description: "Conjunto de ferramentas para alteração de imagens e automação de edição de vídeos.", link: "https://www.roboneo.com/", tags: ["Edição"] },
+      { name: "Ideogram.ai", category: "video", features: ["🎨"], description: "Geração de imagens de altíssima qualidade com renderização perfeita de textos e cartazes.", link: "https://ideogram.ai/", tags: ["Imagem"] },
+      { name: "Canva", category: "video", features: [], description: "Plataforma de design gráfico popular com forte inclusão de ferramentas geradoras de IA.", link: "https://www.canva.com/", tags: ["Design"] },
+      { name: "LipSync Video", category: "video", features: [], description: "Sincroniza movimentos labiais de vídeos de avatares com novos áudios de voz.", link: "https://lipsync.video/", tags: ["Vídeo"] },
+      { name: "Microsoft Designer", category: "video", features: ["🎨"], description: "Aplicativo de criação de posts, layouts e cartazes baseado em prompts.", link: "https://designer.microsoft.com/", tags: ["Design"] },
+      { name: "Seaart.ai", category: "video", features: ["🎨"], description: "Grande catálogo comunitário e gerador de imagens por difusão.", link: "https://www.seaart.ai/", tags: ["Imagem"] },
+      { name: "Reve", category: "video", features: ["🎨"], description: "Geração e edição de imagens com planejamento de composição, controle de texto e layout, edição iterativa e renderização nativa em alta resolução.", link: "https://app.reve.com/", tags: ["Imagem"] },
+      { name: "Leonardo.ai", category: "video", features: ["🎨"], description: "Ambiente completo de geração e modelagem de imagens e texturas 3D.", link: "https://leonardo.ai", tags: ["Imagem"] },
+      { name: "PromeAI", category: "video", features: ["🎨"], description: "Transforma rabiscos básicos e renders brutos em imagens e fotografias realistas.", link: "https://www.promeai.pro/pt", tags: ["Arquitetura", "Design"] },
+      { name: "ClipDrop", category: "video", features: [], description: "Ecossistema da Stability AI para edição ágil de imagens (remover fundo, realocar iluminação).", link: "https://clipdrop.co/", tags: ["Edição"] },
+      { name: "OpusClip", category: "video", features: [], description: "Transforma vídeos longos em clipes curtos, selecionando trechos, reenquadrando, legendando e adaptando conteúdo para redes sociais.", link: "https://www.opus.pro/", tags: ["Vídeo", "Cortes"] },
+      { name: "Jogg.ai", category: "video", features: [], description: "Facilita a montagem e automação de anúncios e vídeos curtos.", link: "https://app.jogg.ai/", tags: ["Vídeo"] },
+      { name: "Mootion", category: "video", features: [], description: "Transforma ideias, roteiros e conteúdos em histórias visuais, animações e vídeos com fluxo narrativo assistido por IA.", link: "https://www.mootion.com/", tags: ["Animação"] },
+      { name: "krea.ai", category: "video", features: [], description: "Gerador em tempo real e ampliação (upscaling) de qualidade de imagens e vídeos.", link: "https://www.krea.ai/home", tags: ["Imagem"] },
+      { name: "TopView.ai", category: "video", features: [], description: "Editor de vídeo automatizado com geração de roteiros baseados em links de produtos.", link: "https://www.topview.ai", tags: ["Vídeo"] },
+      { name: "InVideo", category: "video", features: [], description: "Agente de vídeo que desenvolve roteiro, mídia, narração, legendas e edição a partir de uma solicitação em linguagem natural.", link: "https://invideo.io/ai/", tags: ["Vídeo"] },
+      { name: "Humva", category: "video", features: [], description: "Cria vídeos narrados com avatares humanos realistas em diversos idiomas.", link: "https://humva.com/", tags: ["Avatares"] },
+      { name: "Midjourney", category: "video", features: ["🎨", "🎬"], description: "É uma das referências mais consolidadas em geração de imagens e atualmente também transforma imagens em vídeos.", link: "https://www.midjourney.com/", tags: ["Imagem", "Vídeo"] },
+      { name: "Adobe Firefly", category: "video", features: ["🎨", "🎬", "🔊"], description: "Tornou-se uma suíte bastante ampla para geração e edição de imagem, vídeo, áudio e design, incluindo modelos de diferentes fornecedores.", link: "https://www.adobe.com/products/firefly.html", tags: ["Suíte", "Design"] },
+      { name: "Runway", category: "video", features: ["🎬", "🎨", "🔊"], description: "A plataforma reúne geração e edição de vídeo, imagem e áudio, sendo uma das principais referências em criação audiovisual com IA.", link: "https://runwayml.com/", tags: ["Vídeo", "Edição"] },
+      { name: "Descript", category: "video", features: ["🎬", "🔊", "📝"], description: "Importante para edição de podcast e vídeo baseada em texto; seu agente Underlord automatiza cortes, tratamento de áudio e tarefas editoriais.", link: "https://www.descript.com/", tags: ["Edição", "Podcasts"] },
+
+      // EXPERIMENTAIS E OUTROS
+      { name: "Google AI Studio", category: "experimental", features: ["📝", "🔊", "🤖"], description: "Console oficial para testes das APIs do Gemini, criação de prompts e agentes de IA.", link: "https://aistudio.google.com/app/prompts/new_chat", tags: ["Google", "Desenvolvedores"] },
+      { name: "Google Opal", category: "experimental", features: [], description: "Ferramenta experimental do Google para criar miniaplicativos e fluxos de IA em linguagem natural, sem programação tradicional.", link: "https://opal.google/", tags: ["Google"] },
+      { name: "Replit", category: "experimental", features: [], description: "Plataforma de codificação em nuvem com forte assistente de programação por IA.", link: "https://replit.com/", tags: ["Código"] },
+      { name: "Huggingface.co", category: "experimental", features: [], description: "A maior comunidade de modelos abertos, datasets e web-apps de IA.", link: "https://huggingface.co/spaces", tags: ["Modelos Livres"] },
+      { name: "Base44", category: "experimental", features: [], description: "Auxilia a construir e colocar aplicativos no ar de forma assistida.", link: "https://base44.com/", tags: [] },
+      { name: "Future Tools", category: "experimental", features: [], description: "Grande repositório de ferramentas de IA catalogadas e avaliadas.", link: "https://www.futuretools.io/", tags: ["Diretório"] },
+      { name: "GizAI", category: "experimental", features: [], description: "Diretório de micro-serviços variados com múltiplas inteligências.", link: "https://www.giz.ai/", tags: [] },
+      { name: "Stitch - Design with AI", category: "experimental", features: [], description: "Experimento de criação artística colaborativa auxiliada por inteligência computacional.", link: "https://stitch.withgoogle.com/", tags: ["Google", "Design"] },
+      { name: "GoogleLabs (Flow)", category: "experimental", features: [], description: "Página de acesso rápido para testar ferramentas de fronteira do Google.", link: "https://labs.google/", tags: ["Google"] },
+      { name: "Machine learning for kids", category: "experimental", features: [], description: "Plataforma educativa para ensinar conceitos de aprendizado de máquina para crianças na prática.", link: "https://machinelearningforkids.co.uk/", tags: ["Educação"] },
+      { name: "Arena AI", category: "experimental", features: ["🔀"], description: "Comparação anônima lado a lado de modelos, com votação humana e rankings públicos de desempenho percebido.", link: "https://arena.ai/", tags: ["Comparativo"] },
+      { name: "Perplexity Labs", category: "experimental", features: [], description: "O endereço antigo do laboratório redireciona atualmente para o Perplexity; mantido como referência histórica do serviço experimental.", link: "https://www.perplexity.ai/", tags: ["Redirecionado"] },
+      { name: "OpenEvidence", category: "experimental", features: [], description: "IA exclusiva para profissionais da Medicina. Não use se não for da área. Procure um médico.", link: "https://www.openevidence.com/", tags: ["Medicina"] },
+      { name: "Cursor", category: "experimental", features: ["📝", "🧠", "🧩"], description: "Um dos principais ambientes atuais de programação centrados em agentes de IA, capaz de compreender e modificar projetos inteiros.", link: "https://www.cursor.com/", tags: ["Código", "Agente"] },
+      { name: "GitHub Copilot", category: "experimental", features: ["📝", "🤖"], description: "Assistente de código integrado ao editor, oferecendo autocompletar inteligente, bate-papo técnico e fluxos de desenvolvimento com agentes de IA.", link: "https://github.com/features/copilot", tags: ["Código"] },
+      { name: "v0", category: "experimental", features: ["🎨", "🧩"], description: "Muito relevante para criação de aplicativos: gera interfaces e aplicações web full-stack prontas a partir de texto com opção de publicação direta.", link: "https://v0.dev/", tags: ["Código", "Websites"] }
+    ];
+
+    // Categoria ativa no momento
+    let currentCategory = 'all';
+
+    // Modo de Visualização (Grade / Lista)
+    let viewMode = localStorage.getItem('view_mode') || 'grid';
+
+    function setViewMode(mode) {
+      viewMode = mode;
+      localStorage.setItem('view_mode', mode);
+      
+      // Atualizar classe active nos botões
+      document.querySelectorAll('.view-toggle-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById(`view-${mode}-btn`);
+      if (activeBtn) {
+        activeBtn.classList.add('active');
+      }
+      
+      renderServices();
+    }
+
+    // Inicialização da Página
+    document.addEventListener('DOMContentLoaded', () => {
+      // Sincronizar botão ativo do modo de visualização
+      document.querySelectorAll('.view-toggle-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById(`view-${viewMode}-btn`);
+      if (activeBtn) {
+        activeBtn.classList.add('active');
+      }
+      renderServices();
+    });
+
+    // Renderizar Legenda Dinamicamente
+    // Alternar Abas Principais (Tabs)
+    function switchTab(tabName) {
+      // Remover classe active de todos os botões e conteúdos
+      document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active');
+      });
+
+      // Ativar o selecionado
+      const activeBtn = Array.from(document.querySelectorAll('.tab-button')).find(btn => btn.textContent.includes(tabName === 'services' ? 'Serviços' : 'Leituras'));
+      if (activeBtn) {
+        activeBtn.classList.add('active');
+        activeBtn.setAttribute('aria-selected', 'true');
+      }
+
+      const activeContent = document.getElementById(`tab-${tabName}`);
+      if (activeContent) {
+        activeContent.classList.add('active');
+      }
+      
+      // Rolar suavemente para o topo do contêiner incorporado
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Filtrar por Categoria de Ferramenta
+    function filterCategory(category) {
+      currentCategory = category;
+      
+      // Atualizar botões de filtro
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      const activeBtn = Array.from(document.querySelectorAll('.filter-btn')).find(btn => 
+        btn.onclick.toString().includes(`'${category}'`)
+      );
+      if (activeBtn) {
+        activeBtn.classList.add('active');
+      }
+
+      renderServices();
+    }
+
+    // Busca em tempo real
+    function handleSearch() {
+      renderServices();
+    }
+
+    // Renderizar Serviços de Acordo com Filtros e Busca
+    function renderServices() {
+      const grid = document.getElementById('services-grid');
+      const searchVal = document.getElementById('search-input').value.toLowerCase().trim();
+      const counter = document.getElementById('results-counter');
+      
+      grid.innerHTML = '';
+      
+      // Filtrar lista
+      const filtered = tools.filter(tool => {
+        // Filtro por categoria
+        if (currentCategory !== 'all' && tool.category !== currentCategory) {
+          return false;
+        }
+        
+        // Filtro por busca
+        if (searchVal) {
+          const matchName = tool.name.toLowerCase().includes(searchVal);
+          const currentDescription = UPDATED_DESCRIPTIONS[tool.name] || tool.description;
+          const matchDesc = currentDescription.toLowerCase().includes(searchVal);
+          const matchTags = tool.tags.some(t => t.toLowerCase().includes(searchVal));
+          const matchCatName = CATEGORY_NAMES[tool.category].toLowerCase().includes(searchVal);
+          
+          // Buscar também por ícone/emoji se o usuário digitar o significado
+          return matchName || matchDesc || matchTags || matchCatName;
+        }
+        
+        return true;
+      });
+
+      // Configurar modo de visualização (Lista / Grade)
+      if (viewMode === 'list') {
+        grid.classList.add('list-view');
+        // Ordenar alfabeticamente no modo Lista
+        filtered.sort((a, b) => a.name.localeCompare(b.name, 'pt', { sensitivity: 'base' }));
+      } else {
+        grid.classList.remove('list-view');
+      }
+
+      // Atualizar Contador
+      if (filtered.length === 1) {
+        counter.textContent = "1 serviço encontrado.";
+      } else {
+        counter.textContent = `${filtered.length} serviços encontrados.`;
+      }
+
+      // Estado Vazio
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+            </svg>
+            <p>Nenhuma ferramenta correspondente foi encontrada. Tente outra palavra-chave.</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Obter lista de itens visitados
+      const visitedTools = JSON.parse(localStorage.getItem('visited_tools') || '[]');
+
+      // Renderizar itens
+      filtered.forEach((tool, index) => {
+        const card = document.createElement('div');
+        card.className = 'service-card';
+        if (visitedTools.includes(tool.name)) {
+          card.classList.add('visited');
+        }
+        card.dataset.category = tool.category;
+        card.setAttribute('role', 'link');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', `Acessar ${tool.name}`);
+        
+        card.addEventListener('click', (event) => {
+          if (event.target.closest('a')) return;
+          
+          // Registrar visita
+          let visited = JSON.parse(localStorage.getItem('visited_tools') || '[]');
+          if (!visited.includes(tool.name)) {
+            visited.push(tool.name);
+            localStorage.setItem('visited_tools', JSON.stringify(visited));
+          }
+          card.classList.add('visited');
+          
+          window.open(tool.link, '_blank', 'noopener,noreferrer');
+        });
+        
+        card.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            
+            // Registrar visita
+            let visited = JSON.parse(localStorage.getItem('visited_tools') || '[]');
+            if (!visited.includes(tool.name)) {
+              visited.push(tool.name);
+              localStorage.setItem('visited_tools', JSON.stringify(visited));
+            }
+            card.classList.add('visited');
+            
+            window.open(tool.link, '_blank', 'noopener,noreferrer');
+          }
+        });
+        
+        card.style.animationDelay = `${index * 30}ms`; // Cascata de reveal suave
+        
+        // Tags adicionais do item (adiciona uma tag padrão se o array estiver vazio para manter uniformidade)
+        let finalTags = [...(tool.tags || [])];
+        if (finalTags.length === 0) {
+          if (tool.category === 'general') finalTags.push('Uso Geral');
+          else if (tool.category === 'education') finalTags.push('Educação');
+          else if (tool.category === 'detectors') finalTags.push('Detector');
+          else if (tool.category === 'audio') finalTags.push('Áudio');
+          else if (tool.category === 'video') finalTags.push('Imagem/Vídeo');
+          else if (tool.category === 'experimental') finalTags.push('Avançado');
+        }
+
+        let tagsHtml = '';
+        if (finalTags.length > 0) {
+          tagsHtml = `<div class="card-tags">` + 
+            finalTags.map(t => `<span class="tag-badge">${t}</span>`).join('') + 
+            `</div>`;
+        }
+
+        // Seção do NotebookLM/Eleven Reader com links específicos
+        let subLinksHtml = '';
+        if (tool.extensions && tool.extensions.length > 0) {
+          subLinksHtml = `
+            <div class="sub-links-container extensions-inline">
+              <div class="sub-links-title">Extensões para NotebookLM:</div>
+              <div class="sub-links-grid">
+                ${tool.extensions.map(ext => `
+                  <a href="${ext.link}" target="_blank" rel="noopener noreferrer" class="sub-link">
+                    🧩 ${ext.name}
+                  </a>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }
+
+        // Links de download adicionais (ex: Eleven Reader iOS)
+        if (tool.iosLink) {
+          subLinksHtml = `
+            <div class="sub-links-container">
+              <div class="sub-links-title">Disponível para dispositivos:</div>
+              <div class="sub-links-grid">
+                <a href="${tool.link}" target="_blank" rel="noopener noreferrer" class="sub-link">🤖 Android</a>
+                <a href="${tool.iosLink}" target="_blank" rel="noopener noreferrer" class="sub-link">🍎 iOS</a>
+              </div>
+            </div>
+          `;
+        }
+
+        // Badges das funcionalidades com tooltip
+        card.innerHTML = `
+          <div>
+            <div class="service-header">
+              <span class="service-name">${tool.name}</span>
+              <span class="service-category-badge">${CATEGORY_NAMES[tool.category].split(' ')[0]}</span>
+            </div>
+            
+            <p class="service-desc" style="margin: 0.5rem 0 0.75rem 0;">
+              ${UPDATED_DESCRIPTIONS[tool.name] || tool.description || 'Disponível no link de acesso.'}
+            </p>
+            
+          </div>
+          
+          <div class="card-footer">
+            ${tagsHtml}
+            ${subLinksHtml}
+          </div>
+        `;
+        
+        grid.appendChild(card);
+      });
+    }
+  </script>
+</body>
+</html>
