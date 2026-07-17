@@ -706,7 +706,7 @@ h1 span {
   border-radius: 4px;
 }
 
-/* Links adicionais de plataformas como ElevenLabs e NotebookLM */
+/* Links adicionais de plataformas como ElevenLabs e Gemini Notebook */
 .sub-links-container {
   display: flex;
   flex-direction: column;
