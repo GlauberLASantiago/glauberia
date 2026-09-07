@@ -61,7 +61,7 @@ firebase emulators:start
 
 ---
 
-## 📦 Implantação (Deployment)
+## 📦 Implantação (Deployment) & Atualização com Novidades
 
 Para atualizar o site de produção hospedado no Firebase Hosting:
 
@@ -71,8 +71,18 @@ Para atualizar o site de produção hospedado no Firebase Hosting:
    ```
 2. Execute o deploy:
    ```bash
-   firebase deploy
+   firebase deploy --only hosting
    ```
+
+### 🔄 Atualizações Automáticas com IA (Skill)
+O repositório conta com a skill personalizada [`.agents/skills/atualizar-site/SKILL.md`](.agents/skills/atualizar-site/SKILL.md), que documenta o fluxo completo de:
+- Pesquisa de novas ferramentas e tendências recentes de IA;
+- Sincronização entre `index.html` e `glauberia_embed.html` (para o Google Sites);
+- Atualização da seção de Agentes Autônomos em `assistentes.html`;
+- Atualização dos timestamps de rodapé;
+- Commit, push para o GitHub e deploy direto no Firebase Hosting.
+
+Basta pedir ao assistente: *"Atualize o site com novidades"* ou *"Adicione a ferramenta X"*.
 
 ---
 
