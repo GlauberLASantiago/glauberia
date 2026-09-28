@@ -2184,10 +2184,9 @@ footer {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1rem;
-  max-height: 450px;
-  overflow-y: auto;
+  max-height: none;
+  overflow: visible;
   padding-right: 0.5rem;
-  scrollbar-width: thin;
 }
 
 .suno-list::-webkit-scrollbar {
