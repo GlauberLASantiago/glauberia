@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estilos & Tags para Suno.com - GlauberIA</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  
+  <!-- Fontes Premium do Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/glauberia.css">
+  
+  <!-- Firebase App e Analytics SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCInnUSp8NQ_PWwlvpLF5Mw9ueq3jDMFmE",
+      authDomain: "horizonte-7ec73.firebaseapp.com",
+      projectId: "horizonte-7ec73",
+      storageBucket: "horizonte-7ec73.firebasestorage.app",
+      messagingSenderId: "717322550690",
+      appId: "1:717322550690:web:a6d62ae0c8110d69b846fb",
+      measurementId: "G-4Q1W69W69K"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+  
+  <!-- Script de Inicialização de Tema para Evitar Flash -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  
+  <style>
+    /* Estilos dedicados para a subpágina Suno */
+    .suno-page-header {
+      margin-bottom: 2rem;
+    }
+    
+    .suno-hero-banner {
+      background: linear-gradient(135deg, rgba(130, 113, 83, 0.08) 0%, rgba(130, 113, 83, 0.02) 100%);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .suno-hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+    
+    .suno-action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: var(--transition-smooth);
+    }
+    
+    .suno-action-btn.primary {
+      background: var(--accent-color);
+      color: #ffffff;
+      border: 1px solid var(--accent-color);
+    }
+    
+    .suno-action-btn.primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+    
+    .suno-action-btn.secondary {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+    
+    .suno-action-btn.secondary:hover {
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+      transform: translateY(-1px);
+    }
+    
+    .suno-controls-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .suno-search-row {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    .suno-search-input-wrapper {
+      flex: 1;
+      min-width: 260px;
+      position: relative;
+    }
+    
+    .suno-count-badge {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      background: rgba(130, 113, 83, 0.08);
+      padding: 0.5rem 0.9rem;
+      border-radius: 20px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    
+    .suno-grid-full {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 3rem;
+    }
+    
+    .suno-item-card-dedicated {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    }
+    
+    .suno-item-card-dedicated:hover {
+      border-color: var(--accent-color);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(130, 113, 83, 0.12);
+    }
+    
+    .suno-badge-part {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--accent-color);
+      background: rgba(130, 113, 83, 0.1);
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      display: inline-block;
+    }
+    
+    .suno-copy-button {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      background: rgba(130, 113, 83, 0.06);
+      border: 1px solid rgba(130, 113, 83, 0.15);
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent-color);
+      transition: var(--transition-smooth);
+    }
+    
+    .suno-item-card-dedicated:hover .suno-copy-button {
+      background: var(--accent-color);
+      color: #ffffff;
+      border-color: var(--accent-color);
+    }
+    
+    .suno-item-card-dedicated.copied .suno-copy-button {
+      background: #2e7d32 !important;
+      color: #ffffff !important;
+      border-color: #2e7d32 !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra de Navegação Superior (Top Navbar) -->
+  <nav class="top-navbar">
+    <a href="/" class="top-navbar-brand">
+      Glauber<span>IA</span>
+    </a>
+    
+    <!-- Menu para Desktop -->
+    <div class="top-navbar-menu">
+      <a href="/" class="top-nav-item">🏠 Início</a>
+      <a href="/prompts" class="top-nav-item active">✍ Prompts</a>
+      <a href="/assistentes" class="top-nav-item">🤖 Assistentes</a>
+      <a href="/canvas" class="top-nav-item">🧩 Apps & Canvas</a>
+      <a href="/propostas" class="top-nav-item">📚 Propostas</a>
+      
+      <!-- Dropdown Formação -->
+      <div class="top-nav-dropdown">
+        <a href="/formacao" class="top-nav-dropdown-trigger" style="text-decoration: none;">🎓 Formação ▾</a>
+        <div class="top-nav-dropdown-menu">
+          <a href="/formacao" class="top-nav-dropdown-item">
+            <span>🎓 Formação de Professores</span>
+          </a>
+          <a href="/roteiro" class="top-nav-dropdown-item">
+            <span>📋 Roteiro de Implantação</span>
+          </a>
+          <a href="/estudos" class="top-nav-dropdown-item">
+            <span>💼 Estudos de Caso</span>
+          </a>
+          <a href="/videos" class="top-nav-dropdown-item">
+            <span>🎥 Vídeo-Aulas & Tutoriais</span>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Botão Tema Noturno Desktop -->
+      <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Alternar Tema" style="background: none; border: none; cursor: pointer; font-size: 1.15rem; display: flex; align-items: center; justify-content: center; padding: 0.25rem 0.5rem; color: rgba(255,255,255,0.85); transition: var(--transition-smooth); margin-left: 0.5rem;">
+        <span class="theme-toggle-icon">🌙</span>
+      </button>
+    </div>
+    
+    <!-- Botão Menu Hamburguer (Mobile) e Toggle Tema Mobile -->
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <button class="theme-toggle-btn mobile-only-toggle" onclick="toggleTheme()" aria-label="Alternar Tema" style="background: none; border: none; cursor: pointer; font-size: 1.15rem; color: #ffffff; display: none; align-items: center; justify-content: center; padding: 0.5rem; margin: 0;">
+        <span class="theme-toggle-icon">🌙</span>
+      </button>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Abrir Menu" style="margin: 0;">
+        ☰
+      </button>
+    </div>
+  </nav>
+
+  <!-- Overlay do Drawer Mobile -->
+  <div id="mobile-drawer-overlay" class="mobile-drawer-overlay" onclick="toggleMobileMenu()"></div>
+
+  <!-- Drawer Menu Mobile -->
+  <div id="mobile-drawer" class="mobile-drawer">
+    <div class="mobile-drawer-header">
+      <span class="top-navbar-brand">Glauber<span>IA</span></span>
+      <button class="mobile-drawer-close" onclick="toggleMobileMenu()" aria-label="Fechar Menu">✕</button>
+    </div>
+    <div class="mobile-drawer-links">
+      <a href="/" class="mobile-drawer-link">🏠 Início</a>
+      <a href="/prompts" class="mobile-drawer-link active">✍ Prompts para Educadores</a>
+      <a href="/assistentes" class="mobile-drawer-link">🤖 Assistentes & Agentes</a>
+      <a href="/canvas" class="mobile-drawer-link">🧩 Apps, Artefatos & Canvas</a>
+      <a href="/propostas" class="mobile-drawer-link">📚 Propostas Pedagógicas</a>
+      
+      <div class="mobile-drawer-section-title">Formação</div>
+      <a href="/formacao" class="mobile-drawer-link">🎓 Formação de Professores</a>
+      <a href="/roteiro" class="mobile-drawer-link">📋 Roteiro de Implantação</a>
+      <a href="/estudos" class="mobile-drawer-link">💼 Estudos de Caso</a>
+      <a href="/videos" class="mobile-drawer-link">🎥 Vídeo-Aulas & Tutoriais</a>
+    </div>
+  </div>
+
+  <!-- Faixa de Navegação Superior (Breadcrumb) -->
+  <div class="intro-band">
+    <p>
+      <a href="/prompts" style="color: var(--accent-color); font-weight: 600; text-decoration: none;">← Voltar para Todos os Prompts</a> 
+      <span style="opacity: 0.5; margin: 0 0.5rem;">/</span> 
+      <span>🎵 Guia de Estilos Musicais para Suno.com</span>
+    </p>
+  </div>
+
+  <div class="container">
+
+    <!-- Hero Banner da Página de Suno -->
+    <div class="suno-hero-banner">
+      <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+        <span style="font-size: 2.2rem;">🎵</span>
+        <div>
+          <h1 style="font-family: var(--font-display); font-size: 1.85rem; font-weight: 700; color: var(--text-primary); margin: 0;">
+            Estilos & Tags para IA Generativas de Música (Suno.com)
+          </h1>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 0.25rem;">
+            Catálogo interativo com <strong>117 estilos musicais</strong> estruturados para geração de faixas no Suno.com. Clique em qualquer cartão para copiar instantaneamente as tags correspondentes.
+          </p>
+        </div>
+      </div>
+
+      <div class="suno-hero-actions">
+        <a href="https://suno.com/" target="_blank" rel="noopener noreferrer" class="suno-action-btn primary">
+          <span>Abrir Suno.com ↗</span>
+        </a>
+        <a href="https://docs.google.com/document/u/0/d/18ajKeBla-VNsuxcHrZKbQLIIyxqFSkoXUbV_WpsJ-oI/mobilebasic" target="_blank" rel="noopener noreferrer" class="suno-action-btn secondary">
+          <span>Documento Original de Referência ↗</span>
+        </a>
+        <a href="/prompts" class="suno-action-btn secondary">
+          <span>← Voltar para o Diretório de Prompts</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Controles de Busca e Abas -->
+    <div class="suno-controls-bar">
+      
+      <!-- Linha de Busca -->
+      <div class="suno-search-row">
+        <div class="suno-search-input-wrapper">
+          <input 
+            type="text" 
+            id="suno-search" 
+            class="search-input" 
+            placeholder="Pesquisar por estilo, ritmo, instrumento ou palavra-chave..." 
+            oninput="handleSearch()"
+            style="width: 100%; box-sizing: border-box;"
+          >
+        </div>
+        <div class="suno-count-badge" id="suno-count-badge">
+          Exibindo 117 de 117 estilos
+        </div>
+      </div>
+
+      <!-- Abas por Categoria / Parte -->
+      <div class="filter-chips" style="margin-bottom: 0;">
+        <button class="chip-btn active" onclick="filterPart('all', this)">Todos (117)</button>
+        <button class="chip-btn" onclick="filterPart('Jazz Brasileiro & Ritmos', this)">🎷 Jazz Brasileiro & Ritmos (26)</button>
+        <button class="chip-btn" onclick="filterPart('Jazz Moderno & Erudito', this)">🎼 Jazz Moderno & Erudito (14)</button>
+        <button class="chip-btn" onclick="filterPart('Jazz Cromático & Experimental', this)">🎹 Jazz Cromático & Experimental (26)</button>
+        <button class="chip-btn" onclick="filterPart('World Music (Global)', this)">🌍 World Music (21)</button>
+        <button class="chip-btn" onclick="filterPart('Gospel & Sacro', this)">⛪ Gospel & Sacro (30)</button>
+      </div>
+
+    </div>
+
+    <!-- Grid de Estilos Musicais -->
+    <div id="suno-grid" class="suno-grid-full"></div>
+
+    <!-- Navegação de Rodapé entre Páginas -->
+    <div class="page-navigation">
+      <a href="/prompts" class="page-nav-link nav-prev">
+        <span class="page-nav-label">Anterior</span>
+        <span class="page-nav-title">← Diretório de Prompts</span>
+      </a>
+        
+      <a href="/assistentes" class="page-nav-link nav-next">
+        <span class="page-nav-label">Próximo</span>
+        <span class="page-nav-title">Assistentes & Agentes →</span>
+      </a>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="main-footer">
+      <div class="footer-divider"></div>
+      <p>Desenvolvido pelo professor <strong>Dr. Glauber Santiago</strong> — DAC/UFSCar</p>
+      <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.25rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
+        Apoio: 
+        <a href="https://grupohorizonte.ufscar.br/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--accent-color); font-weight: 500; text-decoration: underline;">
+          <img src="/cropped-logo-horizonte.png" alt="Logo Grupo Horizonte" style="height: 56px; width: auto; padding: 4px 8px; background: #ffffff; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); vertical-align: middle; filter: grayscale(1) contrast(1.2); opacity: 0.8; transition: var(--transition-smooth);" onmouseover="this.style.filter='none'; this.style.opacity='1'" onmouseout="this.style.filter='grayscale(1) contrast(1.2)'; this.style.opacity='0.8'">
+          <span>Grupo de Pesquisa Horizonte</span>
+        </a>
+      </p>
+      <div class="footer-links">
+        <a href="https://servidores.ufscar.br/glauber/" target="_blank" rel="noopener noreferrer">🌐 Website do Docente</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfg-6_2hWVv2xKnol7sd8NOmPBasLncsDgCHqKOZHztWox2_w/viewform" target="_blank" rel="noopener noreferrer">💬 Dê sua opinião e sugestões!</a>
+      </div>
+      <p style="font-size: 0.72rem; color: var(--text-secondary); opacity: 0.7; margin-top: 0.75rem; margin-bottom: 0; text-align: center;">
+        Última atualização: 28/09/2026 às 15:45
+      </p>
+    </footer>
+
+  </div>
+
+  <script src="/glauberia.js"></script>
+
+  <script>
+    const sunoItems = [{"name":"Jazz Brasileiro e Estruturas Rítmicas","part":"Jazz Brasileiro & Ritmos","tags":"jazz brasileiro e estruturas rítmicas","desc":""},{"name":"Brazilian Polyrhythmic Jazz","part":"Jazz Brasileiro & Ritmos","tags":"brazilian polyrhythmic jazz, layered brazilian rhythms, baião, maracatu, frevo, samba, superimposed with jazz time feels and metric modulation.","desc":"Layered Brazilian rhythms (baião, maracatu, frevo, samba) superimposed with jazz time feels and metric modulation.\nRhythmic traits: Multiple rhythmic cycles running simultaneously; Cross-rhythms between drums, bass, and melody; Frequent shifts between 2, 3, and 4-feel."},{"name":"Metric Modulation Grooves","part":"Jazz Brasileiro & Ritmos","tags":"metric modulation grooves, grooves where the perceived tempo changes without changing the pulse, through re, grouping subdivisions.","desc":"Grooves where the perceived tempo changes without changing the pulse, through re-grouping subdivisions.\nRhythmic traits: Triplet ↔ straight feel transformations; Smooth tempo illusions rather than abrupt tempo changes; Used to create surprise and elasticity in form."},{"name":"Odd-Meter Brazilian Feels","part":"Jazz Brasileiro & Ritmos","tags":"odd, meter brazilian feels, traditional brazilian grooves adapted into 5/4, 7/8, 9/8, 11/8, etc.","desc":"Traditional Brazilian grooves adapted into 5/4, 7/8, 9/8, 11/8, etc.\nExamples: Baião in 7/8; Frevo in 5/4; Samba in 9/8."},{"name":"Speech-Derived Rhythms","part":"Jazz Brasileiro & Ritmos","tags":"speech, derived rhythms, rhythms derived from spoken phrases, names, or sentences, transcribed into musical rhythm.","desc":"Rhythms derived from spoken phrases, names, or sentences, transcribed into musical rhythm.\nRhythmic traits: Irregular, organic phrasing; Human, asymmetric rhythmic contour; Often used as the basis for themes."},{"name":"Sound-Based Rhythmic Textures","part":"Jazz Brasileiro & Ritmos","tags":"sound, based rhythmic textures, rhythm created not only by percussion but by environmental or unconventional sounds.","desc":"Rhythm created not only by percussion but by environmental or unconventional sounds.\nSources: Teapots, water, toys, animal sounds, whistles, breath; Transformed into rhythmic material."},{"name":"Collective Improvisation Rhythms","part":"Jazz Brasileiro & Ritmos","tags":"collective improvisation rhythms, grooves emerge from ensemble interaction rather than being pre, written.","desc":"Grooves emerge from ensemble interaction rather than being pre-written.\nRhythmic traits: Call-and-response rhythm between instruments; Density and intensity shift dynamically; Groove is fluid, not fixed."},{"name":"Folkloric Cyclical Forms","part":"Jazz Brasileiro & Ritmos","tags":"folkloric cyclical forms, long, circular rhythmic forms inspired by northeastern and rural brazilian music.","desc":"Long, circular rhythmic forms inspired by Northeastern and rural Brazilian music.\nRhythmic traits: Repetitive cycles with evolving internal variation; Hypnotic, trance-like continuity; Often layered with harmonic and melodic evolution."},{"name":"Rhythmic Counterpoint","part":"Jazz Brasileiro & Ritmos","tags":"rhythmic counterpoint, independent rhythmic lines moving against each other, similar to contrapuntal harmony but applied to rhythm.","desc":"Independent rhythmic lines moving against each other, similar to contrapuntal harmony but applied to rhythm."},{"name":"Baião Jazz","part":"Jazz Brasileiro & Ritmos","tags":"baião jazz, jazz harmony and improvisation applied to the baião groove from northeast brazil., grounded, rhythmic, warm., piano or electric piano, double bass or electric bass, drum kit, zabumba, triangle, accordion, horns.","desc":"Jazz harmony and improvisation applied to the baião groove from Northeast Brazil.\nMood: grounded, rhythmic, warm.\nInstrumentation: piano or electric piano, double bass or electric bass, drum kit, zabumba, triangle, accordion, horns."},{"name":"Forró Jazz","part":"Jazz Brasileiro & Ritmos","tags":"forró jazz, a jazz, influenced interpretation of forró rhythms, mixing swing with northeastern dance grooves., lively, earthy, dance, oriented., accordion, zabumba, triangle, bass","desc":"A jazz-influenced interpretation of forró rhythms, mixing swing with Northeastern dance grooves.\nMood: lively, earthy, dance-oriented.\nInstrumentation: accordion, zabumba, triangle, bass, guitar or piano, sometimes horns."},{"name":"Frevo Jazz","part":"Jazz Brasileiro & Ritmos","tags":"frevo jazz, high, energy frevo rhythms combined with jazz improvisation and big, band, style arrangements., fast, joyful, virtuosic., brass section, trumpets, trombones, saxophones","desc":"High-energy frevo rhythms combined with jazz improvisation and big-band-style arrangements.\nMood: fast, joyful, virtuosic.\nInstrumentation: brass section (trumpets, trombones), saxophones, drum kit, frevo percussion."},{"name":"Maracatu Jazz","part":"Jazz Brasileiro & Ritmos","tags":"maracatu jazz, heavy maracatu rhythms fused with jazz harmony and soloing., ceremonial, powerful, hypnotic., alfaia drums, gonguê, drum kit, bass, horns, sometimes vocals or chants.","desc":"Heavy maracatu rhythms fused with jazz harmony and soloing.\nMood: ceremonial, powerful, hypnotic.\nInstrumentation: alfaia drums, gonguê, drum kit, bass, horns, sometimes vocals or chants."},{"name":"Coco Jazz","part":"Jazz Brasileiro & Ritmos","tags":"coco jazz, coco’s cyclical rhythmic patterns blended with jazz textures and improvisation., earthy, repetitive, trance, like., hand percussion, clapping, bass, guitar or piano, minimal drums, sometimes call","desc":"Coco’s cyclical rhythmic patterns blended with jazz textures and improvisation.\nMood: earthy, repetitive, trance-like.\nInstrumentation: hand percussion, clapping, bass, guitar or piano, minimal drums, sometimes call-and-response vocals."},{"name":"Mangue Jazz / Recife Fusion","part":"Jazz Brasileiro & Ritmos","tags":"mangue jazz / recife fusion, a contemporary urban fusion blending northeastern rhythms, jazz, rock, funk, and electronics., urban, experimental, hybrid., drum kit, brazilian percussion, electric bass","desc":"A contemporary urban fusion blending Northeastern rhythms, jazz, rock, funk, and electronics.\nMood: urban, experimental, hybrid.\nInstrumentation: drum kit, Brazilian percussion, electric bass, guitar, synths, horns."},{"name":"Northeastern Orchestral Jazz","part":"Jazz Brasileiro & Ritmos","tags":"northeastern orchestral jazz, large, scale jazz composition using maracatu, baião, frevo, or coco rhythms as structural foundations., cinematic, dramatic, expansive., large jazz ensemble with added northeastern percussion and regional rhythmic structures.","desc":"Large-scale jazz composition using maracatu, baião, frevo, or coco rhythms as structural foundations.\nMood: cinematic, dramatic, expansive.\nInstrumentation: large jazz ensemble with added Northeastern percussion and regional rhythmic structures."},{"name":"Carimbó (Traditional and Contemporary Amazonian Carimbó)","part":"Jazz Brasileiro & Ritmos","tags":"carimbó, traditional and contemporary amazonian carimbó, a rhythmic music and dance tradition from pará and the amazon region, rooted in indigenous and afro, brazilian heritage. it features circular, flowing melodies, hypnotic percussion patterns, and a strong connection to community celebration, nature, and ancestral culture, sometimes blended with modern arrangements while preserving its ceremonial character., earthy","desc":"A rhythmic music and dance tradition from Pará and the Amazon region, rooted in Indigenous and Afro-Brazilian heritage. It features circular, flowing melodies, hypnotic percussion patterns, and a strong connection to community celebration, nature, and ancestral culture, sometimes blended with modern arrangements while preserving its ceremonial character.\nMood: earthy, trance-like, festive, sensual, and deeply organic.\nInstrumentation: drum kit, electric bass, strumming guitar, maracas (chocalho), alto sax, horns and vocals (often call-and-response)."},{"name":"Brazilian 12/8 MPB Groove","part":"Jazz Brasileiro & Ritmos","tags":"brazilian 12/8 mpb groove, a blend of modern mpb with afro, brazilian rhythmic feel in a flowing 12/8 subdivision, combining subtle maracatu/ijexá influence with sophisticated harmony and melodic phrasing inspired by jazz and soul., smooth, soulful, hypnotic, and refined., nylon or steel, string guitar, electric or acoustic bass, drum kit with brushes or soft sticks","desc":"A blend of modern MPB with Afro-Brazilian rhythmic feel in a flowing 12/8 subdivision, combining subtle maracatu/ijexá influence with sophisticated harmony and melodic phrasing inspired by jazz and soul.\nMood: smooth, soulful, hypnotic, and refined.\nInstrumentation: nylon or steel-string guitar, electric or acoustic bass, drum kit with brushes or soft sticks, Brazilian percussion (pandeiro, shaker, agogô, light zabumba), electric piano or Rhodes, and airy vocals or instrumental lead."},{"name":"Bossa Jazz (Bossa Nova Jazz)","part":"Jazz Brasileiro & Ritmos","tags":"bossa jazz, bossa nova jazz, a fusion of bossa nova and jazz harmony/improvisation, featuring syncopated brazilian rhythms and jazz chords., smooth, elegant, relaxed., acoustic guitar, piano, double bass, light drums, brushes","desc":"A fusion of bossa nova and jazz harmony/improvisation, featuring syncopated Brazilian rhythms and jazz chords.\nMood: smooth, elegant, relaxed.\nInstrumentation: acoustic guitar, piano, double bass, light drums (brushes), soft vocals or instrumental leads."},{"name":"Samba Jazz","part":"Jazz Brasileiro & Ritmos","tags":"samba jazz, combines samba groove with jazz improvisation and harmonic language., energetic, rhythmic, sophisticated., piano, electric or acoustic bass, drum kit, brazilian percussion, tamborim, pandeiro, shaker","desc":"Combines samba groove with jazz improvisation and harmonic language.\nMood: energetic, rhythmic, sophisticated.\nInstrumentation: piano, electric or acoustic bass, drum kit, Brazilian percussion (tamborim, pandeiro, shaker), horns."},{"name":"MPB Jazz / Brazilian Contemporary Jazz","part":"Jazz Brasileiro & Ritmos","tags":"mpb jazz / brazilian contemporary jazz, a modern blend of brazilian popular music with jazz harmony and structure., lyrical, expressive, modern., piano, bass, drums, acoustic guitar, horns, sometimes strings.","desc":"A modern blend of Brazilian popular music with jazz harmony and structure.\nMood: lyrical, expressive, modern.\nInstrumentation: piano, bass, drums, acoustic guitar, horns, sometimes strings."},{"name":"Choro Jazz","part":"Jazz Brasileiro & Ritmos","tags":"choro jazz, traditional choro forms played with jazz harmony and improvisational approaches., virtuosic, playful, intricate., flute, clarinet, bandolim, acoustic guitar, string, cavaquinho, pandeiro","desc":"Traditional choro forms played with jazz harmony and improvisational approaches.\nMood: virtuosic, playful, intricate.\nInstrumentation: flute, clarinet, bandolim, acoustic guitar (7-string), cavaquinho, pandeiro, sometimes bass and piano."},{"name":"Brazilian Fusion Jazz","part":"Jazz Brasileiro & Ritmos","tags":"brazilian fusion jazz, blends brazilian rhythms with jazz fusion, funk, and contemporary textures., experimental, rhythmic, modern., electric piano/synths, electric bass, drum kit, brazilian percussion, guitars","desc":"Blends Brazilian rhythms with jazz fusion, funk, and contemporary textures.\nMood: experimental, rhythmic, modern.\nInstrumentation: electric piano/synths, electric bass, drum kit, Brazilian percussion, guitars, horns."},{"name":"Brazilian Orchestral Jazz","part":"Jazz Brasileiro & Ritmos","tags":"brazilian orchestral jazz, large, scale jazz compositions using brazilian rhythmic language within orchestral jazz frameworks., rich, cinematic, expansive., big band or large ensemble with added brazilian percussion and rhythmic patterns.","desc":"Large-scale jazz compositions using Brazilian rhythmic language within orchestral jazz frameworks.\nMood: rich, cinematic, expansive.\nInstrumentation: big band or large ensemble with added Brazilian percussion and rhythmic patterns."},{"name":"Brazilian Xote (Contemporary Xote)","part":"Jazz Brasileiro & Ritmos","tags":"brazilian xote, contemporary xote, a modern adaptation of traditional northeastern brazilian xote, preserving its characteristic ternary pulse and flowing dance feel while incorporating more refined harmonies, polished arrangements, and contemporary musical textures. it blends folk authenticity with subtle sophistication., warm, danceable, nostalgic, and elegant., accordion, steel","desc":"A modern adaptation of traditional Northeastern Brazilian xote, preserving its characteristic ternary pulse and flowing dance feel while incorporating more refined harmonies, polished arrangements, and contemporary musical textures. It blends folk authenticity with subtle sophistication.\nMood: warm, danceable, nostalgic, and elegant.\nInstrumentation: accordion, steel-string acoustic guitar, acoustic or electric bass, zabumba (bass drum), triangle, pandeiro, and optionally piano or layered accordion harmonies for a richer harmonic palette."},{"name":"Axé da Bahia (Contemporary Axé)","part":"Jazz Brasileiro & Ritmos","tags":"axé da bahia, contemporary axé, a vibrant fusion of afro, brazilian rhythms, bloco afro traditions, and modern pop production, rooted in salvador’s carnaval culture while incorporating elements of reggae, samba, reggae, funk, and brazilian popular music. characterized by strong percussion, call","desc":"A vibrant fusion of Afro-Brazilian rhythms, bloco afro traditions, and modern pop production, rooted in Salvador’s Carnaval culture while incorporating elements of reggae, samba-reggae, funk, and Brazilian popular music. Characterized by strong percussion, call-and-response vocals, and infectious groove.\nMood: joyful, high-energy, celebratory, and uplifting.\nInstrumentation: electric guitar, electric bass, keyboards, drum kit, heavy Brazilian percussion (surdo, timbal, repique, agogô, atabaque, pandeiro, shaker), layered backing vocals, and occasional brass accents."},{"name":"Jazz Moderno e Fusões Eruditas","part":"Jazz Moderno & Erudito","tags":"jazz moderno e fusões eruditas","desc":""},{"name":"Contemporary Orchestral Jazz","part":"Jazz Moderno & Erudito","tags":"contemporary orchestral jazz, a modern evolution of big band jazz that emphasizes long, form composition, rich harmony, and narrative structure., cinematic, expansive, emotionally rich., big band, saxophones, trumpets, trombones","desc":"A modern evolution of big band jazz that emphasizes long-form composition, rich harmony, and narrative structure.\nMood: cinematic, expansive, emotionally rich.\nInstrumentation: big band (saxophones, trumpets, trombones), piano, double bass, drums, sometimes woodwinds and strings."},{"name":"Modern Big Band Jazz","part":"Jazz Moderno & Erudito","tags":"modern big band jazz, maintains the big band format but with contemporary harmony, rhythms, and compositional techniques., powerful, sophisticated, dynamic., traditional big band setup with complex arrangements and extended solos.","desc":"Maintains the big band format but with contemporary harmony, rhythms, and compositional techniques.\nMood: powerful, sophisticated, dynamic.\nInstrumentation: traditional big band setup with complex arrangements and extended solos."},{"name":"Chamber Jazz","part":"Jazz Moderno & Erudito","tags":"chamber jazz, jazz with a chamber, music sensibility, focusing on subtle interplay, timbre, and compositional detail rather than swing or groove., intimate, detailed, nuanced., small ensembles with piano, bass, drums","desc":"Jazz with a chamber-music sensibility, focusing on subtle interplay, timbre, and compositional detail rather than swing or groove.\nMood: intimate, detailed, nuanced.\nInstrumentation: small ensembles with piano, bass, drums, and selected horns or strings."},{"name":"European Contemporary Jazz","part":"Jazz Moderno & Erudito","tags":"european contemporary jazz, a style associated with ecm, like aesthetics — clean production, slow development, and a strong sense of space., atmospheric, lyrical, spacious., horns, piano, bass, drums","desc":"A style associated with ECM-like aesthetics — clean production, slow development, and a strong sense of space.\nMood: atmospheric, lyrical, spacious.\nInstrumentation: horns, piano, bass, drums, often with electronic textures or extended instrumental techniques."},{"name":"Jazz Impressionism","part":"Jazz Moderno & Erudito","tags":"jazz impressionism, harmony and texture take precedence over rhythm, inspired by impressionist classical music, debussy, ravel, applied to jazz language., floating, harmonic, color, focused., piano, led ensembles","desc":"Harmony and texture take precedence over rhythm, inspired by impressionist classical music (Debussy, Ravel) applied to jazz language.\nMood: floating, harmonic, color-focused.\nInstrumentation: piano-led ensembles, soft horns, brushes on drums, occasional strings."},{"name":"Cinematic Jazz / Soundtrack Jazz","part":"Jazz Moderno & Erudito","tags":"cinematic jazz / soundtrack jazz, jazz written with a film, score mentality — scenes, moods, and emotional arcs rather than songs., narrative, emotional, visual., large jazz ensemble with orchestral colors and evolving dynamics.","desc":"Jazz written with a film-score mentality — scenes, moods, and emotional arcs rather than songs.\nMood: narrative, emotional, visual.\nInstrumentation: large jazz ensemble with orchestral colors and evolving dynamics."},{"name":"Third Stream (Jazz + Classical Fusion)","part":"Jazz Moderno & Erudito","tags":"third stream, jazz + classical fusion, a fusion of jazz improvisation with classical compositional forms and orchestration., intellectual, refined, textural., jazz rhythm section combined with classical instruments, strings, woodwinds, sometimes harp or french horn","desc":"A fusion of jazz improvisation with classical compositional forms and orchestration.\nMood: intellectual, refined, textural.\nInstrumentation: jazz rhythm section combined with classical instruments (strings, woodwinds, sometimes harp or French horn)."},{"name":"Third Stream (Orchestral Branch)","part":"Jazz Moderno & Erudito","tags":"third stream, orchestral branch, fusion of jazz harmony/improvisation with classical orchestration and formal composition., full chamber or symphonic orchestra, strings, woodwinds, brass, jazz rhythm section, optional, solo or small vocal ensemble.","desc":"Fusion of jazz harmony/improvisation with classical orchestration and formal composition.\nInstrumentation: Full chamber or symphonic orchestra (strings, woodwinds, brass); Jazz rhythm section (optional); Solo or small vocal ensemble."},{"name":"Contemporary Classical with Jazz Influence","part":"Jazz Moderno & Erudito","tags":"contemporary classical with jazz influence, modern classical music using jazz, derived chromatic language, swing, derived phrasing, or extended harmony., full orchestra or chamber orchestra, mixed choir or solo voice.","desc":"Modern classical music using jazz-derived chromatic language, swing-derived phrasing, or extended harmony.\nInstrumentation: Full orchestra or chamber orchestra; Mixed choir or solo voice."},{"name":"Post-Tonal Choral Music","part":"Jazz Moderno & Erudito","tags":"post, tonal choral music, choir, based music using atonal, chromatic, or spectral harmony., satb choir or larger vocal ensemble, optional orchestra or chamber ensemble.","desc":"Choir-based music using atonal, chromatic, or spectral harmony.\nInstrumentation: SATB choir or larger vocal ensemble; Optional orchestra or chamber ensemble."},{"name":"Spectral Orchestral / Vocal Music","part":"Jazz Moderno & Erudito","tags":"spectral orchestral / vocal music, music based on overtone structures applied to orchestra and voice., orchestra with microtonal capabilities, voices using microtonal or overtone singing.","desc":"Music based on overtone structures applied to orchestra and voice.\nInstrumentation: Orchestra with microtonal capabilities; Voices using microtonal or overtone singing."},{"name":"Experimental Vocal-Orchestral Music","part":"Jazz Moderno & Erudito","tags":"experimental vocal, orchestral music, hybrid experimental works combining orchestra, extended vocal techniques, and free/post, tonal harmony., orchestra or large ensemble, voice using extended techniques, screams, whispers, phonemes","desc":"Hybrid experimental works combining orchestra, extended vocal techniques, and free/post-tonal harmony.\nInstrumentation: Orchestra or large ensemble; Voice using extended techniques (screams, whispers, phonemes)."},{"name":"Jazz-Orchestral with Voice (Avant Branch)","part":"Jazz Moderno & Erudito","tags":"jazz, orchestral with voice, avant branch, rooted composers writing highly chromatic orchestral music including vocals., jazz orchestra or big band expanded with strings, solo voice or choir.","desc":"Jazz-rooted composers writing highly chromatic orchestral music including vocals.\nInstrumentation: Jazz orchestra or big band expanded with strings; Solo voice or choir."},{"name":"Jazz Cromático e Experimental","part":"Jazz Cromático & Experimental","tags":"jazz cromático e experimental","desc":""},{"name":"Post-Bop","part":"Jazz Cromático & Experimental","tags":"post, bop, acoustic combo with advanced harmonic language. piano uses dense voicings, horns use chromatic passing lines.","desc":"Acoustic combo with advanced harmonic language. Piano uses dense voicings; horns use chromatic passing lines.\nInstrumentation"},{"name":": Tenor or alto saxophone / trumpet (frontline); Piano or el...","part":"Jazz Cromático & Experimental","tags":": tenor or alto saxophone / trumpet, frontline, piano or el...","desc":""},{"name":"Free Bop","part":"Jazz Cromático & Experimental","tags":"free bop, traditional jazz combo pushed into looser harmonic and metric frameworks.","desc":"Traditional jazz combo pushed into looser harmonic and metric frameworks.\nInstrumentation"},{"name":": Saxophones and trumpet; Piano or prepared piano; Double ba...","part":"Jazz Cromático & Experimental","tags":": saxophones and trumpet, piano or prepared piano, double ba...","desc":""},{"name":"Avant-Garde Jazz","part":"Jazz Cromático & Experimental","tags":"avant, garde jazz, expanded timbral palette, instruments used conventionally and unconventionally.","desc":"Expanded timbral palette; instruments used conventionally and unconventionally.\nInstrumentation"},{"name":": Saxophones (alto, tenor, baritone, sopranino); Trumpet, tr...","part":"Jazz Cromático & Experimental","tags":": saxophones, alto, tenor, baritone, sopranino, trumpet, tr...","desc":""},{"name":"Free Jazz","part":"Jazz Cromático & Experimental","tags":"free jazz, collective improvisation, harmony instruments often removed to avoid tonal anchoring.","desc":"Collective improvisation; harmony instruments often removed to avoid tonal anchoring.\nInstrumentation"},{"name":": Multiple saxophones and brass; Double bass (often arco); D...","part":"Jazz Cromático & Experimental","tags":": multiple saxophones and brass, double bass, often arco, d...","desc":""},{"name":"Extended Technique Jazz","part":"Jazz Cromático & Experimental","tags":"extended technique jazz, focus on sound production itself: multiphonics, breath, key noise, microtones.","desc":"Focus on sound production itself: multiphonics, breath, key noise, microtones.\nInstrumentation"},{"name":": Solo saxophone or small ensembles; Extended woodwinds (bas...","part":"Jazz Cromático & Experimental","tags":": solo saxophone or small ensembles, extended woodwinds, bas...","desc":""},{"name":"Spectral Jazz","part":"Jazz Cromático & Experimental","tags":"spectral jazz, instruments are tuned or played to overtone, derived pitch material.","desc":"Instruments are tuned or played to overtone-derived pitch material.\nInstrumentation"},{"name":": Saxophones and brass; Piano or synthesizers capable of mic...","part":"Jazz Cromático & Experimental","tags":": saxophones and brass, piano or synthesizers capable of mic...","desc":""},{"name":"Third Stream (Ensemble)","part":"Jazz Cromático & Experimental","tags":"third stream, ensemble, hybrid ensemble combining jazz combo with classical chamber group.","desc":"Hybrid ensemble combining jazz combo with classical chamber group.\nInstrumentation"},{"name":": Jazz combo (sax, trumpet, piano, bass, drums); Classical e...","part":"Jazz Cromático & Experimental","tags":": jazz combo, sax, trumpet, piano, bass, drums, classical e...","desc":""},{"name":"Serial / Atonal Jazz","part":"Jazz Cromático & Experimental","tags":"serial / atonal jazz, conventional instruments performing post, tonal or 12, tone compositions.","desc":"Conventional instruments performing post-tonal or 12-tone compositions."},{"name":"I","part":"Jazz Cromático & Experimental","tags":"","desc":"\nnstrumentation"},{"name":": Small ensemble (sax, trumpet, piano, bass, drums); Or cham...","part":"Jazz Cromático & Experimental","tags":": small ensemble, sax, trumpet, piano, bass, drums, or cham...","desc":""},{"name":"Symmetrical Scale Jazz","part":"Jazz Cromático & Experimental","tags":"symmetrical scale jazz, electric or acoustic fusion, type ensembles using symmetrical scales for harmony and improvisation.","desc":"Electric or acoustic fusion-type ensembles using symmetrical scales for harmony and improvisation.\nInstrumentation"},{"name":": Electric guitar or saxophone as lead; Electric piano / syn...","part":"Jazz Cromático & Experimental","tags":": electric guitar or saxophone as lead, electric piano / syn...","desc":""},{"name":"Free Funk","part":"Jazz Cromático & Experimental","tags":"free funk, funk rhythm section anchors highly free and chromatic horn lines.","desc":"Funk rhythm section anchors highly free and chromatic horn lines.\nInstrumentation"},{"name":": Electric guitar; Electric bass with slap or ostinatos; Dru...","part":"Jazz Cromático & Experimental","tags":": electric guitar, electric bass with slap or ostinatos, dru...","desc":""},{"name":"Harmolodics","part":"Jazz Cromático & Experimental","tags":"harmolodics, no fixed roles — harmony, melody, and rhythm instruments overlap functionally.","desc":"No fixed roles — harmony, melody, and rhythm instruments overlap functionally.\nInstrumentation"},{"name":": Multiple melodic instruments (saxes, guitars, violins, tru...","part":"Jazz Cromático & Experimental","tags":": multiple melodic instruments, saxes, guitars, violins, tru...","desc":""},{"name":"Minimal / Repetitive Chromatic Jazz","part":"Jazz Cromático & Experimental","tags":"minimal / repetitive chromatic jazz, small ensembles focusing on repeating chromatic or modal cells.","desc":"Small ensembles focusing on repeating chromatic or modal cells.\nInstrumentation"},{"name":": Piano or synthesizer; Double bass; Drum kit with repetitiv...","part":"Jazz Cromático & Experimental","tags":": piano or synthesizer, double bass, drum kit with repetitiv...","desc":""},{"name":"World Music (Tradições Globais)","part":"World Music (Global)","tags":"world music, tradições globais","desc":""},{"name":"Hindustani Classical Music","part":"World Music (Global)","tags":"hindustani classical music, north indian classical tradition with raga, based melodic development and complex rhythm., sitar or sarod, tabla, bansuri, tanpura, voice.","desc":"North Indian classical tradition with raga-based melodic development and complex rhythm.\nInstrumentation: Sitar or sarod, tabla, bansuri, tanpura, voice."},{"name":"Carnatic Classical Music","part":"World Music (Global)","tags":"carnatic classical music, south indian classical tradition with highly ornamented melodic lines., veena, violin, mridangam, voice, ghatam.","desc":"South Indian classical tradition with highly ornamented melodic lines.\nInstrumentation: Veena, violin, mridangam, voice, ghatam."},{"name":"Japanese Gagaku","part":"World Music (Global)","tags":"japanese gagaku, ancient japanese court orchestral music., shō, hichiriki, ryūteki, koto, biwa, taiko.","desc":"Ancient Japanese court orchestral music.\nInstrumentation: Shō, hichiriki, ryūteki, koto, biwa, taiko."},{"name":"Japanese Sankyoku","part":"World Music (Global)","tags":"japanese sankyoku, chamber music for traditional japanese strings and winds., koto, shamisen, shakuhachi.","desc":"Chamber music for traditional Japanese strings and winds.\nInstrumentation: Koto, shamisen, shakuhachi."},{"name":"Chinese Silk-and-Bamboo (Jiangnan Sizhu)","part":"World Music (Global)","tags":"chinese silk, and, bamboo, jiangnan sizhu, chinese chamber ensemble tradition emphasizing heterophony., dizi, erhu, pipa, yangqin, santur, type, guqin.","desc":"Chinese chamber ensemble tradition emphasizing heterophony.\nInstrumentation: Dizi, erhu, pipa, yangqin (santur-type), guqin."},{"name":"Taiko Ensemble Music","part":"World Music (Global)","tags":"taiko ensemble music, japanese ensemble drumming tradition., taiko drums of various sizes, voice.","desc":"Japanese ensemble drumming tradition.\nInstrumentation: Taiko drums of various sizes, voice."},{"name":"Persian Classical Music (Dastgah)","part":"World Music (Global)","tags":"persian classical music, dastgah, modal persian classical system with improvisation., santur, ney, tar, kamancheh, tombak.","desc":"Modal Persian classical system with improvisation.\nInstrumentation: Santur, ney, tar, kamancheh, tombak."},{"name":"Arabic Maqam Music","part":"World Music (Global)","tags":"arabic maqam music, middle eastern modal music with microtonality., oud, ney, qanun, riq, darbuka.","desc":"Middle Eastern modal music with microtonality.\nInstrumentation: Oud, ney, qanun, riq, darbuka."},{"name":"Ottoman Classical Music","part":"World Music (Global)","tags":"ottoman classical music, courtly turkish classical music tradition., ney, oud, tanbur, kemençe, riq.","desc":"Courtly Turkish classical music tradition.\nInstrumentation: Ney, oud, tanbur, kemençe, riq."},{"name":"West African Mandé Music","part":"World Music (Global)","tags":"west african mandé music, griot, based oral musical tradition from mali and guinea., kora, ngoni, balafon, voice.","desc":"Griot-based oral musical tradition from Mali and Guinea.\nInstrumentation: Kora, ngoni, balafon, voice."},{"name":"Gnawa Music","part":"World Music (Global)","tags":"gnawa music, north african spiritual trance music., guembri, ngoni, type, qraqeb, voice.","desc":"North African spiritual trance music.\nInstrumentation: Guembri (ngoni-type), qraqeb, voice."},{"name":"Mbira Spiritual Music","part":"World Music (Global)","tags":"mbira spiritual music, shona spiritual and ceremonial music tradition., mbira, hosho shakers, voice.","desc":"Shona spiritual and ceremonial music tradition.\nInstrumentation: Mbira, hosho shakers, voice."},{"name":"Afro-Brazilian Capoeira Music","part":"World Music (Global)","tags":"afro, brazilian capoeira music, martial, ritual music accompanying capoeira., berimbau, atabaque, pandeiro, voice.","desc":"Martial-ritual music accompanying capoeira.\nInstrumentation: Berimbau, atabaque, pandeiro, voice."},{"name":"Andean Nueva Canción","part":"World Music (Global)","tags":"andean nueva canción, politically engaged andean folk fusion movement., charango, quena, zampoña, bombo.","desc":"Politically engaged Andean folk fusion movement.\nInstrumentation: Charango, quena, zampoña, bombo."},{"name":"Ukrainian Bandura Tradition","part":"World Music (Global)","tags":"ukrainian bandura tradition, epic narrative singing with plucked bandura accompaniment., bandura, voice.","desc":"Epic narrative singing with plucked bandura accompaniment.\nInstrumentation: Bandura, voice."},{"name":"Nordic Folk Revival","part":"World Music (Global)","tags":"nordic folk revival, scandinavian folk styles revived in contemporary arrangements., hardanger fiddle, nyckelharpa, voice.","desc":"Scandinavian folk styles revived in contemporary arrangements.\nInstrumentation: Hardanger fiddle, nyckelharpa, voice."},{"name":"Irish Contemporary Folk","part":"World Music (Global)","tags":"irish contemporary folk, modern adaptations of irish traditional music., bouzouki, fiddle, flute, bodhrán.","desc":"Modern adaptations of Irish traditional music.\nInstrumentation: Bouzouki, fiddle, flute, bodhrán."},{"name":"Balkan Chamber Folk","part":"World Music (Global)","tags":"balkan chamber folk, balkan folk traditions adapted to chamber ensemble contexts., bouzouki, darbuka, violin, accordion.","desc":"Balkan folk traditions adapted to chamber ensemble contexts.\nInstrumentation: Bouzouki, darbuka, violin, accordion."},{"name":"Zither Alpine Folk Music","part":"World Music (Global)","tags":"zither alpine folk music, central european alpine folk chamber tradition., zither, guitar, voice.","desc":"Central European alpine folk chamber tradition.\nInstrumentation: Zither, guitar, voice."},{"name":"Hang Drum Ambient","part":"World Music (Global)","tags":"hang drum ambient, contemporary meditative and minimalist hang drum music., hang drum, kalimba, voice, ambient electronics.","desc":"Contemporary meditative and minimalist hang drum music.\nInstrumentation: Hang drum, kalimba, voice, ambient electronics."},{"name":"Gospel Estilo #1","part":"Gospel & Sacro","tags":"gospel, sacred, traditional, gospel, song, classic, african-american, church, choir, soulful","desc":"Traditional Gospel song with classic African-American church choir style, soulful and powerful vocals, call and response, hand claps and organ accompaniment. Emotional, spiritual, uplifting atmosphere. Slow to mid tempo. Lyrics in Portuguese (Brazil), expressing faith, hope, and praise to God. Strong choir harmonies, lead vocalist supported by choir, live church feeling, analog warmth."},{"name":"Gospel Estilo #2","part":"Gospel & Sacro","tags":"gospel, sacred, contemporary, gospel, track, modern, production, blending, gospel, elements","desc":"Contemporary Gospel track with modern production, blending pop, R&B and gospel elements. Smooth vocals, rich harmonies, clean studio sound, piano, pads, light drums and bass. Inspirational and uplifting mood. Medium tempo. Lyrics in Portuguese (Brazil), about faith, overcoming struggles, and God's love. Radio-friendly, polished, emotional delivery."},{"name":"Gospel Estilo #3","part":"Gospel & Sacro","tags":"gospel, sacred, worship, song, modern, church, atmospheric, emotional, starting, soft","desc":"Worship song in modern church style, atmospheric and emotional, starting soft and building into a powerful chorus. Use piano, ambient pads, electric guitar swells and steady drums. Congregational feel, easy to sing along. Lyrics in Portuguese (Brazil), focused on devotion, surrender, and praising God. Dynamic build-up, epic chorus, reverent and spiritual atmosphere."},{"name":"Gospel Estilo #4","part":"Gospel & Sacro","tags":"gospel, sacred, southern, gospel, song, male, vocal, quartet, harmonies, country","desc":"Southern Gospel song with male vocal quartet harmonies, country and bluegrass influence. Acoustic instruments like guitar, piano, and light rhythm section. Warm, nostalgic and joyful tone. Mid tempo. Lyrics in Portuguese (Brazil), telling a story of faith and redemption. Tight vocal harmonies, traditional American South church vibe."},{"name":"Gospel Estilo #5","part":"Gospel & Sacro","tags":"gospel, sacred, urban, contemporary, gospel, track, strong, soul, influence, smooth","desc":"Urban Contemporary Gospel track with strong R&B and soul influence. Smooth, expressive lead vocals with melisma, rich backing vocals. Modern beat, bass groove, electric piano and synths. Emotional and powerful vibe. Medium to slow tempo. Lyrics in Portuguese (Brazil), about faith, resilience, and personal relationship with God. Contemporary production, soulful delivery."},{"name":"Gospel Estilo #6","part":"Gospel & Sacro","tags":"gospel, sacred, christian, rock, song, energetic, electric, guitars, strong, drums","desc":"Christian Rock song with energetic electric guitars, strong drums and powerful vocals. Modern rock sound, anthemic chorus, driving rhythm. High energy and uplifting. Lyrics in Portuguese (Brazil), about faith, strength, and overcoming darkness with God. Dynamic structure with verses, pre-chorus and explosive chorus."},{"name":"Gospel Estilo #7","part":"Gospel & Sacro","tags":"gospel, sacred, mass, choir, gospel, song, large, powerful, choir, layered","desc":"Mass Choir Gospel song with a large, powerful choir, layered harmonies and strong lead singer. Energetic, celebratory and emotional. Use piano, organ, drums and clapping. Call and response sections. Medium to fast tempo. Lyrics in Portuguese (Brazil), praising God with joy and intensity. Big, live church atmosphere, dynamic choir swells."},{"name":"Gospel Estilo #8","part":"Gospel & Sacro","tags":"gospel, sacred, classical, sacred, choral, music, inspired, english, church, composers","desc":"Classical sacred choral music inspired by English church composers like John Rutter, rich SATB choir harmonies, orchestral accompaniment with strings and organ. Elegant, reverent and liturgical atmosphere. Slow to moderate tempo. Lyrics in Portuguese (Brazil), focused on worship, holiness and divine glory. Cathedral acoustics, angelic choir sound, high quality production, emotional, professional mix and master."},{"name":"Gospel Estilo #9","part":"Gospel & Sacro","tags":"gospel, sacred, traditional, christian, hymn, century, simple, dignified, melody, organ","desc":"Traditional Christian hymn in 19th century style, simple and dignified melody, organ accompaniment, four-part harmony (SATB). Calm and reverent mood. Lyrics in Portuguese (Brazil), expressing faith, devotion and trust in God. Church congregational style, steady tempo, timeless structure, high quality production, emotional, professional mix and master."},{"name":"Gospel Estilo #10","part":"Gospel & Sacro","tags":"gospel, sacred, traditional, christian, hymn, century, simple, dignified, melody, organ","desc":"Traditional Christian hymn in 19th century style, simple and dignified melody, organ accompaniment, four-part harmony (SATB). Calm and reverent mood. Lyrics in Portuguese (Brazil), expressing faith, devotion and trust in God. Church congregational style, steady tempo, timeless structure, high quality production, emotional, professional mix and master."},{"name":"Gospel Estilo #11","part":"Gospel & Sacro","tags":"gospel, sacred, baroque, sacred, music, inspired, bach, featuring, choir, pipe","desc":"Baroque sacred music inspired by J.S. Bach, featuring choir, pipe organ, and chamber orchestra. Counterpoint harmonies, structured and majestic composition. Moderate tempo. Lyrics in Portuguese (Brazil), praising God with theological depth. Formal, classical, liturgical tone, high quality production, emotional, professional mix and master."},{"name":"Gospel Estilo #12","part":"Gospel & Sacro","tags":"gospel, sacred, gospel, musical, theater, song, dramatic, narrative-driven, similar, church","desc":"Gospel musical theater style song, dramatic and narrative-driven, similar to church musicals and productions. Combination of solo vocals, choir and orchestral arrangement. Dynamic structure with emotional transitions. Lyrics in Portuguese (Brazil), telling a story of faith, transformation and encountering God. Cinematic, expressive performance, high quality production, emotional, professional mix and master."},{"name":"Gospel Estilo #13","part":"Gospel & Sacro","tags":"gospel, sacred, traditional, negro, spiritual, deeply, emotional, expressive, featuring, solo","desc":"Traditional Negro spiritual style, deeply emotional and expressive, featuring solo voice and choir response. Minimal instrumentation (piano or a cappella). Slow to moderate tempo. Lyrics in Portuguese (Brazil), reflecting hope, suffering and faith in God. Raw, heartfelt delivery, historical gospel roots, high quality production, emotional, professional mix and master."},{"name":"Gospel Estilo #14","part":"Gospel & Sacro","tags":"gospel, sacred, cappella, sacred, choir, performance, rich, harmonies, without, instruments","desc":"A cappella sacred choir performance, rich harmonies without instruments, SATB choir with pure vocal blend. Calm, reverent and spiritual atmosphere. Slow tempo. Lyrics in Portuguese (Brazil), focusing on worship and devotion. Church or cathedral reverb, intimate and sacred tone, high quality production, emotional, professional mix and master."},{"name":"Gospel Estilo #15","part":"Gospel & Sacro","tags":"gospel, sacred, early, century, revival, tent, gospel, simple, melodies, piano","desc":"Early 20th century revival tent gospel style, simple melodies, piano accompaniment and enthusiastic singing. Joyful, participatory atmosphere with clapping and call-and-response. Medium tempo. Lyrics in Portuguese (Brazil), about repentance, salvation and revival. Vintage gospel feel, energetic yet simple, high quality production, emotional, professional mix and master."},{"name":"Gospel Estilo #16","part":"Gospel & Sacro","tags":"gospel, sacred, anglican, cathedral, choir, music, soprano, mixed, choir, organ","desc":"Anglican cathedral choir music with boy soprano and mixed choir, organ accompaniment, slow and reverent tempo. Ethereal, sacred and traditional atmosphere. Lyrics in Portuguese (Brazil), inspired by psalms and scripture. Spacious acoustics, formal liturgical tone, high quality production, emotional, professional mix and master."},{"name":"Gospel Estilo #17","part":"Gospel & Sacro","tags":"gospel, sacred, oratorio, sacred, music, inspired, handel, messiah, large, choir","desc":"Oratorio style sacred music inspired by Handel's Messiah, large choir, soloists and orchestra. Grand, dramatic and majestic. Moderate tempo with dynamic contrasts. Lyrics in Portuguese (Brazil), proclaiming the greatness of God and salvation. Classical structure, powerful crescendos, high quality production, emotional, professional mix and master."},{"name":"Gospel Estilo #18","part":"Gospel & Sacro","tags":"gospel, sacred, vintage, gospel, piano, ballad, from, expressive, solo, piano","desc":"Vintage gospel piano ballad from 1930s to 1950s style, expressive solo vocals with piano accompaniment. Slow tempo, emotional and intimate. Lyrics in Portuguese (Brazil), about faith, trust and personal testimony. Warm, nostalgic tone, classic gospel roots, high quality production, emotional, professional mix and master."},{"name":"Gospel Estilo #19","part":"Gospel & Sacro","tags":"gospel, sacred, shape, note, singing, sacred, harp, powerful, group, unpolished","desc":"Shape note singing (Sacred Harp style), raw, powerful group vocals, unpolished and strong harmonies. No instruments or minimal accompaniment. Medium tempo. Lyrics in Portuguese (Brazil), expressing devotion and reverence. Traditional American rural church style, energetic and communal singing, high quality production, emotional, professional mix and master."},{"name":"Gospel Estilo #20","part":"Gospel & Sacro","tags":"gospel, sacred, church, cantata, composition, combining, choir, soloists, orchestra, narrative","desc":"Church cantata style composition, combining choir, soloists and orchestra. Narrative structure suitable for Easter or Christmas. Dynamic sections from soft and reflective to triumphant. Lyrics in Portuguese (Brazil), telling the story of Christ, redemption and resurrection. Theatrical and sacred, high quality production, emotional, professional mix and master."},{"name":"Gospel Estilo #21","part":"Gospel & Sacro","tags":"gospel, sacred, soul, gospel, powerful, expressive, female, lead, influenced, classic","desc":"1960s soul gospel style with powerful, expressive female lead vocals, influenced by classic church soul. Use piano, organ, horns, bass and live drums. Emotional, passionate and dynamic performance. Medium tempo with gospel phrasing and improvisation. Lyrics in Portuguese (Brazil), about faith, struggle and redemption. Vintage soul groove with church roots, high quality production, emotional, professional mix and master."},{"name":"Gospel Estilo #22","part":"Gospel & Sacro","tags":"gospel, sacred, black, gospel, quartet, tight, four-part, male, vocal, harmonies","desc":"Black gospel quartet style with tight four-part male vocal harmonies (tenor, lead, baritone, bass). Minimal instrumentation or light piano accompaniment. Vintage, soulful and expressive performance. Call and response elements and rich vocal blending. Medium tempo. Lyrics in Portuguese (Brazil), about faith and salvation. Classic African-American gospel tradition, high quality production, emotional, professional mix and master."},{"name":"Gospel Estilo #23","part":"Gospel & Sacro","tags":"gospel, sacred, pentecostal, revival, gospel, spontaneous, worship, feeling, expressive, extended","desc":"Pentecostal revival style gospel with spontaneous worship feeling, expressive vocals, extended repetitions and emotional intensity. Use organ, piano and live band. Gradual build with improvisation and dynamic flow. Medium to fast tempo. Lyrics in Portuguese (Brazil), focused on revival, surrender and the presence of God. Passionate and free-flowing church atmosphere, high quality production, emotional, professional mix and master."},{"name":"Gospel Estilo #24","part":"Gospel & Sacro","tags":"gospel, sacred, gospel, track, centered, hammond, organ, rich, chords, soulful","desc":"Gospel track centered on Hammond B3 organ, with rich chords and soulful improvisation. Backed by bass and drums groove. Expressive lead vocals with gospel phrasing and choir backing. Medium tempo. Lyrics in Portuguese (Brazil), about praise and spiritual joy. Classic church groove, warm analog feel, high quality production, emotional, professional mix and master."},{"name":"Gospel Estilo #25","part":"Gospel & Sacro","tags":"gospel, sacred, gospel, house, music, uplifting, electronic, beat, piano, chords","desc":"Gospel house music with uplifting electronic beat, piano chords, and soulful vocal hooks. Energetic and joyful atmosphere. 120-130 BPM. Repetitive and catchy chorus with choir or backing vocals. Lyrics in Portuguese (Brazil), praising God with celebration. Danceable and modern, club meets church vibe, high quality production, emotional, professional mix and master."},{"name":"Gospel Estilo #26","part":"Gospel & Sacro","tags":"gospel, sacred, gospel, blues, expressive, electric, acoustic, guitar, simple, rhythm","desc":"Gospel blues style with expressive vocals, electric or acoustic guitar and simple rhythm section. Emotional and raw delivery, slow to mid tempo. Lyrics in Portuguese (Brazil), about struggle, redemption and faith in God. Deep, soulful feeling with traditional blues influence, high quality production, emotional, professional mix and master."},{"name":"Gospel Estilo #27","part":"Gospel & Sacro","tags":"gospel, sacred, country, gospel, song, acoustic, guitar, light, drums, storytelling","desc":"Country gospel song with acoustic guitar, light drums, and storytelling lyrics. Warm, narrative-driven style. Medium tempo. Simple and heartfelt vocals. Lyrics in Portuguese (Brazil), telling a story of faith, life journey and trust in God. Traditional country influence, intimate and reflective, high quality production, emotional, professional mix and master."},{"name":"Gospel Estilo #28","part":"Gospel & Sacro","tags":"gospel, sacred, gospel, reggae, laid-back, groove, offbeat, guitar, rhythm, bass","desc":"Gospel reggae style with laid-back groove, offbeat guitar rhythm, bass and light percussion. Relaxed yet uplifting atmosphere. Medium tempo. Smooth vocals with harmony backing. Lyrics in Portuguese (Brazil), about faith, peace and joy in God. Caribbean influence, positive and spiritual vibe, high quality production, emotional, professional mix and master."},{"name":"Gospel Estilo #29","part":"Gospel & Sacro","tags":"gospel, sacred, sacred, liturgical, chant, minimal, instrumentation, cappella, voices, slow","desc":"Sacred liturgical chant style with minimal instrumentation or a cappella voices. Slow tempo, reverent and meditative atmosphere. Simple melodic lines and repetitive phrases. Lyrics in Portuguese (Brazil), inspired by scripture, prayer and worship. Calm, spiritual and contemplative tone, high quality production, emotional, professional mix and master."},{"name":"Gospel Estilo #30","part":"Gospel & Sacro","tags":"gospel, sacred, cinematic, gospel, music, inspired, film, scores, combining, orchestra","desc":"Cinematic gospel music inspired by film scores, combining orchestra, choir and ambient elements. Slow build from soft piano and strings into a powerful climax. Emotional, epic and atmospheric. Lyrics in Portuguese (Brazil), about God's greatness and redemption. Wide dynamic range, cinematic storytelling, high quality production, emotional, professional mix and master.\n[Link: #h.at41tx7ubkb6]"}];
+
+    let currentPart = 'all';
+    let searchQuery = '';
+
+    function filterPart(part, btn) {
+      currentPart = part;
+      document.querySelectorAll('.filter-chips .chip-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderSunoGrid();
+    }
+
+    function handleSearch() {
+      searchQuery = document.getElementById('suno-search').value.toLowerCase().trim();
+      renderSunoGrid();
+    }
+
+    function copyItemTags(tags, cardElement) {
+      navigator.clipboard.writeText(tags).then(() => {
+        cardElement.classList.add('copied');
+        const btn = cardElement.querySelector('.suno-copy-button');
+        if (btn) btn.innerHTML = '<span>✓ Copiado com Sucesso!</span>';
+        setTimeout(() => {
+          cardElement.classList.remove('copied');
+          if (btn) btn.innerHTML = '<span>📋 Clique para Copiar Tags</span>';
+        }, 1600);
+      }).catch(err => {
+        console.error('Falha ao copiar:', err);
+      });
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+
+    function renderSunoGrid() {
+      const grid = document.getElementById('suno-grid');
+      const countBadge = document.getElementById('suno-count-badge');
+      
+      const filtered = sunoItems.filter(item => {
+        if (currentPart !== 'all' && item.part !== currentPart) return false;
+        if (searchQuery) {
+          return item.name.toLowerCase().includes(searchQuery) ||
+                 (item.desc && item.desc.toLowerCase().includes(searchQuery)) ||
+                 (item.tags && item.tags.toLowerCase().includes(searchQuery)) ||
+                 item.part.toLowerCase().includes(searchQuery);
+        }
+        return true;
+      });
+
+      countBadge.textContent = 'Exibindo ' + filtered.length + ' de ' + sunoItems.length + ' estilos';
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column: 1/-1; text-align: center; padding: 4rem 1rem; color: var(--text-muted);">
+            <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">Nenhum estilo encontrado para sua pesquisa.</p>
+            <p style="font-size: 0.85rem;">Tente pesquisar outro termo ou selecione a aba "Todos".</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => {
+        const escapedTags = item.tags.replace(/'/g, "\\'");
+        return `
+          <div class="suno-item-card-dedicated" onclick="copyItemTags('${escapedTags}', this)">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.6rem;">
+                <span class="suno-badge-part">${escapeHtml(item.part)}</span>
+              </div>
+              <h3 style="font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.5rem;">
+                ${escapeHtml(item.name)}
+              </h3>
+              ${item.desc ? `<p style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0.75rem;">${escapeHtml(item.desc)}</p>` : ''}
+              
+              <div style="margin-top: 0.5rem;">
+                <span style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em; display: block; margin-bottom: 0.35rem;">
+                  Tags para o Suno:
+                </span>
+                <div style="font-family: monospace; font-size: 0.78rem; background: rgba(0, 0, 0, 0.03); border: 1px solid var(--border-color); padding: 0.6rem; border-radius: 8px; color: var(--text-primary); line-height: 1.4; word-break: break-word;">
+                  ${escapeHtml(item.tags)}
+                </div>
+              </div>
+            </div>
+            
+            <div class="suno-copy-button">
+              <span>📋 Clique para Copiar Tags</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    renderSunoGrid();
+  </script>
+</body>
+</html>
