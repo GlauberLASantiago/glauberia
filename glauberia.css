@@ -2072,6 +2072,7 @@ footer {
 
 .prompt-card.expanded .prompt-text-container {
   display: block;
+  max-height: none;
 }
 
 .prompt-card .copy-prompt-btn {
