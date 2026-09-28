@@ -386,8 +386,8 @@
   {
     "title": "Estilos para IA generativas de música (Suno.com)",
     "category": "musica",
-    "desc": "Subpágina e catálogo interativo dedicado com 117 estilos musicais (Jazz Brasileiro, Erudito, Experimental, World Music e Gospel) com busca por abas e tags prontas para copiar.",
-    "text": "Acesse a página dedicada de estilos do Suno em https://glauberia.web.app/suno para pesquisar e copiar as tags de 117 estilos musicais com um clique.",
+    "desc": "Subpágina e catálogo dedicado com 100 estilos musicais estruturados (Jazz Brasileiro, Erudito, Experimental, World Music e Gospel) com busca e botão para copiar o estilo.",
+    "text": "Acesse a página dedicada de estilos do Suno em https://glauberia.web.app/suno para pesquisar e copiar cada um dos 100 estilos com um clique.",
     "link": "/suno",
     "isPage": true
   },
