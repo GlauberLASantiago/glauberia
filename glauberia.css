@@ -2728,49 +2728,36 @@ footer {
 
 /* Botão de Favorito e Destaque de Favoritos */
 .fav-btn {
-  background: rgba(245, 158, 11, 0.06);
-  border: 1px solid rgba(245, 158, 11, 0.35);
-  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
   border-radius: 6px;
+  width: 28px;
   height: 26px;
-  padding: 0 0.5rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.25rem;
-  font-size: 0.78rem;
-  font-weight: 600;
+  font-size: 1.05rem;
   line-height: 1;
   cursor: pointer;
   transition: var(--transition-smooth);
+  padding: 0;
   flex-shrink: 0;
 }
 
 .fav-btn:hover {
   color: #f59e0b;
-  border-color: #f59e0b;
-  background: rgba(245, 158, 11, 0.15);
-  transform: translateY(-1px);
+  border-color: rgba(245, 158, 11, 0.5);
+  background: rgba(245, 158, 11, 0.08);
+  transform: scale(1.08);
 }
 
 .fav-btn.active {
   color: #f59e0b;
-  border-color: #f59e0b;
-  background: rgba(245, 158, 11, 0.18);
+  border-color: rgba(245, 158, 11, 0.55);
+  background: rgba(245, 158, 11, 0.14);
 }
 
 .service-card.favorited {
-  border-color: rgba(245, 158, 11, 0.55);
-}
-
-.favorites-empty-hint {
-  background: var(--bg-card);
-  border: 1px dashed rgba(245, 158, 11, 0.4);
-  border-radius: 10px;
-  padding: 0.85rem 1.25rem;
-  color: var(--text-secondary);
-  font-size: 0.88rem;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
+  border-color: rgba(245, 158, 11, 0.45);
 }
