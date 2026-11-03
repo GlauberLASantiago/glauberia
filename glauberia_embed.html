@@ -1601,6 +1601,43 @@
         max-width: none;
       }
     }
+  
+/* Botão de Favorito e Destaque de Favoritos */
+.fav-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  border-radius: 6px;
+  width: 28px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.fav-btn:hover {
+  color: #f59e0b;
+  border-color: rgba(245, 158, 11, 0.5);
+  background: rgba(245, 158, 11, 0.08);
+  transform: scale(1.08);
+}
+
+.fav-btn.active {
+  color: #f59e0b;
+  border-color: rgba(245, 158, 11, 0.55);
+  background: rgba(245, 158, 11, 0.14);
+}
+
+.service-card.favorited {
+  border-color: rgba(245, 158, 11, 0.45);
+}
+
   </style>
 
   <!-- Firebase App e Analytics SDKs -->
@@ -1780,6 +1817,17 @@
         </a>
       </div>
 
+      <!-- Meus Favoritos (Dinâmico) -->
+      <div id="favorites-section" style="display: none; margin-bottom: 2.25rem;">
+        <div class="top4-title" style="display: flex; align-items: center; justify-content: space-between;">
+          <span style="display: inline-flex; align-items: center; gap: 0.45rem;">
+            <svg style="width:18px;height:18px;fill:#f59e0b" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            Meus Favoritos (<span id="favorites-count">0</span>)
+          </span>
+        </div>
+        <div class="services-grid" id="favorites-grid"></div>
+      </div>
+
       <!-- Barra de Controle Interativa -->
       <div class="controls-bar">
         <div style="display: flex; gap: 1rem; align-items: center; flex-grow: 1; max-width: 700px; flex-wrap: wrap;">
@@ -1925,7 +1973,7 @@
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSfg-6_2hWVv2xKnol7sd8NOmPBasLncsDgCHqKOZHztWox2_w/viewform" target="_blank" rel="noopener noreferrer">Avalie este site e envie sugestões</a>
       </div>
       <p style="font-size: 0.72rem; color: var(--text-secondary); opacity: 0.7; margin-top: 0.75rem; margin-bottom: 0; text-align: center;">
-        Última atualização: 02/11/2026 às 21:45
+        Última atualização: 02/11/2026 às 22:00
       </p>
     </footer>
 
@@ -2361,22 +2409,201 @@
       renderServices();
     }
 
+        // Gerenciamento de Favoritos
+    function getFavorites() {
+      try {
+        return JSON.parse(localStorage.getItem('favorite_tools') || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function toggleFavorite(toolName) {
+      let favs = getFavorites();
+      if (favs.includes(toolName)) {
+        favs = favs.filter(n => n !== toolName);
+      } else {
+        favs.push(toolName);
+      }
+      localStorage.setItem('favorite_tools', JSON.stringify(favs));
+      renderServices();
+    }
+
+    function createServiceCard(tool, index, visitedTools, favoriteTools) {
+      const isFav = favoriteTools.includes(tool.name);
+      const card = document.createElement('div');
+      card.className = 'service-card';
+      if (visitedTools.includes(tool.name)) {
+        card.classList.add('visited');
+      }
+      if (isFav) {
+        card.classList.add('favorited');
+      }
+      card.dataset.category = tool.category;
+      card.setAttribute('role', 'link');
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('aria-label', `Acessar ${tool.name}`);
+      
+      card.addEventListener('click', (event) => {
+        if (event.target.closest('a') || event.target.closest('.fav-btn')) return;
+        
+        // Registrar visita
+        let visited = JSON.parse(localStorage.getItem('visited_tools') || '[]');
+        if (!visited.includes(tool.name)) {
+          visited.push(tool.name);
+          localStorage.setItem('visited_tools', JSON.stringify(visited));
+        }
+        card.classList.add('visited');
+        
+        window.open(tool.link, '_blank', 'noopener,noreferrer');
+      });
+      
+      card.addEventListener('keydown', (event) => {
+        if (event.target.closest('.fav-btn')) return;
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          
+          // Registrar visita
+          let visited = JSON.parse(localStorage.getItem('visited_tools') || '[]');
+          if (!visited.includes(tool.name)) {
+            visited.push(tool.name);
+            localStorage.setItem('visited_tools', JSON.stringify(visited));
+          }
+          card.classList.add('visited');
+          
+          window.open(tool.link, '_blank', 'noopener,noreferrer');
+        }
+      });
+      
+      card.style.animationDelay = `${Math.min(index * 25, 400)}ms`;
+      
+      // Tags adicionais do item
+      let finalTags = [...(tool.tags || [])];
+      if (finalTags.length === 0) {
+        if (tool.category === 'general') finalTags.push('Uso Geral');
+        else if (tool.category === 'education') finalTags.push('Educação');
+        else if (tool.category === 'detectors') finalTags.push('Detector');
+        else if (tool.category === 'audio') finalTags.push('Áudio');
+        else if (tool.category === 'video') finalTags.push('Imagem/Vídeo');
+        else if (tool.category === 'experimental') finalTags.push('Avançado');
+      }
+
+      let tagsHtml = '';
+      if (finalTags.length > 0) {
+        tagsHtml = `<div class="card-tags">` + 
+          finalTags.map(t => `<span class="tag-badge">${t}</span>`).join('') + 
+          `</div>`;
+      }
+
+      let subLinksHtml = '';
+      if (tool.extensions && tool.extensions.length > 0) {
+        subLinksHtml = `
+          <div class="sub-links-container extensions-inline">
+            <div class="sub-links-title">Extensões para Gemini Notebook:</div>
+            <div class="sub-links-grid">
+              ${tool.extensions.map(ext => `
+                <a href="${ext.link}" target="_blank" rel="noopener noreferrer" class="sub-link">
+                  🧩 ${ext.name}
+                </a>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      if (tool.iosLink) {
+        subLinksHtml = `
+          <div class="sub-links-container">
+            <div class="sub-links-title">Disponível para dispositivos:</div>
+            <div class="sub-links-grid">
+              <a href="${tool.link}" target="_blank" rel="noopener noreferrer" class="sub-link">🤖 Android</a>
+              <a href="${tool.iosLink}" target="_blank" rel="noopener noreferrer" class="sub-link">🍎 iOS</a>
+            </div>
+          </div>
+        `;
+      }
+
+      card.innerHTML = `
+        <div>
+          <div class="service-header">
+            <span class="service-name">${tool.name}</span>
+            <div style="display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0;">
+              <span class="service-category-badge">${CATEGORY_NAMES[tool.category].split(' ')[0]}</span>
+              <button type="button" class="fav-btn ${isFav ? 'active' : ''}" aria-label="${isFav ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}" title="${isFav ? 'Remover dos favoritos' : 'Favoritar serviço'}">
+                ${isFav ? '★' : '☆'}
+              </button>
+            </div>
+          </div>
+          
+          <p class="service-desc" style="margin: 0.5rem 0 0.75rem 0;">
+            ${UPDATED_DESCRIPTIONS[tool.name] || tool.description || 'Disponível no link de acesso.'}
+          </p>
+        </div>
+        
+        <div class="card-footer">
+          ${tagsHtml}
+          ${subLinksHtml}
+        </div>
+      `;
+
+      const favBtn = card.querySelector('.fav-btn');
+      if (favBtn) {
+        favBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          toggleFavorite(tool.name);
+        });
+      }
+
+      return card;
+    }
+
     // Renderizar Serviços de Acordo com Filtros e Busca
     function renderServices() {
       const grid = document.getElementById('services-grid');
+      const favSection = document.getElementById('favorites-section');
+      const favGrid = document.getElementById('favorites-grid');
+      const favCount = document.getElementById('favorites-count');
       const searchVal = document.getElementById('search-input').value.toLowerCase().trim();
       const counter = document.getElementById('results-counter');
       
+      const visitedTools = JSON.parse(localStorage.getItem('visited_tools') || '[]');
+      const favoriteTools = getFavorites();
+
+      // 1. Renderizar Seção Meus Favoritos (Abaixo do Top 4)
+      if (favSection && favGrid) {
+        favGrid.innerHTML = '';
+        const favToolsList = favoriteTools
+          .map(name => tools.find(t => t.name === name))
+          .filter(Boolean);
+
+        if (viewMode === 'list') {
+          favGrid.classList.add('list-view');
+          favToolsList.sort((a, b) => a.name.localeCompare(b.name, 'pt', { sensitivity: 'base' }));
+        } else {
+          favGrid.classList.remove('list-view');
+        }
+
+        if (favToolsList.length > 0) {
+          favSection.style.display = 'block';
+          if (favCount) favCount.textContent = favToolsList.length;
+          favToolsList.forEach((tool, idx) => {
+            favGrid.appendChild(createServiceCard(tool, idx, visitedTools, favoriteTools));
+          });
+        } else {
+          favSection.style.display = 'none';
+        }
+      }
+
+      // 2. Renderizar Grade Principal
       grid.innerHTML = '';
       
       // Filtrar lista
       const filtered = tools.filter(tool => {
-        // Filtro por categoria
         if (currentCategory !== 'all' && tool.category !== currentCategory) {
           return false;
         }
         
-        // Filtro por busca
         if (searchVal) {
           const matchName = tool.name.toLowerCase().includes(searchVal);
           const currentDescription = UPDATED_DESCRIPTIONS[tool.name] || tool.description;
@@ -2384,20 +2611,28 @@
           const matchTags = tool.tags.some(t => t.toLowerCase().includes(searchVal));
           const matchCatName = CATEGORY_NAMES[tool.category].toLowerCase().includes(searchVal);
           
-          // Buscar também por ícone/emoji se o usuário digitar o significado
           return matchName || matchDesc || matchTags || matchCatName;
         }
         
         return true;
       });
 
-      // Configurar modo de visualização (Lista / Grade)
+      // Configurar modo de visualização (Lista / Grade) e ordenar favoritos primeiro
       if (viewMode === 'list') {
         grid.classList.add('list-view');
-        // Ordenar alfabeticamente no modo Lista
-        filtered.sort((a, b) => a.name.localeCompare(b.name, 'pt', { sensitivity: 'base' }));
+        filtered.sort((a, b) => {
+          const aFav = favoriteTools.includes(a.name) ? 0 : 1;
+          const bFav = favoriteTools.includes(b.name) ? 0 : 1;
+          if (aFav !== bFav) return aFav - bFav;
+          return a.name.localeCompare(b.name, 'pt', { sensitivity: 'base' });
+        });
       } else {
         grid.classList.remove('list-view');
+        filtered.sort((a, b) => {
+          const aFav = favoriteTools.includes(a.name) ? 0 : 1;
+          const bFav = favoriteTools.includes(b.name) ? 0 : 1;
+          return aFav - bFav;
+        });
       }
 
       // Atualizar Contador
@@ -2420,122 +2655,9 @@
         return;
       }
 
-      // Obter lista de itens visitados
-      const visitedTools = JSON.parse(localStorage.getItem('visited_tools') || '[]');
-
       // Renderizar itens
       filtered.forEach((tool, index) => {
-        const card = document.createElement('div');
-        card.className = 'service-card';
-        if (visitedTools.includes(tool.name)) {
-          card.classList.add('visited');
-        }
-        card.dataset.category = tool.category;
-        card.setAttribute('role', 'link');
-        card.setAttribute('tabindex', '0');
-        card.setAttribute('aria-label', `Acessar ${tool.name}`);
-        
-        card.addEventListener('click', (event) => {
-          if (event.target.closest('a')) return;
-          
-          // Registrar visita
-          let visited = JSON.parse(localStorage.getItem('visited_tools') || '[]');
-          if (!visited.includes(tool.name)) {
-            visited.push(tool.name);
-            localStorage.setItem('visited_tools', JSON.stringify(visited));
-          }
-          card.classList.add('visited');
-          
-          window.open(tool.link, '_blank', 'noopener,noreferrer');
-        });
-        
-        card.addEventListener('keydown', (event) => {
-          if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            
-            // Registrar visita
-            let visited = JSON.parse(localStorage.getItem('visited_tools') || '[]');
-            if (!visited.includes(tool.name)) {
-              visited.push(tool.name);
-              localStorage.setItem('visited_tools', JSON.stringify(visited));
-            }
-            card.classList.add('visited');
-            
-            window.open(tool.link, '_blank', 'noopener,noreferrer');
-          }
-        });
-        
-        card.style.animationDelay = `${index * 30}ms`; // Cascata de reveal suave
-        
-        // Tags adicionais do item (adiciona uma tag padrão se o array estiver vazio para manter uniformidade)
-        let finalTags = [...(tool.tags || [])];
-        if (finalTags.length === 0) {
-          if (tool.category === 'general') finalTags.push('Uso Geral');
-          else if (tool.category === 'education') finalTags.push('Educação');
-          else if (tool.category === 'detectors') finalTags.push('Detector');
-          else if (tool.category === 'audio') finalTags.push('Áudio');
-          else if (tool.category === 'video') finalTags.push('Imagem/Vídeo');
-          else if (tool.category === 'experimental') finalTags.push('Avançado');
-        }
-
-        let tagsHtml = '';
-        if (finalTags.length > 0) {
-          tagsHtml = `<div class="card-tags">` + 
-            finalTags.map(t => `<span class="tag-badge">${t}</span>`).join('') + 
-            `</div>`;
-        }
-
-        // Seção do Gemini Notebook/Eleven Reader com links específicos
-        let subLinksHtml = '';
-        if (tool.extensions && tool.extensions.length > 0) {
-          subLinksHtml = `
-            <div class="sub-links-container extensions-inline">
-              <div class="sub-links-title">Extensões para Gemini Notebook:</div>
-              <div class="sub-links-grid">
-                ${tool.extensions.map(ext => `
-                  <a href="${ext.link}" target="_blank" rel="noopener noreferrer" class="sub-link">
-                    🧩 ${ext.name}
-                  </a>
-                `).join('')}
-              </div>
-            </div>
-          `;
-        }
-
-        // Links de download adicionais (ex: Eleven Reader iOS)
-        if (tool.iosLink) {
-          subLinksHtml = `
-            <div class="sub-links-container">
-              <div class="sub-links-title">Disponível para dispositivos:</div>
-              <div class="sub-links-grid">
-                <a href="${tool.link}" target="_blank" rel="noopener noreferrer" class="sub-link">🤖 Android</a>
-                <a href="${tool.iosLink}" target="_blank" rel="noopener noreferrer" class="sub-link">🍎 iOS</a>
-              </div>
-            </div>
-          `;
-        }
-
-        // Badges das funcionalidades com tooltip
-        card.innerHTML = `
-          <div>
-            <div class="service-header">
-              <span class="service-name">${tool.name}</span>
-              <span class="service-category-badge">${CATEGORY_NAMES[tool.category].split(' ')[0]}</span>
-            </div>
-            
-            <p class="service-desc" style="margin: 0.5rem 0 0.75rem 0;">
-              ${UPDATED_DESCRIPTIONS[tool.name] || tool.description || 'Disponível no link de acesso.'}
-            </p>
-            
-          </div>
-          
-          <div class="card-footer">
-            ${tagsHtml}
-            ${subLinksHtml}
-          </div>
-        `;
-        
-        grid.appendChild(card);
+        grid.appendChild(createServiceCard(tool, index, visitedTools, favoriteTools));
       });
     }
   </script>
