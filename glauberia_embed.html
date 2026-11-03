@@ -2617,22 +2617,12 @@
         return true;
       });
 
-      // Configurar modo de visualização (Lista / Grade) e ordenar favoritos primeiro
+      // Configurar modo de visualização (Lista / Grade) mantendo os cards em suas posições originais
       if (viewMode === 'list') {
         grid.classList.add('list-view');
-        filtered.sort((a, b) => {
-          const aFav = favoriteTools.includes(a.name) ? 0 : 1;
-          const bFav = favoriteTools.includes(b.name) ? 0 : 1;
-          if (aFav !== bFav) return aFav - bFav;
-          return a.name.localeCompare(b.name, 'pt', { sensitivity: 'base' });
-        });
+        filtered.sort((a, b) => a.name.localeCompare(b.name, 'pt', { sensitivity: 'base' }));
       } else {
         grid.classList.remove('list-view');
-        filtered.sort((a, b) => {
-          const aFav = favoriteTools.includes(a.name) ? 0 : 1;
-          const bFav = favoriteTools.includes(b.name) ? 0 : 1;
-          return aFav - bFav;
-        });
       }
 
       // Atualizar Contador
