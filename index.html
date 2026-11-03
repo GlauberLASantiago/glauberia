@@ -11,7 +11,52 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="/glauberia.css">
+  <link rel="stylesheet" href="/glauberia.css?v=202611022206">
+  <style>
+    .fav-btn {
+      background: rgba(245, 158, 11, 0.06);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: var(--text-secondary);
+      border-radius: 6px;
+      height: 26px;
+      padding: 0 0.5rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      line-height: 1;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      flex-shrink: 0;
+    }
+    .fav-btn:hover {
+      color: #f59e0b;
+      border-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.15);
+      transform: translateY(-1px);
+    }
+    .fav-btn.active {
+      color: #f59e0b;
+      border-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.18);
+    }
+    .service-card.favorited {
+      border-color: rgba(245, 158, 11, 0.55);
+    }
+    .favorites-empty-hint {
+      background: var(--bg-card);
+      border: 1px dashed rgba(245, 158, 11, 0.4);
+      border-radius: 10px;
+      padding: 0.85rem 1.25rem;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+  </style>
   
   <!-- Firebase App e Analytics SDKs -->
   <script type="module">
@@ -183,14 +228,18 @@
       </div>
 
       <!-- Meus Favoritos (Dinâmico) -->
-      <div id="favorites-section" style="display: none; margin-bottom: 2.25rem;">
+      <div id="favorites-section" style="margin-bottom: 2.25rem;">
         <div class="top4-title" style="display: flex; align-items: center; justify-content: space-between;">
           <span style="display: inline-flex; align-items: center; gap: 0.45rem;">
             <svg style="width:18px;height:18px;fill:#f59e0b" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
             Meus Favoritos (<span id="favorites-count">0</span>)
           </span>
         </div>
-        <div class="services-grid" id="favorites-grid"></div>
+        <div id="favorites-empty" class="favorites-empty-hint">
+          <span style="font-size: 1.1rem; color: #f59e0b;">☆</span>
+          <span>Nenhum serviço favoritado ainda. Clique em <strong>☆ Favoritar</strong> em qualquer cartão abaixo para fixar seus serviços preferidos aqui no topo.</span>
+        </div>
+        <div class="services-grid" id="favorites-grid" style="display: none;"></div>
       </div>
 
       <!-- Barra de Controle Interativa -->
@@ -345,7 +394,7 @@
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSfg-6_2hWVv2xKnol7sd8NOmPBasLncsDgCHqKOZHztWox2_w/viewform" target="_blank" rel="noopener noreferrer">💬 Dê sua opinião e sugestões!</a>
       </div>
       <p style="font-size: 0.72rem; color: var(--text-secondary); opacity: 0.7; margin-top: 0.75rem; margin-bottom: 0; text-align: center;">
-        Última atualização: 02/11/2026 às 22:00
+        Última atualização: 02/11/2026 às 22:06
       </p>
     </footer>
 
@@ -903,7 +952,8 @@
             <div style="display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0;">
               <span class="service-category-badge">${CATEGORY_NAMES[tool.category].split(' ')[0]}</span>
               <button type="button" class="fav-btn ${isFav ? 'active' : ''}" aria-label="${isFav ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}" title="${isFav ? 'Remover dos favoritos' : 'Favoritar serviço'}">
-                ${isFav ? '★' : '☆'}
+                <span style="font-size: 0.95rem; color: #f59e0b;">${isFav ? '★' : '☆'}</span>
+                <span>${isFav ? 'Favorito' : 'Favoritar'}</span>
               </button>
             </div>
           </div>
@@ -957,14 +1007,17 @@
           favGrid.classList.remove('list-view');
         }
 
+        const favEmpty = document.getElementById('favorites-empty');
+        if (favCount) favCount.textContent = favToolsList.length;
         if (favToolsList.length > 0) {
-          favSection.style.display = 'block';
-          if (favCount) favCount.textContent = favToolsList.length;
+          if (favEmpty) favEmpty.style.display = 'none';
+          favGrid.style.display = 'grid';
           favToolsList.forEach((tool, idx) => {
             favGrid.appendChild(createServiceCard(tool, idx, visitedTools, favoriteTools));
           });
         } else {
-          favSection.style.display = 'none';
+          if (favEmpty) favEmpty.style.display = 'flex';
+          favGrid.style.display = 'none';
         }
       }
 
