@@ -1973,7 +1973,7 @@
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSfg-6_2hWVv2xKnol7sd8NOmPBasLncsDgCHqKOZHztWox2_w/viewform" target="_blank" rel="noopener noreferrer">Avalie este site e envie sugestões</a>
       </div>
       <p style="font-size: 0.72rem; color: var(--text-secondary); opacity: 0.7; margin-top: 0.75rem; margin-bottom: 0; text-align: center;">
-        Última atualização: 02/11/2026 às 22:00
+        Última atualização: 07/11/2026 às 15:16
       </p>
     </footer>
 
@@ -2151,6 +2151,12 @@
       "Amp": "Ambiente de desenvolvimento e programação com agentes que utiliza satélites macOS na nuvem para compilar, executar e testar aplicações de forma autônoma.",
       "OpenCode": "Agente autônomo e aberto de programação que conecta múltiplos modelos à sua base de código, gerando artefatos, imagens e executando metas de desenvolvimento.",
       "Hob": "Aplicativo desktop gratuito e de código aberto para trabalhar com arquivos e documentos utilizando modelos de linguagem locais, com funcionamento totalmente offline e privado.",
+      "Humanizer": "Habilidade agêntica de código aberto baseada nos critérios editoriais da Wikipédia ('Signs of AI writing') para remover clichês, construções artificiais e vícios de estilo de textos gerados por IA, preservando o sentido original.",
+      "Grill Me": "Habilidade socrática de código aberto (Matt Pocock) que atua como um entrevistador rigoroso, fazendo cerca de 20 perguntas profundas para esclarecer requisitos, escopo e premissas antes de iniciar a execução.",
+      "VoiceStudio": "Estúdio de voz e áudio por IA 100% local e de código aberto, alternativo ao ElevenLabs, com clonagem, design de voz, dublagem de vídeos, audiolivros e transcrição em até 646 idiomas com total privacidade.",
+      "ScrollCraft": "Habilidade agêntica de código aberto para projetar websites e páginas imersivas orientadas a rolagem (scrollytelling), com camadas visuais 3D, jornadas guiadas e suporte a acessibilidade.",
+      "Laya": "Motor de decisões 'System 1' não-autorregressivo e multilíngue (100+ idiomas) para tomada de decisões rápidas, tipadas, roteamento semântico e pontuações em passagem direta única sem a sobrecarga de LLMs pesados.",
+      "REA": "Servidor MCP e ferramenta open-source para engenharia reversa e inspeção de aplicativos, executáveis compilados, pacotes Electron e websites diretamente por agentes de IA sem necessidade do código-fonte.",
     };
 
     // Banco de Dados das Ferramentas
@@ -2233,6 +2239,7 @@
       { name: "Genspark", category: "education", features: ["📝", "🌐", "📊", "🧠"], description: "Buscador agêntico que aciona múltiplos modelos para pesquisar e sintetizar relatórios visuais completos e estruturados (Sparkpages).", link: "https://www.genspark.ai/", tags: ["Busca", "Pesquisa", "Agente"] },
       { name: "Felo AI", category: "education", features: ["📝", "🌐", "📊"], description: "Mecanismo de busca e pesquisa global multilíngue com tradução em tempo real, geração de mapas mentais e resumos acadêmicos.", link: "https://felo.ai/", tags: ["Busca", "Pesquisa", "Multilíngue"] },
       { name: "Mindgrasp", category: "education", features: ["📝", "🔊", "🎙️", "📎"], description: "Assistente de estudo que analisa PDFs, videoaulas, gravações e podcasts gerando resumos estruturados, flashcards e simulados.", link: "https://mindgrasp.ai/", tags: ["Estudos", "Resumos"] },
+      { name: "Grill Me", category: "education", features: ["📝", "🧠", "🤖"], description: "Habilidade socrática de código aberto (Matt Pocock) que desafia o usuário com perguntas aprofundadas para refinar planos, requisitos e premissas pedagógicas.", link: "https://github.com/mattpocock/skills/tree/main/skills/productivity/grill-me", tags: ["Planejamento", "Método Socrático", "Skill"] },
 
       // DETECTORES DE IA
       { name: "Scribbr.com/ai-detector", category: "detectors", features: [], description: "Plataforma confiável para rastreamento de plágio e escrita de IA.", link: "https://www.scribbr.com/ai-detector", tags: ["Detector"] },
@@ -2243,6 +2250,7 @@
       { name: "Papersowl.com/ai-content-detector", category: "detectors", features: [], description: "Rastreador de autenticidade para trabalhos acadêmicos.", link: "https://papersowl.com/ai-content-detector", tags: ["Detector"] },
       { name: "Quillbot.com/ai-content-detector", category: "detectors", features: [], description: "Detector integrado à famosa ferramenta de paráfrase.", link: "https://quillbot.com/ai-content-detector", tags: ["Detector"] },
       { name: "SynthID Detector", category: "detectors", features: [], description: "Identifica marcas d'água digitais em imagens, vídeos, áudios e textos gerados por sistemas compatíveis com SynthID.", link: "https://deepmind.google/technologies/synthid/", tags: ["Detector", "Google", "Marcas d'água"] },
+      { name: "Humanizer", category: "detectors", features: ["📝", "🤖"], description: "Habilidade open-source baseada nos critérios da Wikipédia para remover vícios e clichês de textos gerados por IA, tornando a escrita natural.", link: "https://github.com/blader/humanizer", tags: ["Escrita", "Humanização", "Código Aberto"] },
 
       // ÁUDIO, VOZ E MÚSICA
       {
@@ -2268,6 +2276,7 @@
       { name: "Otter.ai", category: "audio", features: ["📝", "🔊"], description: "Referência em reuniões: realiza transcrição em tempo real, resumos inteligentes, extração de tarefas e insights colaborativos.", link: "https://otter.ai/", tags: ["Transcrição", "Reuniões"] },
       { name: "MiniMax Music", category: "audio", features: ["🔊"], description: "Modelo de geração musical de alta fidelidade que cria canções completas de até 5 minutos com vocais naturais, arranjos e instrumentos.", link: "https://www.minimax.io/", tags: ["Música", "Composição"] },
       { name: "Deepgram", category: "audio", features: ["🔊", "🎙️", "🗣️"], description: "Plataforma de IA de voz em tempo real e Voice Agent Platform para transcrição ultrarrápida e agentes conversacionais falados.", link: "https://deepgram.com/", tags: ["Voz", "Transcrição", "Agente"] },
+      { name: "VoiceStudio", category: "audio", features: ["🔊", "🎙️", "🗣️"], description: "Estúdio de voz e áudio por IA 100% local e open-source para clonagem de voz, dublagem de vídeos, audiolivros e transcrição em até 646 idiomas.", link: "https://github.com/debpalash/VoiceStudio", tags: ["Voz", "Código Aberto", "Local", "Acessibilidade"] },
 
       // IMAGEM E VÍDEO
       { name: "Google Pics", category: "video", features: ["🎨", "🖼️"], description: "Ferramenta de criação e edição de imagens por IA do Google Workspace, com geração por prompts, edição de objetos e textos e integração com Docs e Slides.", link: "https://blog.google/products-and-platforms/products/workspace/google-pics/", tags: ["Google", "Design", "Imagem"] },
@@ -2324,6 +2333,9 @@
       { name: "Amp", category: "experimental", features: ["📝", "🤖"], description: "Ambiente de programação com agentes que utiliza satélites macOS na nuvem para compilar, executar e testar aplicativos.", link: "https://ampcode.com/", tags: ["Código", "Agente", "macOS"] },
       { name: "OpenCode", category: "experimental", features: ["📝", "🤖"], description: "Agente autônomo e aberto de programação que conecta múltiplos modelos à base de código para desenvolver projetos completos.", link: "https://opencode.ai/", tags: ["Código", "Agente", "Código Aberto"] },
       { name: "Hob", category: "experimental", features: ["📝", "📎"], description: "Aplicativo desktop aberto para trabalhar com arquivos usando modelos de linguagem locais, 100% offline e com total privacidade.", link: "https://hob.chat/", tags: ["Local", "Código Aberto", "Privacidade"] },
+      { name: "ScrollCraft", category: "experimental", features: ["🎨", "🧩"], description: "Skill agêntica para desenvolvimento de websites imersivos e narrativas interativas orientadas ao scroll (scrollytelling) com design refinado.", link: "https://github.com/nateherkai/scroll-craft", tags: ["Websites", "Scrollytelling", "Design", "Skill"] },
+      { name: "Laya", category: "experimental", features: ["🧠", "🤖"], description: "Motor de decisão 'System 1' não-autorregressivo e multilíngue (100+ idiomas) para decisões rápidas, tipadas, roteamento e pontuações em passe único.", link: "https://github.com/NandhaKishorM/laya", tags: ["Decisões", "Código Aberto", "Multilíngue", "System 1"] },
+      { name: "REA", category: "experimental", features: ["🧠", "🤖"], description: "Servidor MCP e ferramenta open-source para engenharia reversa e inspeção de aplicativos, binários e sites diretamente por agentes de IA sem código-fonte.", link: "https://github.com/morluto/rea", tags: ["Engenharia Reversa", "MCP", "Código Aberto", "Agente"] },
     ];
 
     // Categoria ativa no momento
